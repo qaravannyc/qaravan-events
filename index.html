@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>События QARAVAN — сентябрь 2026</title>
-<meta name="description" content="Все события QARAVAN в этом месяце. Жмите на событие — внутри детали и регистрация.">
+<title>События QARAVAN</title>
+<meta name="description" content="Ближайшие события QARAVAN. Жмите на событие — внутри детали и регистрация.">
 <meta property="og:title" content="События QARAVAN">
-<meta property="og:description" content="Все события месяца в одном месте. Жмите и регистрируйтесь 🧡">
+<meta property="og:description" content="Все ближайшие события в одном месте. Жмите и регистрируйтесь 🧡">
 <meta name="theme-color" content="#FAF4E8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,6 +62,9 @@
   .info .ru{display:block; color:var(--muted); font-size:13px; font-weight:600; margin-top:3px; line-height:1.35;}
   .info .meta{display:block; font-size:12px; font-weight:700; margin-top:5px; color:var(--ink); opacity:.75;}
   .arrow{margin-left:auto; flex:0 0 auto; color:var(--muted); font-weight:800;}
+  /* Подпись месяца внутри списка — когда впереди события из разных месяцев */
+  .month{margin:24px 0 -2px 4px; font-size:11px; letter-spacing:1.5px; font-weight:800; color:var(--muted); text-transform:uppercase;}
+  .empty{margin-top:16px; text-align:center; color:var(--muted); font-size:14px; font-weight:600;}
 
   /* Прошлые месяцы — свёрнутый блок под текущим списком */
   .archive{margin-top:28px;}
@@ -109,166 +112,156 @@
 //
 //  1. Откройте файл index.html в репозитории на GitHub
 //     и нажмите карандаш («Edit this file») справа сверху.
-//  2. Меняйте ТОЛЬКО текст в кавычках в списке EVENTS ниже
-//     (и, в начале месяца, MONTH_BADGE / MONTH_TITLE).
+//  2. Меняйте ТОЛЬКО текст в кавычках в списке EVENTS ниже.
 //     Одно событие = один блок в фигурных скобках { ... }.
-//     • Удалить событие — сотрите его блок целиком (вместе с запятой).
 //     • Добавить — скопируйте любой блок и поправьте текст.
-//     • Несколько дат в одной карточке (как у группы поддержки):
-//       пишите date: "6 · 12<br>20 · 26" — <br> переносит строку.
-//  3. Новый месяц: прошедший месяц не удаляйте, а переносите в
-//     список ARCHIVE ниже — он показывается свёрнутым под текущим
-//     месяцем, и его можно развернуть. Скопируйте в ARCHIVE блок
-//     по образцу августа (badge, title и весь список events),
-//     затем заполните EVENTS событиями нового месяца.
+//     • Отменили — сотрите его блок целиком (вместе с запятой).
+//     • dates — дата события в виде "ГГГГ-ММ-ДД". Число, день недели,
+//       месяц в шапке и порядок карточек страница считает сама.
+//       Несколько дат в одной карточке (как у группы поддержки) —
+//       через запятую: dates: ["2026-10-01", "2026-10-08", "2026-10-15"].
+//  3. Прошедшие события переносить никуда не нужно: каждую ночь робот
+//     (Actions → «archive past events», файл robot/archive-past.mjs)
+//     сам убирает их из EVENTS в ARCHIVE — свёрнутый список прошлых
+//     месяцев под текущим. ARCHIVE руками не трогайте.
 //  4. Нажмите зелёную кнопку «Commit changes» (дважды).
 //     Сайт events.qaravan.org обновится сам через 1–2 минуты.
 // ══════════════════════════════════════════════════════════════
 
-const MONTH_BADGE = "SEPTEMBER 2026";
-const MONTH_TITLE = "События сентября";
-
 const EVENTS = [
   {
-    date: "3 · 10<br>16 · 24<br>30",
-    day: "ЧТ / СР",
+    dates: ["2026-09-16", "2026-09-24", "2026-09-30"],
     title: "Support Group with Gina",
     ru: "Группа поддержки, вход по анкете",
     meta: "7:30 PM · Zoom",
     link: "https://form.typeform.com/to/dbH75jNe"
   },
   {
-    date: "6",
-    day: "ВС",
-    title: "Art Class with Lilu",
-    ru: "Акварель с натуры: рисуем фонтан Bethesda",
-    meta: "11:30 AM · Central Park",
-    link: "https://partiful.com/e/N43yk4Hu89fHcEC1c3bZ"
-  },
-  {
-    date: "12",
-    day: "СБ",
-    title: "Girls' Gathering with Alyona",
-    ru: "Встреча для девушек: кофе и разговор о важном",
-    meta: "11:00 AM · The Center, W 13th St",
-    link: "https://partiful.com/e/rftXnCTfbVgRIcKBJooa"
-  },
-  {
-    date: "12",
-    day: "СБ",
-    title: "Support Group with Simon",
-    ru: "Группа равной поддержки, вход по анкете",
-    meta: "11:00 AM · онлайн",
-    link: "https://forms.monday.com/forms/7bcb691e5cfa7a1a27851836a73928bd"
-  },
-  {
-    date: "19",
-    day: "СБ",
+    dates: ["2026-09-19"],
     title: "Qaravan Climbs Bull Hill",
     ru: "Хайк над Гудзоном, 8,5 км, в конце — мороженое",
     meta: "сбор 8:30 AM · Grand Central",
     link: "https://partiful.com/e/6N0lOXvwZvJlFa3G6MGl"
   },
   {
-    date: "19",
-    day: "СБ",
+    dates: ["2026-09-19"],
     title: "Movie Night: Paris Is Burning",
     ru: "Кинопоказ: балы и вогинг в Нью-Йорке восьмидесятых",
     meta: "6:00 PM · адрес — после регистрации",
     link: "https://partiful.com/e/Hx4woufRJ9eeHHznGkwc"
   },
   {
-    date: "20",
-    day: "ВС",
+    dates: ["2026-09-20"],
     title: "Bike Ride & Picnic in Prospect Park",
     ru: "Два часа на велосипедах, в 2 PM — пикник",
     meta: "12:00 PM · Grand Army Plaza",
     link: "https://partiful.com/e/sAIAUZPujCWJo5WEjVbT"
   },
   {
-    date: "21",
-    day: "ПН",
+    dates: ["2026-09-21"],
     title: "Midtown: Walking Tour",
     ru: "Особняки, ар-деко и истории, которых нет в путеводителях",
     meta: "7:00 PM · Мидтаун",
     link: "https://partiful.com/e/JieZXWSi8UUxnHw318yv"
   },
   {
-    date: "26",
-    day: "СБ",
+    dates: ["2026-09-26"],
     title: "Community Help Desk with Ezra & Olga",
     ru: "Документы, работа, жильё, врачи — подскажем, к кому идти",
     meta: "11:30 AM · Brooklyn Public Library",
     link: "https://partiful.com/e/LZQzvHq6SIkfflKwNx8c"
+  },
+  {
+    dates: ["2026-10-03"],
+    title: "Girls' Gathering with Alyona",
+    ru: "Девичник: знакомимся за кофе, говорим о важном",
+    meta: "11:00 AM · The Center, 208 W 13th St",
+    link: "https://partiful.com/e/rftXnCTfbVgRIcKBJooa"
   }
 ];
 
-// Прошлые месяцы: показываются свёрнутыми под текущим списком.
-// Новый месяц добавляйте В НАЧАЛО списка — по образцу августа.
+// Прошлые месяцы: свёрнуты под текущим списком. Заполняет робот — руками не трогать.
 const ARCHIVE = [
   {
-    badge: "AUGUST 2026",
-    title: "События августа",
+    month: "2026-09",
     events: [
       {
-        date: "1",
-        day: "СБ",
-        title: "Pasta-Making Master Class",
-        ru: "Готовим орекьетте с нуля, мест всего 15",
-        meta: "5:00 PM · Бушвик",
-        link: "https://partiful.com/e/wCQQnxGDkWSxgsp5FbxR"
-      },
-      {
-        date: "2",
-        day: "ВС",
-        title: "9/11 Memorial Museum Visit",
-        ru: "Идём вместе, вход бесплатный для нью-йоркцев",
-        meta: "4:00 PM · билет — заранее",
-        link: "https://partiful.com/e/i6yI4MnhRHYBkAEDmKAQ"
-      },
-      {
-        date: "3",
-        day: "ПН",
-        title: "LGBTQ+ History Walking Tour",
-        ru: "Квир-история Нью-Йорка: Stonewall, Julius' и не только",
-        meta: "7:00 PM · Greenwich Village",
-        link: "https://partiful.com/e/bzdBwjr08VtbX5mWsufI"
-      },
-      {
-        date: "6 · 12<br>20 · 26",
-        day: "ЧТ / СР",
+        dates: ["2026-09-03", "2026-09-10"],
         title: "Support Group with Gina",
         ru: "Группа поддержки, вход по анкете",
         meta: "7:30 PM · Zoom",
         link: "https://form.typeform.com/to/dbH75jNe"
       },
       {
-        date: "9",
-        day: "ВС",
+        dates: ["2026-09-06"],
+        title: "Art Class with Lilu",
+        ru: "Акварель с натуры: рисуем фонтан Bethesda",
+        meta: "11:30 AM · Central Park",
+        link: "https://partiful.com/e/N43yk4Hu89fHcEC1c3bZ"
+      },
+      {
+        dates: ["2026-09-12"],
+        title: "Support Group with Simon",
+        ru: "Группа равной поддержки, вход по анкете",
+        meta: "11:00 AM · онлайн",
+        link: "https://forms.monday.com/forms/7bcb691e5cfa7a1a27851836a73928bd"
+      }
+    ]
+  },
+  {
+    month: "2026-08",
+    events: [
+      {
+        dates: ["2026-08-01"],
+        title: "Pasta-Making Master Class",
+        ru: "Готовим орекьетте с нуля, мест всего 15",
+        meta: "5:00 PM · Бушвик",
+        link: "https://partiful.com/e/wCQQnxGDkWSxgsp5FbxR"
+      },
+      {
+        dates: ["2026-08-02"],
+        title: "9/11 Memorial Museum Visit",
+        ru: "Идём вместе, вход бесплатный для нью-йоркцев",
+        meta: "4:00 PM · билет — заранее",
+        link: "https://partiful.com/e/i6yI4MnhRHYBkAEDmKAQ"
+      },
+      {
+        dates: ["2026-08-03"],
+        title: "LGBTQ+ History Walking Tour",
+        ru: "Квир-история Нью-Йорка: Stonewall, Julius' и не только",
+        meta: "7:00 PM · Greenwich Village",
+        link: "https://partiful.com/e/bzdBwjr08VtbX5mWsufI"
+      },
+      {
+        dates: ["2026-08-06", "2026-08-12", "2026-08-20", "2026-08-26"],
+        title: "Support Group with Gina",
+        ru: "Группа поддержки, вход по анкете",
+        meta: "7:30 PM · Zoom",
+        link: "https://form.typeform.com/to/dbH75jNe"
+      },
+      {
+        dates: ["2026-08-09"],
         title: "United in Anger: A History of ACT UP",
         ru: "Кинопоказ о движении ACT UP, мест 15",
         meta: "6:00 PM · Бруклин",
         link: "https://partiful.com/e/NGsRoEiKHozec7FFJYfF"
       },
       {
-        date: "13",
-        day: "ЧТ",
+        dates: ["2026-08-13"],
         title: "Beach Day: Rockaway",
         ru: "Пляжный день на The People's Beach",
         meta: "2:00 PM · Jacob Riis Park",
         link: "https://partiful.com/e/4bEHkQT0nAkQIIAcCT3U"
       },
       {
-        date: "15",
-        day: "СБ",
+        dates: ["2026-08-15"],
         title: "Bear Mountain Hike & Swim",
         ru: "Хайк, обед на вершине и бассейн",
         meta: "сбор 8:10 AM · Port Authority",
         link: "https://partiful.com/e/9gIemtCpwA8zR7aCj1Yr"
       },
       {
-        date: "29",
-        day: "СБ",
+        dates: ["2026-08-29"],
         title: "Asylum Interview Experience: Q&A",
         ru: "Что спрашивают в USCIS? Отвечают те, кто прошёл сам",
         meta: "5:00 PM · место скоро",
@@ -280,16 +273,44 @@ const ARCHIVE = [
 
 // ── Дальше ничего менять не нужно ─────────────────────────────
 const COLORS = ["#E8890C", "#7B4FD8", "#2196D9", "#2E9E44", "#E23838"];
-document.getElementById("badge").textContent = MONTH_BADGE;
-document.getElementById("title").textContent = MONTH_TITLE;
-document.title = "События QARAVAN — " + MONTH_BADGE.toLowerCase();
+const MONTHS_EN = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
+const MONTHS_RU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
+const MONTHS_RU_NOM = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+const DOW_RU = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
 
-function renderCards(events) {
+const sortedDates = e => [...e.dates].sort();
+const firstDate = e => sortedDates(e)[0];
+const monthOf = iso => iso.slice(0, 7);                       // "2026-10-03" → "2026-10"
+const byDate = (a, b) => firstDate(a).localeCompare(firstDate(b));
+
+function monthLabel(ym) {                                     // "2026-10" → { en: "OCTOBER", ru: "октября", nom: "Октябрь", year: 2026 }
+  const [y, m] = ym.split("-").map(Number);
+  return { en: MONTHS_EN[m - 1], ru: MONTHS_RU[m - 1], nom: MONTHS_RU_NOM[m - 1], year: y };
+}
+
+function badgeFor(months) {                                   // ["2026-09", "2026-10"] → "SEPTEMBER – OCTOBER 2026"
+  const a = monthLabel(months[0]), b = monthLabel(months[months.length - 1]);
+  if (months.length === 1) return `${a.en} ${a.year}`;
+  return a.year === b.year ? `${a.en} – ${b.en} ${a.year}` : `${a.en} ${a.year} – ${b.en} ${b.year}`;
+}
+
+// Колонка с датой: числа (по два в строке) и дни недели — считаются из dates.
+function dateColumn(e) {
+  const ds = sortedDates(e).map(iso => {
+    const [y, m, d] = iso.split("-").map(Number);
+    return { d, dow: DOW_RU[new Date(Date.UTC(y, m - 1, d)).getUTCDay()] };
+  });
+  const lines = [];
+  for (let i = 0; i < ds.length; i += 2) lines.push(ds.slice(i, i + 2).map(x => x.d).join(" · "));
+  return { num: lines.join("<br>"), small: ds.length > 1, dow: [...new Set(ds.map(x => x.dow))].join(" / ") };
+}
+
+function renderCards(events, offset = 0) {
   return events.map((e, i) => {
-    const color = COLORS[i % COLORS.length];
-    const small = e.date.length > 3 ? " small" : "";
+    const color = COLORS[(offset + i) % COLORS.length];
+    const d = dateColumn(e);
     return `<a class="card" href="${e.link}">
-    <span class="date"><span class="num${small}" style="color:${color}">${e.date}</span><span class="dow">${e.day}</span></span>
+    <span class="date"><span class="num${d.small ? " small" : ""}" style="color:${color}">${d.num}</span><span class="dow">${d.dow}</span></span>
     <span class="info">
       <span class="title">${e.title}</span>
       <span class="ru">${e.ru}</span>
@@ -307,17 +328,38 @@ function plural(n) {
   return n + " событий";
 }
 
-document.getElementById("list").innerHTML = renderCards(EVENTS);
-document.getElementById("archive").innerHTML = ARCHIVE.map(m => `<details class="archive">
+const upcoming = [...EVENTS].sort(byDate);
+const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
+const badge = months.length ? badgeFor(months) : "";
+document.getElementById("badge").textContent = badge;
+document.getElementById("badge").style.display = badge ? "" : "none";
+document.getElementById("title").textContent = months.length === 1 ? "События " + monthLabel(months[0]).ru : "Ближайшие события";
+document.title = "События QARAVAN" + (badge ? " — " + badge.toLowerCase() : "");
+
+// Если впереди события из разных месяцев, между ними — подпись с месяцем.
+let shown = 0;
+document.getElementById("list").innerHTML = !upcoming.length
+  ? `<p class="empty">Новые события скоро появятся 🧡</p>`
+  : months.map(ym => {
+      const part = upcoming.filter(e => monthOf(firstDate(e)) === ym);
+      const html = (months.length > 1 ? `<div class="month">${monthLabel(ym).nom}</div>` : "") + renderCards(part, shown);
+      shown += part.length;
+      return html;
+    }).join("");
+
+document.getElementById("archive").innerHTML = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month)).map(m => {
+  const l = monthLabel(m.month), events = [...m.events].sort(byDate);
+  return `<details class="archive">
     <summary>
       <span class="arch-info">
-        <span class="arch-label">${m.badge}</span>
-        <span class="arch-title">${m.title} <span class="arch-count">· ${plural(m.events.length)}</span></span>
+        <span class="arch-label">${l.en} ${l.year}</span>
+        <span class="arch-title">События ${l.ru} <span class="arch-count">· ${plural(events.length)}</span></span>
       </span>
       <span class="arch-hint"><span class="show">Показать</span><span class="hide">Скрыть</span> <span class="chev">›</span></span>
     </summary>
-    <div class="past">${renderCards(m.events)}</div>
-  </details>`).join("");
+    <div class="past">${renderCards(events)}</div>
+  </details>`;
+}).join("");
 </script>
 </body>
 </html>

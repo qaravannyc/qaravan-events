@@ -1,0 +1,40 @@
+# Ночной робот: переносит прошедшие события из списка EVENTS в ARCHIVE
+# (robot/archive-past.mjs) и, если что-то переехало, коммитит index.html
+# в main — GitHub Pages пересобирает events.qaravan.org сам через 1–2 минуты.
+name: archive past events
+on:
+  schedule:
+    - cron: "30 8 * * *"   # 4:30 AM Нью-Йорк летом, 3:30 зимой (08:30 UTC)
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run: показать, что переедет в архив, ничего не записывать"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Два прогона сразу (ручной + по расписанию) не должны толкаться на push.
+concurrency:
+  group: archive-past
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node robot/archive-past.mjs
+        env:
+          DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+      - name: Commit and push if anything moved
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if git diff --quiet -- index.html; then echo "Ничего не переехало, коммитить нечего"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Архив: прошедшие события убраны из списка ($(TZ=America/New_York date +%F))" -- index.html
+          git push
