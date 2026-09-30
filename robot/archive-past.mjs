@@ -44,6 +44,7 @@ function checkDates(e, where) {
 // Страница двуязычная: у каждого события должны быть обе половины, en и ru.
 const TYPES = ["support", "community", "resources", "culture", "action"];
 const LANG_KEYS = ["title", "about", "place"];
+const ABOUT_MAX = 280;   // карточки рассчитаны на описание до 280 знаков, показанное целиком
 const name = e => (e && e.en && e.en.title) || (e && e.ru && e.ru.title) || (e && e.title) || "без названия";
 function checkEvent(e, where) {
   const problems = [];
@@ -52,6 +53,7 @@ function checkEvent(e, where) {
   for (const lang of ["en", "ru"]) {
     if (!e[lang] || typeof e[lang] !== "object") { problems.push(`нет блока ${lang}: { title, about, place }`); continue; }
     for (const k of LANG_KEYS) if (typeof e[lang][k] !== "string" || !e[lang][k].trim()) problems.push(`пустое ${lang}.${k}`);
+    if (typeof e[lang].about === "string" && [...e[lang].about].length > ABOUT_MAX) problems.push(`${lang}.about длиннее ${ABOUT_MAX} знаков (${[...e[lang].about].length})`);
   }
   if (typeof e.link !== "string" || !e.link.trim()) problems.push("пустая ссылка link");
   if (problems.length) throw new Error(`${where}: у события «${name(e)}» ${problems.join("; ")}`);
