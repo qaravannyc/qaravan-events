@@ -241,7 +241,7 @@
 
 const EVENTS = [
   {
-    dates: ["2026-09-30"],
+    dates: ["2026-09-30", "2026-10-08", "2026-10-14", "2026-10-22", "2026-10-28"],
     time: "19:30",
     type: "support",
     en: {
@@ -704,15 +704,13 @@ function whenText(e, lang) {
     const x = ds[0];
     day = lang === "ru" ? `${t.dow[x.dow]}, ${x.d} ${t.monthsOf[x.m - 1]}` : `${t.dow[x.dow]}, ${t.short[x.m - 1]} ${x.d}`;
   } else {
-    const groups = [];
-    for (const x of ds) {
-      const g = groups[groups.length - 1];
-      if (g && g.m === x.m) g.days.push(x.d); else groups.push({ m: x.m, days: [x.d] });
-    }
-    day = lang === "ru"
-      ? list(groups.map(g => `${list(g.days, t.and)} ${t.monthsOf[g.m - 1]}`), t.and)
-      : list(groups.map(g => `${t.short[g.m - 1]} ${g.days.join(", ")}`), t.and);
-    if (lang === "en" && groups.length === 1) day = `${t.short[groups[0].m - 1]} ${list(groups[0].days, t.and)}`;
+    // «30 сентября, 8, 14, 22 и 28 октября» / «Sep 30, Oct 8, 14, 22 and 28»: месяц один раз на группу дней
+    const parts = [];
+    ds.forEach((x, i) => {
+      const firstOfMonth = i === 0 || ds[i - 1].m !== x.m, lastOfMonth = i === ds.length - 1 || ds[i + 1].m !== x.m;
+      parts.push(lang === "ru" ? (lastOfMonth ? `${x.d} ${t.monthsOf[x.m - 1]}` : `${x.d}`) : (firstOfMonth ? `${t.short[x.m - 1]} ${x.d}` : `${x.d}`));
+    });
+    day = list(parts, t.and);
   }
   return time ? `${day}, ${time}` : day;
 }
@@ -755,16 +753,15 @@ const upcoming = [...EVENTS].sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
 const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
 
-// Сколько карточек помещается: 4 / 3 / 2 в ряд — два ряда; на узком экране — 3 одна под другой
+// Вставка сама подстраивается под высоту, которую ей дали на Wix: показывает столько
+// целых рядов карточек, сколько помещается (4 / 3 / 2 в ряд или по одной на телефоне),
+// а остальное — ссылкой «Ещё N событий». Карточки никогда не обрезаются по высоте.
 const stripCols = () => innerWidth >= 900 ? 4 : innerWidth >= 680 ? 3 : innerWidth >= 480 ? 2 : 1;
-let shownCols = 0;
-function renderStrip() {
-  const t = T[lang], el = document.getElementById("strip"), all = `https://events.qaravan.org/?lang=${lang}`;
-  const cols = shownCols = stripCols(), fit = cols === 1 ? 3 : cols * 2, rest = Math.max(0, upcoming.length - fit);
-  document.documentElement.lang = lang;
+function stripHTML(fit, cols) {
+  const t = T[lang], all = `https://events.qaravan.org/?lang=${lang}`, rest = Math.max(0, upcoming.length - fit);
   const tabs = ["ru", "en"].map(l => `<button class="tab" type="button" role="tab" data-lang="${l}" lang="${l}" aria-label="${l === "ru" ? "Русский" : "English"}" aria-selected="${l === lang}" tabindex="${l === lang ? 0 : -1}">${l.toUpperCase()}</button>`).join("");
   const more = rest ? t.more(rest) : cols === 1 ? t.allEvents : "";
-  el.innerHTML = `<div class="strip-head">
+  return `<div class="strip-head">
       <h2 id="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}${upcoming.length ? `<span class="count">${t.count(upcoming.length)}</span>` : ""}</h2>
       <div class="end">
         <div class="tabs" role="tablist" aria-label="Язык / Language">${tabs}</div>
@@ -774,9 +771,25 @@ function renderStrip() {
       ? `<div class="mini" style="--cols:${cols}">${upcoming.slice(0, fit).map(e => card(e, lang)).join("")}</div>`
       : `<p class="empty">${t.empty}</p>`) +
     (more ? `<a class="link more" href="${all}" target="_blank" rel="noopener">${more}${ARROW}</a>` : "");
+}
+function renderStrip() {
+  const el = document.getElementById("strip"), cols = stripCols(), pad = parseFloat(getComputedStyle(el).paddingBottom) || 0;
+  document.documentElement.lang = lang;
+  const fits = () => innerHeight < 120 || el.lastElementChild.getBoundingClientRect().bottom + pad <= innerHeight + 0.5;
+  let fit = upcoming.length;
+  el.innerHTML = stripHTML(fit, cols);
+  while (fit > 1 && !fits()) {                                  // убираем по ряду, пока не влезет
+    const rows = Math.ceil(fit / cols) - 1;
+    fit = cols === 1 || rows < 1 ? fit - 1 : rows * cols;
+    el.innerHTML = stripHTML(fit, cols);
+  }
   bindTabs(el);
 }
-if (EMBED) addEventListener("resize", () => { if (stripCols() !== shownCols) renderStrip(); });
+if (EMBED) {
+  let queued = false;
+  addEventListener("resize", () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; renderStrip(); }); } });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => renderStrip());
+}
 
 function render() {
   if (EMBED) return renderStrip();
