@@ -131,7 +131,40 @@
     font:400 14px/1.4 var(--font-brand); color:rgba(255,255,255,.8)}
 
   @media (prefers-reduced-motion:reduce){ .acc summary svg{transition:none} }
+
+  /* Вставка на qaravan.org (Wix): events.qaravan.org/?embed=1 — одна лента карточек
+     фиксированной высоты, листается вбок. Без шапки, подвала, фильтра и архива. */
+  .strip{display:none}
+  html.embed, html.embed body{background:transparent}
+  html.embed body{padding:6px}
+  html.embed .hdr, html.embed .ftr, html.embed .intro, html.embed .filter, html.embed #list, html.embed .past{display:none}
+  html.embed main.wrap{max-width:none; padding:0}
+  html.embed .strip{display:block}
+  .strip-head{display:flex; align-items:center; gap:12px 16px; margin-bottom:16px}
+  .strip-head h2{font:700 26px/1.1 var(--font-head); letter-spacing:-.005em; margin-right:auto; display:flex; align-items:center; gap:10px}
+  .strip-head h2 .flag{font-size:18px}
+  .strip-head .link{white-space:nowrap}
+  .arrows{display:flex; gap:8px}
+  .arrows[hidden]{display:none}
+  .arrow{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:2px solid var(--q-ink);
+    background:var(--q-white); color:var(--q-ink); cursor:pointer}
+  .arrow:hover{background:var(--q-line)}
+  .arrow:active{transform:translateY(1px)}
+  .arrow:disabled{border-color:var(--q-edge); color:var(--q-edge); background:var(--q-white); cursor:default; transform:none}
+  .arrow svg{width:16px; height:16px}
+  .row{display:grid; grid-auto-flow:column; grid-auto-columns:min(300px, calc(100% - 48px)); gap:16px;
+    overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-padding-inline:6px; scrollbar-width:none; padding:6px; margin:-6px}
+  .row::-webkit-scrollbar{display:none}
+  .row .ev{scroll-snap-align:start; height:366px}
+  .row .ev h3{font-size:21px}
+  .row .ev h3, .row .ev .about, .row .ev .place{display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden}
+  .row .ev h3{-webkit-line-clamp:4}
+  .row .ev .about{-webkit-line-clamp:3}
+  .row .ev .place{-webkit-line-clamp:2}
+  @media (max-width:559px){ .arrows{display:none} .strip-head h2{font-size:22px} }
+  @media (prefers-reduced-motion:no-preference){ .row{scroll-behavior:smooth} }
 </style>
+<script>if (/[?&]embed(=|&|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
 </head>
 <body>
 <header class="hdr">
@@ -151,6 +184,7 @@
   </section>
   <div class="filter" id="filter" role="group"></div>
   <div id="list"></div>
+  <section class="strip" id="strip" aria-labelledby="strip-title"></section>
   <section class="past" id="past" hidden>
     <h2 id="past-title"></h2>
     <div class="acc" id="archive"></div>
@@ -162,7 +196,7 @@
     <p class="tag" id="tagline"></p>
     <ul>
       <li><a href="https://qaravan.org">qaravan.org</a></li>
-      <li><a href="https://t.me/rusaconnects">Telegram</a></li>
+      <li><a href="https://t.me/+KkHErPk38VA3Yzgy">Telegram</a></li>
       <li><a href="https://givebutter.com/qaravan" id="donate"></a></li>
     </ul>
     <div class="base"><a href="https://www.instagram.com/qaravan_org">@qaravan_org</a><span>© 2026 QARAVAN</span></div>
@@ -602,6 +636,7 @@ const T = {
     doc: "События QARAVAN",
     eyebrow: "События QARAVAN",
     upcoming: "Ближайшие события",
+    allEvents: "Все события", prev: "Назад", next: "Дальше",
     lead: "Нажмите на событие: там подробности и регистрация. Приходите с друзьями — на каком бы языке они ни говорили.",
     empty: "Новые события скоро появятся.",
     all: "Все", filter: "Тип события",
@@ -620,6 +655,7 @@ const T = {
     doc: "QARAVAN events",
     eyebrow: "QARAVAN events",
     upcoming: "Upcoming events",
+    allEvents: "All events", prev: "Previous", next: "Next",
     lead: "Tap an event for details and registration. Our events are open to everyone, whatever language you speak.",
     empty: "New events are coming soon.",
     all: "All", filter: "Event type",
@@ -688,7 +724,7 @@ function card(e, lang, past) {
       <p class="about">${esc(text(e, lang, "about"))}</p>
       <p class="when">${esc(whenText(e, lang))}</p>
       <p class="place">${esc(text(e, lang, "place"))}</p>
-      <div class="foot"><a class="link" href="${esc(e.link)}">${label}${ARROW}</a></div>
+      <div class="foot"><a class="link" href="${esc(e.link)}"${TARGET}>${label}${ARROW}</a></div>
     </article>`;
 }
 
@@ -702,12 +738,46 @@ function initialLang() {
   return prefs.some(l => /^(ru|uk|be|kk)\b/i.test(l)) ? "ru" : "en";
 }
 let lang = initialLang(), filter = "all";
+// Вставка на qaravan.org: ?embed=1 — лента карточек, ссылки открываются в новой вкладке
+const EMBED = document.documentElement.classList.contains("embed");
+const TARGET = EMBED ? ' target="_blank" rel="noopener"' : "";
 
 const upcoming = [...EVENTS].sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
 const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
 
+const CHEV_L = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+const CHEV_R = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+
+function renderStrip() {
+  const t = T[lang], el = document.getElementById("strip");
+  document.documentElement.lang = lang;
+  el.innerHTML = `<div class="strip-head">
+      <h2 id="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}</h2>
+      <a class="link" href="https://events.qaravan.org/?lang=${lang}" target="_blank" rel="noopener">${t.allEvents}${ARROW}</a>
+      <div class="arrows"><button class="arrow" type="button" data-dir="-1" aria-label="${t.prev}">${CHEV_L}</button><button class="arrow" type="button" data-dir="1" aria-label="${t.next}">${CHEV_R}</button></div>
+    </div>` + (upcoming.length
+      ? `<div class="row" id="row">${upcoming.map(e => card(e, lang)).join("")}</div>`
+      : `<p class="empty">${t.empty}</p>`);
+  const row = document.getElementById("row"), arrows = [...el.querySelectorAll(".arrow")];
+  if (!row) { el.querySelector(".arrows").hidden = true; return; }
+  const update = () => {
+    const max = row.scrollWidth - row.clientWidth - 2;
+    arrows[0].disabled = row.scrollLeft <= 2;
+    arrows[1].disabled = row.scrollLeft >= max;
+    el.querySelector(".arrows").hidden = max <= 0;
+  };
+  arrows.forEach(b => b.addEventListener("click", () => {
+    const step = row.querySelector(".ev").getBoundingClientRect().width + 16;
+    row.scrollBy({ left: +b.dataset.dir * step * Math.max(1, Math.floor(row.clientWidth / step)) });
+  }));
+  row.addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", update);
+  update();
+}
+
 function render() {
+  if (EMBED) return renderStrip();
   const t = T[lang];
   document.documentElement.lang = lang;
   document.title = t.doc;
