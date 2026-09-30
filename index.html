@@ -255,9 +255,10 @@
 //     Одно событие = один блок в фигурных скобках { ... }.
 //     • Добавить — скопируйте любой блок и поправьте текст.
 //     • Отменили — сотрите его блок целиком (вместе с запятой).
-//     • dates — дата события в виде "ГГГГ-ММ-ДД". Несколько дат в одной
-//       карточке (как у группы поддержки) — через запятую:
+//     • dates — дата события в виде "ГГГГ-ММ-ДД". Если событие повторяется
+//       (как группа поддержки) — все даты через запятую в одном блоке:
 //       dates: ["2026-10-01", "2026-10-08", "2026-10-15"].
+//       На сайте каждая дата показывается отдельной карточкой.
 //     • time — время начала по 24 часа: "19:30". У поездок — время сбора.
 //       Страница сама пишет «19:30» по-русски и «7:30 PM» по-английски.
 //     • type — тип события, как в колонке Category на доске monday:
@@ -790,10 +791,12 @@ const EMBED = document.documentElement.classList.contains("embed");
 const PAGE = document.documentElement.classList.contains("embed-page");
 const TARGET = EMBED ? ' target="_blank" rel="noopener"' : "";
 
-const upcoming = [...EVENTS].sort(byDate);
+// Повторяющиеся события (группы поддержки) показываются отдельной карточкой на каждую дату
+const perDate = list => list.flatMap(e => sortedDates(e).map(d => ({ ...e, dates: [d] })));
+const upcoming = perDate(EVENTS).sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
 const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
-const PAST = ARCHIVE.flatMap(m => m.events).sort((a, b) => byDate(b, a));      // прошедшие: сначала недавние
+const PAST = perDate(ARCHIVE.flatMap(m => m.events)).sort((a, b) => byDate(b, a));   // прошедшие: сначала недавние
 
 // Вставка сама подстраивается под высоту, которую ей дали на Wix: показывает столько
 // целых рядов карточек, сколько помещается (4 / 3 / 2 в ряд или по одной на телефоне).
@@ -937,7 +940,7 @@ function render() {
   document.getElementById("past").hidden = !archive.length;
   document.getElementById("past-title").textContent = t.past;
   document.getElementById("archive").innerHTML = archive.map(m => {
-    const l = monthName(m.month), events = [...m.events].sort(byDate);
+    const l = monthName(m.month), events = perDate(m.events).sort(byDate);
     return `<details data-month="${m.month}"${open.has(m.month) ? " open" : ""}>
       <summary><span>${l.name} ${l.y} <span class="count">· ${t.count(events.length)}</span></span>${CHEVRON}</summary>
       <div class="grid">${events.map(e => card(e, lang, true)).join("")}</div>

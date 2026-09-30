@@ -20,7 +20,7 @@ Changes beyond the events list (the robot, workflows, page layout) also go to `m
 The page is bilingual with a RU / EN switch: every event carries a complete English half and a complete Russian half. Neither language is a translation afterthought.
 
 - One block in `EVENTS`, in date order: `{ dates, time, type, en: { title, about, place }, ru: { title, about, place }, link }`. Same date: earlier `time` first.
-- `dates`: `["2026-10-10"]`; several dates in one card for recurring groups.
+- `dates`: `["2026-10-10"]`; a recurring group keeps all its dates in one block, and every calendar (page and embeds) shows each date as its own card.
 - `time`: start time, 24-hour, `"17:00"` (trips: the meeting time). The page renders `17:00` in Russian and `5:00 PM` in English.
 - `type`: the board's Category column: `support` (Support & wellbeing), `community`, `resources` (Resource navigation), `culture` (Education & culture), `action` (Action & pride). It sets the card's colour flag, per the design system.
 - `en.title`: the English event name from Partiful, without emoji. `ru.title`: the board's "Name (Russian)", tidied in QARAVAN's voice.
