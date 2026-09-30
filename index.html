@@ -165,6 +165,12 @@
   .more:hover{box-shadow:inset 0 0 0 999px rgba(0,0,0,.14)}
   .more:active{transform:translateY(1px)}
   .more svg{width:14px; height:14px; flex:none}
+  /* Вся страница событий на qaravan.org/events: events.qaravan.org/?embed=page — без шапки
+     и подвала сайта (у Wix свои), переключатель RU / EN переезжает в заголовок */
+  html.embed-page .hdr, html.embed-page .ftr{display:none}
+  html.embed-page .intro{padding-top:24px}
+  html.embed-page .past{margin-bottom:48px}
+  .intro-top{display:flex; align-items:center; justify-content:space-between; gap:16px}
   @media (max-width:479px){
     html.embed .strip{padding:14px}
     .strip-head{gap:10px}
@@ -174,7 +180,8 @@
     .mini .ev h3{-webkit-line-clamp:3}
   }
 </style>
-<script>if (/[?&]embed(=|&|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
+<script>(function () { var q = location.search, c = document.documentElement.classList;
+  if (/[?&]embed=page(&|$)/.test(q)) c.add("embed-page"); else if (/[?&]embed(=|&|$)/.test(q)) c.add("embed"); })();</script>
 </head>
 <body>
 <header class="hdr">
@@ -188,7 +195,7 @@
 </header>
 <main class="wrap">
   <section class="intro">
-    <div class="eyebrow" id="eyebrow"></div>
+    <div class="intro-top"><div class="eyebrow" id="eyebrow"></div><div id="intro-lang"></div></div>
     <h1 id="title"></h1>
     <p class="lead" id="lead"></p>
   </section>
@@ -748,7 +755,12 @@ function initialLang() {
 let lang = initialLang(), filter = "all";
 // Вставка на qaravan.org: ?embed=1 — лента карточек, ссылки открываются в новой вкладке
 const EMBED = document.documentElement.classList.contains("embed");
-const TARGET = EMBED ? ' target="_blank" rel="noopener"' : "";
+// Вся страница внутри qaravan.org/events: ?embed=page — те же карточки, ссылки в новой вкладке
+const PAGE = document.documentElement.classList.contains("embed-page");
+const TARGET = EMBED || PAGE ? ' target="_blank" rel="noopener"' : "";
+if (PAGE) document.getElementById("intro-lang").append(document.querySelector(".hdr .tabs"));
+// Кнопка «Ещё N событий» во вставке ведёт на страницу событий на самом сайте
+const EVENTS_PAGE = "https://www.qaravan.org/events";
 
 const upcoming = [...EVENTS].sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
@@ -759,7 +771,7 @@ const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
 // а остальное — ссылкой «Ещё N событий». Карточки никогда не обрезаются по высоте.
 const stripCols = () => innerWidth >= 900 ? 4 : innerWidth >= 680 ? 3 : innerWidth >= 480 ? 2 : 1;
 function stripHTML(fit, cols) {
-  const t = T[lang], all = `https://events.qaravan.org/?lang=${lang}`, rest = Math.max(0, upcoming.length - fit);
+  const t = T[lang], all = EVENTS_PAGE, rest = Math.max(0, upcoming.length - fit);
   const tabs = ["ru", "en"].map(l => `<button class="tab" type="button" role="tab" data-lang="${l}" lang="${l}" aria-label="${l === "ru" ? "Русский" : "English"}" aria-selected="${l === lang}" tabindex="${l === lang ? 0 : -1}">${l.toUpperCase()}</button>`).join("");
   return `<div class="strip-head">
       <h2 id="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}${upcoming.length ? `<span class="count">${t.count(upcoming.length)}</span>` : ""}</h2>
@@ -847,7 +859,7 @@ function setLang(next) {
   if (next === lang) return;
   lang = next;
   try { localStorage.setItem(LANG_KEY, lang); } catch (_) {}
-  if (!EMBED) {
+  if (!EMBED && !PAGE) {
     const u = new URL(location.href); u.searchParams.set("lang", lang);
     try { history.replaceState(null, "", u); } catch (_) {}
   }
@@ -866,7 +878,7 @@ function bindTabs(root) {
     });
   });
 }
-bindTabs(document.querySelector(".hdr"));
+bindTabs(document.querySelector(PAGE ? "#intro-lang" : ".hdr"));
 document.getElementById("filter").addEventListener("click", ev => {
   const b = ev.target.closest(".fchip");
   if (b) { filter = b.dataset.type; render(); }
