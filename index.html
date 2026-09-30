@@ -141,7 +141,7 @@
   html.loading:not(.embed) main{visibility:hidden}
   @media (prefers-reduced-motion:no-preference){
     html.entering .intro, html.entering .filter, html.entering .strip-head, html.entering .month{animation:q-fade .3s ease-out both}
-    html.entering .ev, html.entering .more, html.entering .acc{animation:q-rise .42s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--i, 0) * 70ms)}
+    html.entering .ev, html.entering .pager, html.entering .acc, .strip.paging .ev, .strip.paging .pager{animation:q-rise .42s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--i, 0) * 70ms)}
   }
   @keyframes q-fade{from{opacity:0}to{opacity:1}}
   @keyframes q-rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
@@ -151,7 +151,7 @@
      на телефоне, дальше — ссылка «Ещё N событий». Без шапки, подвала, фильтра и архива. */
   .strip{display:none}
   html.embed, html.embed body{background:transparent}
-  html.embed .hdr, html.embed .ftr, html.embed .intro, html.embed .filter, html.embed #list, html.embed .past{display:none}
+  html.embed .hdr, html.embed .ftr, html.embed .intro, html.embed #filter, html.embed #list, html.embed .past{display:none}
   html.embed main.wrap{max-width:none; padding:0}
   /* Без своей панели и заголовка: белые карточки стоят прямо на фоне секции Wix, как её
      собственные блоки; заголовок секции — на Wix. Полосы прокрутки нет никогда. */
@@ -159,9 +159,22 @@
   html.embed .strip{display:block; background:transparent; padding:0}
   html.embed :focus-visible, html.embed .ev:focus-within{outline-offset:-3px}
   .strip .empty{background:var(--q-white); border:1px solid var(--q-line); padding:16px 20px}
-  .strip-head{display:flex; justify-content:flex-end; margin-bottom:16px}
-  .strip-head .end{display:flex; align-items:center; gap:20px}
+  .strip-head{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px 16px; margin-bottom:16px}
+  /* Заголовок — «полоса» дизайн-системы: строка текста на своей белой подложке, квадратная,
+     от левого края. Так он читается на любом участке цветного фона секции. */
+  .strip-title{display:inline-flex; align-items:center; flex-wrap:wrap; gap:4px 10px; min-height:44px; padding:8px 16px; margin:0;
+    background:var(--q-white); font:700 24px/1.1 var(--font-head); letter-spacing:-.005em}
+  .strip-title .flag{font-size:16px}
+  .strip-title .count{font:400 16px/1.2 var(--font-brand); color:var(--q-muted); letter-spacing:0}
+  .strip-head .end{display:flex; align-items:center; gap:20px; margin-left:auto}
   .mini{display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:16px}
+  /* Все карточки одного размера: высота — по самой высокой из всех событий (ближайших и прошедших) */
+  .grid .ev, .mini .ev{height:var(--card-h, auto)}
+  .measure{height:0; overflow:hidden; visibility:hidden; align-items:start}
+  .grid.measure .ev, .mini.measure .ev{height:auto}
+  .measuring *{animation:none !important}
+  .strip .filter{margin:0 0 16px}
+  .tab .tab-count{font-weight:400; opacity:.75; margin-left:4px}
   @media (min-width:680px){ .mini{gap:20px} }
   .mini .ev{padding:14px 16px 10px}
   .mini .ev .type{font-size:13px; gap:7px}
@@ -173,23 +186,26 @@
   .mini .ev .foot{padding-top:8px}
   .mini .link{min-height:28px; font-size:15px}
   /* Кнопка под карточками: всегда видна — «Ещё N событий» или «Все события» */
-  .more{display:inline-flex; align-items:center; justify-content:center; gap:8px; margin-top:16px; min-height:44px; padding:8px 18px;
-    background:var(--q-ink); color:var(--q-white); font:600 17px/1.15 var(--font-head); letter-spacing:.01em; text-decoration:none}
+  .pager{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px}
+  .more, .back{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:8px 18px; border:2px solid var(--q-ink);
+    background:var(--q-ink); color:var(--q-white); font:600 17px/1.15 var(--font-head); letter-spacing:.01em; text-decoration:none; cursor:pointer}
+  .back{background:var(--q-white); color:var(--q-ink)}
+  .back:hover{background:var(--q-line)}
+  .back:active{transform:translateY(1px)}
+  .back svg{width:14px; height:14px; flex:none}
   .more:hover{box-shadow:inset 0 0 0 999px rgba(0,0,0,.14)}
   .more:active{transform:translateY(1px)}
   .more svg{width:14px; height:14px; flex:none}
   /* Вся страница событий на qaravan.org/events: events.qaravan.org/?embed=page — без шапки
      и подвала сайта (у Wix свои), переключатель RU / EN переезжает в заголовок */
-  html.embed-page .hdr, html.embed-page .ftr{display:none}
-  html.embed-page .intro{padding-top:24px}
-  html.embed-page .past{margin-bottom:48px}
-  .intro-top{display:flex; align-items:center; justify-content:space-between; gap:16px}
   @media (max-width:479px){
-    .more{display:flex; width:100%}
+    .pager > *{flex:1 1 auto}
+    .strip-title{font-size:21px; padding:8px 14px}
+    .strip-title .count{display:none}
   }
 </style>
 <script>(function () { var q = location.search, c = document.documentElement.classList;
-  if (/[?&]embed=page(&|$)/.test(q)) c.add("embed-page"); else if (/[?&]embed(=|&|$)/.test(q)) c.add("embed");
+  if (/[?&]embed=page(&|$)/.test(q)) c.add("embed", "embed-page"); else if (/[?&]embed(=|&|$)/.test(q)) c.add("embed");
   c.add("loading"); })();</script>
 </head>
 <body>
@@ -204,7 +220,7 @@
 </header>
 <main class="wrap">
   <section class="intro">
-    <div class="intro-top"><div class="eyebrow" id="eyebrow"></div><div id="intro-lang"></div></div>
+    <div class="eyebrow" id="eyebrow"></div>
     <h1 id="title"></h1>
     <p class="lead" id="lead"></p>
   </section>
@@ -662,7 +678,9 @@ const T = {
     doc: "События QARAVAN",
     eyebrow: "События QARAVAN",
     upcoming: "Ближайшие события",
-    allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`,
+    allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`, back: "Назад",
+    showing: (a, b, n) => `События ${a}–${b} из ${n}`,
+    upcomingTab: "Ближайшие", pastTab: "Прошедшие", viewLabel: "События",
     lead: "Нажмите на событие: там подробности и регистрация. Приходите с друзьями — на каком бы языке они ни говорили.",
     empty: "Новые события скоро появятся.",
     all: "Все", filter: "Тип события",
@@ -681,7 +699,9 @@ const T = {
     doc: "QARAVAN events",
     eyebrow: "QARAVAN events",
     upcoming: "Events calendar",
-    allEvents: "All events", more: n => `${n} more ${n === 1 ? "event" : "events"}`,
+    allEvents: "All events", more: n => `${n} more ${n === 1 ? "event" : "events"}`, back: "Back",
+    showing: (a, b, n) => `Events ${a}–${b} of ${n}`,
+    upcomingTab: "Upcoming", pastTab: "Past", viewLabel: "Events",
     lead: "Tap an event for details and registration. Our events are open to everyone, whatever language you speak.",
     empty: "New events are coming soon.",
     all: "All", filter: "Event type",
@@ -763,53 +783,114 @@ function initialLang() {
   return prefs.some(l => /^(ru|uk|be|kk)\b/i.test(l)) ? "ru" : "en";
 }
 let lang = initialLang(), filter = "all";
-// Вставка на qaravan.org: ?embed=1 — лента карточек, ссылки открываются в новой вкладке
+// Вставки на qaravan.org: ?embed=1 — главная, ?embed=page — страница «События».
+// Это один и тот же блок карточек; у страницы есть ещё «Ближайшие / Прошедшие» и фильтр.
+// Ссылки на регистрацию открываются в новой вкладке.
 const EMBED = document.documentElement.classList.contains("embed");
-// Вся страница внутри qaravan.org/events: ?embed=page — те же карточки, ссылки в новой вкладке
 const PAGE = document.documentElement.classList.contains("embed-page");
-const TARGET = EMBED || PAGE ? ' target="_blank" rel="noopener"' : "";
-if (PAGE) document.getElementById("intro-lang").append(document.querySelector(".hdr .tabs"));
-// Кнопка «Ещё N событий» во вставке ведёт на страницу событий на самом сайте
-const EVENTS_PAGE = "https://www.qaravan.org/events";
+const TARGET = EMBED ? ' target="_blank" rel="noopener"' : "";
 
 const upcoming = [...EVENTS].sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
 const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
+const PAST = ARCHIVE.flatMap(m => m.events).sort((a, b) => byDate(b, a));      // прошедшие: сначала недавние
 
 // Вставка сама подстраивается под высоту, которую ей дали на Wix: показывает столько
-// целых рядов карточек, сколько помещается (4 / 3 / 2 в ряд или по одной на телефоне),
-// а остальное — ссылкой «Ещё N событий». Карточки никогда не обрезаются по высоте,
-// описание показывается целиком (до 280 знаков).
+// целых рядов карточек, сколько помещается (4 / 3 / 2 в ряд или по одной на телефоне).
+// Остальные события листаются прямо здесь: «Ещё N событий» и «Назад», без новых вкладок.
+// Все карточки одного размера, описание видно целиком (до 280 знаков), ничего не обрезается.
 const stripCols = () => innerWidth >= 1200 ? 4 : innerWidth >= 760 ? 3 : innerWidth >= 480 ? 2 : 1;
-function stripHTML(fit, cols) {
-  const t = T[lang], all = EVENTS_PAGE, rest = Math.max(0, upcoming.length - fit);
-  const tabs = ["ru", "en"].map(l => `<button class="tab" type="button" role="tab" data-lang="${l}" lang="${l}" aria-label="${l === "ru" ? "Русский" : "English"}" aria-selected="${l === lang}" tabindex="${l === lang ? 0 : -1}">${l.toUpperCase()}</button>`).join("");
-  return `<div class="strip-head">
-      <h2 id="strip-title" class="qv-sr">${t.upcoming}</h2>
-      <div class="end"><div class="tabs" role="tablist" aria-label="Язык / Language">${tabs}</div></div>
-    </div>` + (upcoming.length
-      ? `<div class="mini" style="--cols:${cols}">${upcoming.slice(0, fit).map(e => card(e, lang)).join("")}</div>`
-      : `<p class="empty">${t.empty}</p>`) +
-    `<a class="more" style="--i:${Math.min(fit, 8)}" href="${all}" target="_blank" rel="noopener">${rest ? t.more(rest) : t.allEvents}${ARROW}</a>`;
+const ARROW_BACK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7 4L3 8l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+const strip = { view: "upcoming", type: "all", start: 0, shown: 0, history: [] };
+const stripSource = () => strip.view === "past" ? PAST : upcoming;
+const stripList = () => stripSource().filter(e => strip.type === "all" || typeOf(e) === strip.type);
+const langTabs = () => `<div class="tabs" role="tablist" aria-label="Язык / Language">` + ["ru", "en"].map(l =>
+  `<button class="tab" type="button" role="tab" data-lang="${l}" lang="${l}" aria-label="${l === "ru" ? "Русский" : "English"}" aria-selected="${l === lang}" tabindex="${l === lang ? 0 : -1}">${l.toUpperCase()}</button>`).join("") + `</div>`;
+
+function stripHTML(items, start, fit, cols) {
+  const t = T[lang], n = items.length, rest = Math.max(0, n - start - fit), past = strip.view === "past";
+  let head;
+  if (PAGE) {                                                   // страница «События»: заголовок у самой страницы Wix
+    const views = [["upcoming", t.upcomingTab, upcoming.length], ["past", t.pastTab, PAST.length]].filter(v => v[0] === "upcoming" || v[2]);
+    const present = Object.keys(TYPES).filter(k => stripSource().some(e => typeOf(e) === k));
+    head = `<div class="strip-head">
+        <div class="tabs" role="tablist" aria-label="${t.viewLabel}">${views.map(([v, label, c]) =>
+          `<button class="tab" type="button" role="tab" data-view="${v}" aria-selected="${strip.view === v}" tabindex="${strip.view === v ? 0 : -1}">${label}<span class="tab-count">${c}</span></button>`).join("")}</div>
+        <div class="end">${langTabs()}</div>
+      </div>` + (present.length > 1 ? `<div class="filter" role="group" aria-label="${t.filter}">` +
+        `<button type="button" class="fchip" data-type="all" aria-pressed="${strip.type === "all"}">${t.all}</button>` +
+        present.map(k => `<button type="button" class="fchip" data-type="${k}" aria-pressed="${strip.type === k}"><span class="flag${TYPES[k].yellow ? " y" : ""}" style="--f:${TYPES[k].color}"></span><span lang="en">${TYPES[k].label}</span></button>`).join("") +
+        `</div>` : "");
+  } else {                                                      // главная: свой заголовок на белой «полосе»
+    head = `<div class="strip-head">
+        <h2 id="strip-title" class="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}${n ? `<span class="count">${t.count(n)}</span>` : ""}</h2>
+        <div class="end">${langTabs()}</div>
+      </div>`;
+  }
+  const pager = start > 0 || rest
+    ? `<div class="pager" style="--i:${Math.min(fit, 8)}">` +
+        (start > 0 ? `<button type="button" class="back" data-go="back">${ARROW_BACK}${t.back}</button>` : "") +
+        (rest ? `<button type="button" class="more" data-go="next">${t.more(rest)}${ARROW}</button>` : "") + `</div>`
+    : "";
+  return `<p class="qv-sr" aria-live="polite">${n ? t.showing(start + 1, start + Math.min(fit, n - start), n) : ""}</p>` + head +
+    (n ? `<div class="mini" style="--cols:${cols}">${items.slice(start, start + fit).map(e => card(e, lang, past)).join("")}</div>`
+       : `<p class="empty">${t.empty}</p>`) + pager;
 }
-function renderStrip() {
-  const el = document.getElementById("strip"), cols = stripCols(), pad = parseFloat(getComputedStyle(el).paddingBottom) || 0;
+
+// Высота самой высокой карточки среди всех событий (ближайших и прошедших) при этой ширине:
+// её получают все карточки, поэтому размер не меняется ни от страницы, ни от вкладки, ни от фильтра.
+function tallestCard(host, cls, style) {
+  const m = document.createElement("div");
+  m.className = cls + " measure"; if (style) m.setAttribute("style", style);
+  m.innerHTML = [...upcoming.map(e => card(e, lang)), ...PAST.map(e => card(e, lang, true))].join("");
+  host.appendChild(m);
+  let h = 0; m.querySelectorAll(".ev").forEach(e => { h = Math.max(h, e.getBoundingClientRect().height); });
+  m.remove(); cardIndex = 0;
+  return Math.ceil(h);
+}
+
+function renderStrip(anim) {
+  const el = document.getElementById("strip"), cols = stripCols(), items = stripList();
   document.documentElement.lang = lang;
-  const fits = () => innerHeight < 120 || el.lastElementChild.getBoundingClientRect().bottom + pad <= innerHeight + 0.5;
-  let fit = upcoming.length;
-  cardIndex = 0; el.innerHTML = stripHTML(fit, cols);
-  while (fit > 1 && !fits()) {                                  // убираем по ряду, пока не влезет
+  if (strip.start >= items.length) { strip.start = 0; strip.history = []; }
+  const start = strip.start;
+  el.classList.add("measuring");                                // меряем без анимации: иначе карточки «ниже» на 10 px
+  // 1) одна высота на все карточки
+  el.innerHTML = "";
+  el.style.setProperty("--card-h", tallestCard(el, "mini", `--cols:${cols}`) + "px");
+  // 2) столько целых рядов, сколько помещается в высоту вставки
+  const fits = () => innerHeight < 120 || el.lastElementChild.getBoundingClientRect().bottom <= innerHeight + 0.5;
+  let fit = items.length - start;
+  cardIndex = 0; el.innerHTML = stripHTML(items, start, fit, cols);
+  while (fit > 1 && !fits()) {
     const rows = Math.ceil(fit / cols) - 1;
     fit = cols === 1 || rows < 1 ? fit - 1 : rows * cols;
-    cardIndex = 0; el.innerHTML = stripHTML(fit, cols);
+    cardIndex = 0; el.innerHTML = stripHTML(items, start, fit, cols);
   }
-  bindTabs(el);
+  strip.shown = fit;
+  el.classList.remove("measuring");
+  if (anim) {                                                   // новая страница или вкладка: карточки поднимаются заново
+    el.classList.remove("paging"); void el.offsetWidth; el.classList.add("paging");
+    clearTimeout(renderStrip.t); renderStrip.t = setTimeout(() => el.classList.remove("paging"), 1000);
+    const first = el.querySelector(".mini .ev .link");
+    if (first && anim === "keyboard") first.focus({ preventScroll: true });
+  }
 }
 if (EMBED) {
+  const busy = () => document.documentElement.classList.contains("loading");
   let queued = false;
-  addEventListener("resize", () => { if (document.documentElement.classList.contains("loading")) return; if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; renderStrip(); }); } });
+  addEventListener("resize", () => { if (busy() || queued) return; queued = true; requestAnimationFrame(() => { queued = false; renderStrip(); }); });
   // шрифт, догрузившийся позже первого показа (медленная сеть), снова подгоняет ряды
-  if (document.fonts) document.fonts.addEventListener("loadingdone", () => { if (!document.documentElement.classList.contains("loading")) renderStrip(); });
+  if (document.fonts) document.fonts.addEventListener("loadingdone", () => {
+    if (busy()) return;
+    if (document.documentElement.classList.contains("entering")) setTimeout(() => renderStrip(), 1500); else renderStrip();
+  });
+}
+
+// Главная страница events.qaravan.org: все карточки одного размера — по самой высокой из всех
+function equalizeAll() {
+  const main = document.querySelector("main");
+  main.style.setProperty("--card-h", tallestCard(document.getElementById("list"), "grid") + "px");
 }
 
 function render() {
@@ -865,36 +946,55 @@ function render() {
 
   document.getElementById("tagline").textContent = t.tagline;
   document.getElementById("donate").textContent = t.donate;
+  equalizeAll();
 }
 
 function setLang(next) {
   if (next === lang) return;
   lang = next;
   try { localStorage.setItem(LANG_KEY, lang); } catch (_) {}
-  if (!EMBED && !PAGE) {
+  if (!EMBED) {
     const u = new URL(location.href); u.searchParams.set("lang", lang);
     try { history.replaceState(null, "", u); } catch (_) {}
   }
   render();
 }
 
-function bindTabs(root) {
-  const all = [...root.querySelectorAll(".tab")];
-  all.forEach((b, i) => {
-    b.addEventListener("click", () => setLang(b.dataset.lang));
-    b.addEventListener("keydown", ev => {
-      const j = ev.key === "ArrowRight" ? (i + 1) % all.length : ev.key === "ArrowLeft" ? (i - 1 + all.length) % all.length : -1;
-      if (j < 0) return;
-      ev.preventDefault(); setLang(all[j].dataset.lang);
-      const next = root.querySelector(`.tab[data-lang="${all[j].dataset.lang}"]`); if (next) next.focus();
-    });
-  });
-}
-bindTabs(document.querySelector(PAGE ? "#intro-lang" : ".hdr"));
-document.getElementById("filter").addEventListener("click", ev => {
-  const b = ev.target.closest(".fchip");
-  if (b) { filter = b.dataset.type; render(); }
+document.addEventListener("click", ev => {
+  const l = ev.target.closest("[data-lang]");
+  if (l) return setLang(l.dataset.lang);
+  const inStrip = EMBED && ev.target.closest("#strip");
+  const chip = ev.target.closest(".fchip[data-type]");
+  if (chip && !inStrip) { filter = chip.dataset.type; return render(); }
+  if (!inStrip) return;
+  const how = ev.detail === 0 ? "keyboard" : "pointer";        // клавиатура: фокус на первую новую карточку
+  const v = ev.target.closest("[data-view]");
+  if (v) { if (strip.view !== v.dataset.view) { strip.view = v.dataset.view; strip.type = "all"; strip.start = 0; strip.history = []; renderStrip("switch"); } return; }
+  if (chip) { strip.type = chip.dataset.type; strip.start = 0; strip.history = []; return renderStrip("switch"); }
+  const go = ev.target.closest("[data-go]");
+  if (go) {
+    if (go.dataset.go === "next") { strip.history.push(strip.start); strip.start += strip.shown; }
+    else strip.start = strip.history.length ? strip.history.pop() : 0;
+    renderStrip(how);
+  }
 });
+// стрелки влево / вправо (и Home / End) внутри любого набора вкладок
+document.addEventListener("keydown", ev => {
+  const tab = ev.target.closest('[role="tab"]');
+  if (!tab) return;
+  const tabs = [...tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]')], i = tabs.indexOf(tab), n = tabs.length;
+  const j = ev.key === "ArrowRight" ? (i + 1) % n : ev.key === "ArrowLeft" ? (i - 1 + n) % n : ev.key === "Home" ? 0 : ev.key === "End" ? n - 1 : -1;
+  if (j < 0) return;
+  ev.preventDefault();
+  const key = tabs[j].dataset.lang ? `[data-lang="${tabs[j].dataset.lang}"]` : `[data-view="${tabs[j].dataset.view}"]`;
+  tabs[j].click();
+  const again = (EMBED ? document.getElementById("strip") : document).querySelector(`[role="tab"]${key}`);
+  if (again) again.focus();
+});
+if (!EMBED) {
+  let queued = false;
+  addEventListener("resize", () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; equalizeAll(); }); });
+}
 
 // Первый показ: ждём шрифты (не дольше 2,5 с), раскладываем один раз и плавно проявляем.
 const FACES = ['400 16px "Fira Sans"', '600 16px "Fira Sans"', '600 16px "Fira Sans Condensed"', '700 24px "Fira Sans Condensed"'];
