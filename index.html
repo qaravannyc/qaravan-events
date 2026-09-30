@@ -75,25 +75,25 @@
   .fchip[aria-pressed="true"]{background:var(--q-ink); border-color:var(--q-ink); color:var(--q-white)}
 
   /* Месяц внутри списка — когда впереди события из разных месяцев */
-  .month{margin:28px 0 10px; font:700 21px/1.12 var(--font-head); letter-spacing:-.005em}
+  .month{margin:32px 0 16px; font:700 22px/1.12 var(--font-head); letter-spacing:-.005em}
+  /* Сетка карточек по дизайн-системе: 3 → 2 → 1 колонки на 1000 и 640 px */
   .grid{display:grid; grid-template-columns:1fr; gap:16px}
-  @media (min-width:520px){ .grid{grid-template-columns:repeat(2,1fr); gap:20px} }
-  @media (min-width:760px){ .grid{grid-template-columns:repeat(3,1fr); gap:24px} }
-  @media (min-width:1060px){ .grid{grid-template-columns:repeat(4,1fr)} }
+  @media (min-width:640px){ .grid{grid-template-columns:repeat(2,1fr); gap:24px} }
+  @media (min-width:1000px){ .grid{grid-template-columns:repeat(3,1fr)} }
 
-  /* Карточка события: тип, название, строка о событии, когда, где, ссылка.
-     Вся карточка нажимается: ссылка растянута на неё целиком. */
-  .ev{position:relative; display:flex; flex-direction:column; background:var(--q-white); border:1px solid var(--q-line); padding:12px 14px 8px}
+  /* Карточка события по EventCard дизайн-системы: тип, название, строка о событии,
+     когда, где, ссылка. Вся карточка нажимается: ссылка растянута на неё целиком. */
+  .ev{position:relative; display:flex; flex-direction:column; background:var(--q-white); border:1px solid var(--q-line); padding:20px 20px 18px}
+  @media (min-width:640px){ .ev{padding:22px 24px 20px} }
   .ev:hover{background:var(--q-line)}
   .ev:focus-within{outline:3px solid var(--accent); outline-offset:2px}
-  .ev .type{display:flex; align-items:center; gap:7px; font:600 13px/1.25 var(--font-brand)}
-  .ev .type .flag{font-size:13px}
-  .ev h3{margin-top:6px; font:700 19px/1.1 var(--font-head); letter-spacing:-.005em; text-wrap:balance}
-  .ev .about{margin-top:4px; font:400 14.5px/1.35 var(--font-brand)}
-  .ev .when{margin-top:8px; font:600 15px/1.3 var(--font-head); letter-spacing:.01em}
-  .ev .place{margin-top:1px; font:400 15px/1.3 var(--font-brand); color:var(--q-muted)}
-  .ev .foot{margin-top:auto; padding-top:6px}
-  .ev .link{min-height:28px; font-size:15px}
+  .ev .type{display:flex; align-items:center; gap:8px; font:600 14px/1.25 var(--font-brand)}
+  .ev .type .flag{font-size:16px}
+  .ev h3{margin-top:12px; font:700 24px/1.1 var(--font-head); letter-spacing:-.005em; text-wrap:balance}
+  .ev .about{margin-top:10px; font:400 16px/1.5 var(--font-brand)}
+  .ev .when{margin-top:14px; font:600 16px/1.3 var(--font-head); letter-spacing:.01em}
+  .ev .place{margin-top:2px; font:400 15px/1.4 var(--font-brand); color:var(--q-muted)}
+  .ev .foot{margin-top:auto; padding-top:20px}
   .link{display:inline-flex; align-items:center; gap:6px; min-height:32px; color:var(--q-ink); font:600 16px/1.2 var(--font-brand);
     text-decoration:underline; text-decoration-color:var(--q-sky); text-decoration-thickness:2px; text-underline-offset:4px}
   .link svg{width:14px; height:14px; flex:none}
