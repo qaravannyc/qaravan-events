@@ -4,6 +4,7 @@
 // отдельное событие (у группы поддержки — по событию на каждую встречу), в описании —
 // строка о событии, просьба зарегистрироваться и прямая ссылка на страницу в Partiful.
 //
+// Длительность: если у события есть end ("21:00") — до этого времени, иначе 2 часа.
 // Запускается сам (.github/workflows/calendar.yml) после каждого изменения index.html.
 // Вручную: node robot/build-calendar.mjs   (CHECK=1 — только проверить, что файлы свежие)
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -40,7 +41,7 @@ const TEXT = {
 const ALL_EVENTS = { en: "https://www.qaravan.org/events", ru: "https://www.qaravan.org/events" };
 
 // RFC 5545: экранирование текста и перенос строк длиннее 75 байт (не разрывая UTF-8)
-const esc = s => String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+const esc = s => String(s).replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r\n|\r|\n/g, "\\n");
 function fold(line) {
   const out = []; let cur = "", bytes = 0;
   for (const ch of line) {
@@ -67,22 +68,24 @@ function build(lang) {
   const perDate = events.flatMap(e => [...new Set(e.dates)].sort().map(d => ({ e, d })))
     .sort((a, b) => a.d.localeCompare(b.d) || String(a.e.time || "").padStart(5, "0").localeCompare(String(b.e.time || "").padStart(5, "0")));
   const lines = [
-    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//QARAVAN//Qaravan Events//" + lang.toUpperCase(), "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//QARAVAN//Qaravan Events//" + lang.toUpperCase(), "CALSCALE:GREGORIAN",
     "NAME:Qaravan Events", "X-WR-CALNAME:Qaravan Events", "DESCRIPTION:" + esc(t.desc), "X-WR-CALDESC:" + esc(t.desc),
     "X-WR-TIMEZONE:America/New_York", "REFRESH-INTERVAL;VALUE=DURATION:PT6H", "X-PUBLISHED-TTL:PT6H",
     ...VTIMEZONE,
   ];
   for (const { e, d } of perDate) {
     const half = e[lang] || e.en || {}, link = String(e.link || "");
-    const id = createHash("sha1").update(link).digest("hex").slice(0, 10);
+    // UID не меняется от правки текста: дата, время, ссылка и язык файла
+    const id = createHash("sha1").update(link + "|" + (e.type || "")).digest("hex").slice(0, 10);
+    const hhmm = String(e.time || "allday").replace(":", "");
     const cta = e.type === "support" ? t.apply : t.register;
     const description = [half.about, "", cta, link, "", t.more, ALL_EVENTS[lang]].filter(x => x != null).join("\n");
     lines.push(
       "BEGIN:VEVENT",
-      `UID:${d}-${id}@events.qaravan.org`,
+      `UID:${d}-${hhmm}-${id}-${lang}@events.qaravan.org`,
       "DTSTAMP:20260930T000000Z",
       e.time ? `DTSTART;TZID=America/New_York:${local(d, e.time)}` : `DTSTART;VALUE=DATE:${d.replace(/-/g, "")}`,
-      e.time ? "DURATION:PT2H" : "DURATION:P1D",
+      e.time && e.end ? `DTEND;TZID=America/New_York:${local(d, e.end)}` : e.time ? "DURATION:PT2H" : "DURATION:P1D",
       "SUMMARY:" + esc(half.title || ""),
       "LOCATION:" + esc(half.place || ""),
       "DESCRIPTION:" + esc(description),
