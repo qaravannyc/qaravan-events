@@ -1,0 +1,33 @@
+# Календарь «Qaravan Events»: после каждого изменения списка событий в index.html
+# пересобирает qaravan-events-en.ics и qaravan-events-ru.ics (robot/build-calendar.mjs)
+# и, если что-то поменялось, коммитит их в main. Подписанные календари Google, Apple
+# и Outlook сами подхватывают новые события при следующем обновлении подписки.
+name: calendar feeds
+on:
+  push:
+    branches: [main]
+    paths: [index.html, robot/build-calendar.mjs]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: calendar
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node robot/build-calendar.mjs
+      - name: Commit and push if the calendar changed
+        run: |
+          if git diff --quiet -- qaravan-events-en.ics qaravan-events-ru.ics; then echo "Календарь без изменений"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Календарь: обновлены qaravan-events-en.ics и qaravan-events-ru.ics" -- qaravan-events-en.ics qaravan-events-ru.ics
+          for i in 1 2 3; do git pull --rebase origin main && git push && exit 0; sleep 5; done; exit 1

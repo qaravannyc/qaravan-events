@@ -30,11 +30,13 @@ jobs:
       - run: node robot/archive-past.mjs
         env:
           DRY_RUN: ${{ inputs.dry_run && '1' || '0' }}
+      - run: node robot/build-calendar.mjs
+        if: ${{ !inputs.dry_run }}
       - name: Commit and push if anything moved
         if: ${{ !inputs.dry_run }}
         run: |
-          if git diff --quiet -- index.html; then echo "Ничего не переехало, коммитить нечего"; exit 0; fi
+          if git diff --quiet -- index.html qaravan-events-en.ics qaravan-events-ru.ics; then echo "Ничего не переехало, коммитить нечего"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Архив: прошедшие события убраны из списка ($(TZ=America/New_York date +%F))" -- index.html
+          git commit -m "Архив: прошедшие события убраны из списка ($(TZ=America/New_York date +%F))" -- index.html qaravan-events-en.ics qaravan-events-ru.ics
           git push

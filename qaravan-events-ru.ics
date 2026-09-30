@@ -1,0 +1,603 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//QARAVAN//Qaravan Events//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Qaravan Events
+X-WR-CALNAME:Qaravan Events
+DESCRIPTION:События сообщества QARAVAN в Нью-Йорк
+ е. Новые события появляются здесь сами.
+X-WR-CALDESC:События сообщества QARAVAN в Нью-Йорк
+ е. Новые события появляются здесь сами.
+X-WR-TIMEZONE:America/New_York
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2026-08-01-235d46d447@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260801T170000
+DURATION:PT2H
+SUMMARY:Готовим пасту с нуля: мастер-класс
+LOCATION:Бушвик
+DESCRIPTION:Делаем орекьетте\, мест всего 15\n\nП
+ ожалуйста\, зарегистрируйтесь заранее\, 
+ так нам проще всё подготовить:\nhttps://partiful.
+ com/e/wCQQnxGDkWSxgsp5FbxR\n\nВсе наши события:\nhttps://www
+ .qaravan.org/events
+URL:https://partiful.com/e/wCQQnxGDkWSxgsp5FbxR
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-02-399e9ed340@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260802T160000
+DURATION:PT2H
+SUMMARY:Идём в музей 9/11
+LOCATION:9/11 Memorial & Museum\, билет — заранее
+DESCRIPTION:Идём вместе\, вход бесплатный для н
+ ью-йоркцев\n\nПожалуйста\, зарегистрируйт
+ есь заранее\, так нам проще всё подготови
+ ть:\nhttps://partiful.com/e/i6yI4MnhRHYBkAEDmKAQ\n\nВсе наши со
+ бытия:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/i6yI4MnhRHYBkAEDmKAQ
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-03-67f771df13@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260803T190000
+DURATION:PT2H
+SUMMARY:Пеший тур по ЛГБТК+ истории Нью-Йорка
+LOCATION:Гринвич-Виллидж
+DESCRIPTION:Stonewall\, Julius' и другие места квир-ист
+ ории\n\nПожалуйста\, зарегистрируйтесь за
+ ранее\, так нам проще всё подготовить:\nhttp
+ s://partiful.com/e/bzdBwjr08VtbX5mWsufI\n\nВсе наши события:
+ \nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/bzdBwjr08VtbX5mWsufI
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-06-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260806T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-09-ece1b1230b@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260809T180000
+DURATION:PT2H
+SUMMARY:Кинопоказ «United in Anger»: история ACT UP
+LOCATION:Бруклин
+DESCRIPTION:Документальный фильм о движении ACT
+  UP\, 15 мест\n\nПожалуйста\, зарегистрируйте
+ сь заранее\, так нам проще всё подготовит
+ ь:\nhttps://partiful.com/e/NGsRoEiKHozec7FFJYfF\n\nВсе наши соб
+ ытия:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/NGsRoEiKHozec7FFJYfF
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-12-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260812T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-13-19c61e84ce@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260813T140000
+DURATION:PT2H
+SUMMARY:Пляжный день в Рокавее
+LOCATION:Jacob Riis Park
+DESCRIPTION:Отдыхаем на The People's Beach\n\nПожалуйст
+ а\, зарегистрируйтесь заранее\, так нам п
+ роще всё подготовить:\nhttps://partiful.com/e/4bEHkQT0nA
+ kQIIAcCT3U\n\nВсе наши события:\nhttps://www.qaravan.org/eve
+ nts
+URL:https://partiful.com/e/4bEHkQT0nAkQIIAcCT3U
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-15-2a62559c95@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260815T081000
+DURATION:PT2H
+SUMMARY:Хайк и купание на Bear Mountain
+LOCATION:Сбор: Port Authority
+DESCRIPTION:Хайк\, обед на вершине и бассейн\n\nП
+ ожалуйста\, зарегистрируйтесь заранее\, 
+ так нам проще всё подготовить:\nhttps://partiful.
+ com/e/9gIemtCpwA8zR7aCj1Yr\n\nВсе наши события:\nhttps://www
+ .qaravan.org/events
+URL:https://partiful.com/e/9gIemtCpwA8zR7aCj1Yr
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-20-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260820T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-26-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260826T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-29-89ce9734d7@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260829T170000
+DURATION:PT2H
+SUMMARY:Интервью на убежище: вопросы и ответ
+ ы
+LOCATION:Офис NYC Pride
+DESCRIPTION:Что спрашивают в USCIS? Отвечают те\, 
+ кто прошёл сам\n\nПожалуйста\, зарегистри
+ руйтесь заранее\, так нам проще всё подго
+ товить:\nhttps://partiful.com/e/U2h85QFEd02MWl2phG5Y\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/U2h85QFEd02MWl2phG5Y
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-03-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260903T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-06-07ead1acd6@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260906T113000
+DURATION:PT2H
+SUMMARY:Акварель у фонтана Bethesda
+LOCATION:Центральный парк
+DESCRIPTION:Рисуем с натуры в Центральном парк
+ е\n\nПожалуйста\, зарегистрируйтесь заран
+ ее\, так нам проще всё подготовить:\nhttps://pa
+ rtiful.com/e/N43yk4Hu89fHcEC1c3bZ\n\nВсе наши события:\nhttp
+ s://www.qaravan.org/events
+URL:https://partiful.com/e/N43yk4Hu89fHcEC1c3bZ
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-10-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260910T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-12-a649ba616f@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260912T110000
+DURATION:PT2H
+SUMMARY:Группа равной поддержки с Саймоном
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://forms.monday.com/forms/7bcb691e5cfa7a1a2
+ 7851836a73928bd\n\nВсе наши события:\nhttps://www.qaravan.or
+ g/events
+URL:https://forms.monday.com/forms/7bcb691e5cfa7a1a27851836a73928bd
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-16-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260916T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-19-c77998dae6@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260919T083000
+DURATION:PT2H
+SUMMARY:Поход на Bull Hill
+LOCATION:Сбор: Grand Central
+DESCRIPTION:Хайк над Гудзоном\, 8\,5 км\, в конце 
+ — мороженое\n\nПожалуйста\, зарегистриру
+ йтесь заранее\, так нам проще всё подгото
+ вить:\nhttps://partiful.com/e/6N0lOXvwZvJlFa3G6MGl\n\nВсе наши 
+ события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/6N0lOXvwZvJlFa3G6MGl
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-19-4a20ec120b@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260919T180000
+DURATION:PT2H
+SUMMARY:Кинопоказ «Paris Is Burning»
+LOCATION:Адрес — после регистрации
+DESCRIPTION:Балы и вогинг в Нью-Йорке восьмиде
+ сятых\n\nПожалуйста\, зарегистрируйтесь з
+ аранее\, так нам проще всё подготовить:\nht
+ tps://partiful.com/e/Hx4woufRJ9eeHHznGkwc\n\nВсе наши событи
+ я:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/Hx4woufRJ9eeHHznGkwc
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-20-537b2b2ef0@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260920T120000
+DURATION:PT2H
+SUMMARY:Велопрогулка и пикник в Prospect Park
+LOCATION:Grand Army Plaza
+DESCRIPTION:Два часа катаемся\, в 14:00 — пикник\n\
+ nПожалуйста\, зарегистрируйтесь заранее\
+ , так нам проще всё подготовить:\nhttps://partifu
+ l.com/e/sAIAUZPujCWJo5WEjVbT\n\nВсе наши события:\nhttps://w
+ ww.qaravan.org/events
+URL:https://partiful.com/e/sAIAUZPujCWJo5WEjVbT
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-21-48232d0269@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260921T190000
+DURATION:PT2H
+SUMMARY:Мидтаун: архитектура\, которую не зам
+ ечают
+LOCATION:Мидтаун
+DESCRIPTION:Особняки\, ар-деко и истории\, котор
+ ых нет в путеводителях\n\nПожалуйста\, зар
+ егистрируйтесь заранее\, так нам проще в
+ сё подготовить:\nhttps://partiful.com/e/JieZXWSi8UUxnHw318yv\
+ n\nВсе наши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/JieZXWSi8UUxnHw318yv
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-24-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260924T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Встречаемся онлайн\, вход по анкет
+ е\n\nЧтобы присоединиться\, заполните кор
+ откую анкету:\nhttps://form.typeform.com/to/dbH75jNe\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-26-d85e26514a@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260926T113000
+DURATION:PT2H
+SUMMARY:Час вопросов с Эзрой и Ольгой
+LOCATION:Brooklyn Public Library
+DESCRIPTION:Документы\, работа\, жильё\, врачи —
+  подскажем\, к кому идти\n\nПожалуйста\, за
+ регистрируйтесь заранее\, так нам проще 
+ всё подготовить:\nhttps://partiful.com/e/LZQzvHq6SIkfflKwNx8
+ c\n\nВсе наши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/LZQzvHq6SIkfflKwNx8c
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-30-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260930T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Онлайн-группа поддержки два раза в
+  неделю. Хотите присоединиться? Заполнит
+ е анкету по ссылке регистрации. Обработк
+ а анкеты может занять несколько дней.\n\nЧ
+ тобы присоединиться\, заполните коротку
+ ю анкету:\nhttps://feedback.qaravan.org/support/gina\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-02-d3e16aab1c@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261002T190000
+DURATION:PT2H
+SUMMARY:Нормальный мальчик. Как я был геем в 
+ России
+LOCATION:Kvartira Books\, Краун-Хайтс
+DESCRIPTION:Журналист Милослав Чемоданов през
+ ентует мемуар о своем детстве в России\, 
+ он прочитает отрывок из книги и ответит 
+ на вопросы аудитории.\n\nПожалуйста\, заре
+ гистрируйтесь заранее\, так нам проще вс
+ ё подготовить:\nhttps://partiful.com/e/UtUihERn7tT4X2KaEkHi\n\
+ nВсе наши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/UtUihERn7tT4X2KaEkHi
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-03-65814d47ad@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261003T083000
+DURATION:PT2H
+SUMMARY:QARAVAN едет за яблоками
+LOCATION:Сбор: Grand Central
+DESCRIPTION:Собираем яблоки на осенней ферме в
+  North Salem\n\nПожалуйста\, зарегистрируйтесь 
+ заранее\, так нам проще всё подготовить:\n
+ https://partiful.com/e/ZGW7qS5h1mw2yRn8w6Gs\n\nВсе наши событ
+ ия:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/ZGW7qS5h1mw2yRn8w6Gs
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-03-de3d2a3a21@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261003T110000
+DURATION:PT2H
+SUMMARY:Девичник с Алёной
+LOCATION:The Center\, 208 W 13th St
+DESCRIPTION:Знакомимся за кофе и говорим о важ
+ ном\n\nПожалуйста\, зарегистрируйтесь зар
+ анее\, так нам проще всё подготовить:\nhttps:
+ //partiful.com/e/rftXnCTfbVgRIcKBJooa\n\nВсе наши события:\n
+ https://www.qaravan.org/events
+URL:https://partiful.com/e/rftXnCTfbVgRIcKBJooa
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-06-a9c67919c9@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261006T181500
+DURATION:PT2H
+SUMMARY:I Rarely Wake Up Dreaming на Нью-Йоркском кинофе
+ стивале
+LOCATION:Walter Reade Theater\, Линкольн-центр
+DESCRIPTION:Квир-драма о войне в Украине и встр
+ еча с создателями\n\nПожалуйста\, зарегис
+ трируйтесь заранее\, так нам проще всё по
+ дготовить:\nhttps://partiful.com/e/Wk0xVWGj0xb29TJtS1E3\n\nВсе
+  наши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/Wk0xVWGj0xb29TJtS1E3
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-08-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261008T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Онлайн-группа поддержки два раза в
+  неделю. Хотите присоединиться? Заполнит
+ е анкету по ссылке регистрации. Обработк
+ а анкеты может занять несколько дней.\n\nЧ
+ тобы присоединиться\, заполните коротку
+ ю анкету:\nhttps://feedback.qaravan.org/support/gina\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-10-dde4a68c40@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261010T170000
+DURATION:PT2H
+SUMMARY:Вырезаем тыквы к Хеллоуину
+LOCATION:Уильямсбург\, Бруклин
+DESCRIPTION:Приносите тыкву\, инструменты и гл
+ интвейн за нами\n\nПожалуйста\, зарегистр
+ ируйтесь заранее\, так нам проще всё подг
+ отовить:\nhttps://partiful.com/e/thbg9ZfG4Zgh5H2g6xJT\n\nВсе н
+ аши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/thbg9ZfG4Zgh5H2g6xJT
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-14-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261014T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Онлайн-группа поддержки два раза в
+  неделю. Хотите присоединиться? Заполнит
+ е анкету по ссылке регистрации. Обработк
+ а анкеты может занять несколько дней.\n\nЧ
+ тобы присоединиться\, заполните коротку
+ ю анкету:\nhttps://feedback.qaravan.org/support/gina\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-22-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261022T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Онлайн-группа поддержки два раза в
+  неделю. Хотите присоединиться? Заполнит
+ е анкету по ссылке регистрации. Обработк
+ а анкеты может занять несколько дней.\n\nЧ
+ тобы присоединиться\, заполните коротку
+ ю анкету:\nhttps://feedback.qaravan.org/support/gina\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-24-54cb7c0873@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261024T084000
+DURATION:PT2H
+SUMMARY:Квир-хайк на Хеллоуин к заброшенной 
+ деревне
+LOCATION:Сбор: Starbucks внутри Port Authority
+DESCRIPTION:Идём в костюмах к деревне XIX века в 
+ Нью-Джерси\n\nПожалуйста\, зарегистрируйт
+ есь заранее\, так нам проще всё подготови
+ ть:\nhttps://partiful.com/e/TkZ4SDVBeAAA5ic7rs74\n\nВсе наши со
+ бытия:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/TkZ4SDVBeAAA5ic7rs74
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-28-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261028T193000
+DURATION:PT2H
+SUMMARY:Группа поддержки с Джиной
+LOCATION:Онлайн
+DESCRIPTION:Онлайн-группа поддержки два раза в
+  неделю. Хотите присоединиться? Заполнит
+ е анкету по ссылке регистрации. Обработк
+ а анкеты может занять несколько дней.\n\nЧ
+ тобы присоединиться\, заполните коротку
+ ю анкету:\nhttps://feedback.qaravan.org/support/gina\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR

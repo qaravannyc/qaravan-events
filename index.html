@@ -12,6 +12,8 @@
 <link rel="preload" href="assets/fonts/FiraSansCondensed-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FiraSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FiraSansCondensed-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/margosha.svg" as="image">
+<link rel="preload" href="assets/telegram-logo.svg" as="image">
 <style>
   /* Дизайн-система QARAVAN (ревизия 2026-09): шрифты Fira Sans и Fira Sans Condensed,
      белая страница, квадратные формы, шесть цветов бренда только флажками и метками,
@@ -141,7 +143,7 @@
   html.loading:not(.embed) main{visibility:hidden}
   @media (prefers-reduced-motion:no-preference){
     html.entering .intro, html.entering .filter, html.entering .strip-head, html.entering .month{animation:q-fade .3s ease-out both}
-    html.entering .ev, html.entering .pager, html.entering .acc, .strip.paging .ev, .strip.paging .pager{animation:q-rise .42s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--i, 0) * 70ms)}
+    html.entering .ev, html.entering .strip-foot, html.entering .intro .follow, html.entering .acc, .strip.paging .ev, .strip.paging .strip-foot{animation:q-rise .42s cubic-bezier(.2,.7,.2,1) both; animation-delay:calc(var(--i, 0) * 70ms)}
   }
   @keyframes q-fade{from{opacity:0}to{opacity:1}}
   @keyframes q-rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
@@ -186,7 +188,36 @@
   .mini .ev .foot{padding-top:8px}
   .mini .link{min-height:28px; font-size:15px}
   /* Кнопка под карточками: всегда видна — «Ещё N событий» или «Все события» */
-  .pager{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px}
+  .pager{display:flex; flex-wrap:wrap; gap:12px}
+  /* Нижний ряд вставки: листание слева, кнопки «Partiful» и «Telegram» справа */
+  .strip-foot{display:flex; flex-wrap:wrap; align-items:stretch; justify-content:space-between; gap:12px 16px; margin-top:16px}
+  .strip-foot .follow{margin-left:auto}
+
+  /* Кнопки «Подписаться в Partiful» и «Напоминания в Telegram»: одна форма, одна высота,
+     квадратная плашка слева. Partiful — основная тёмная кнопка, только текст (логотип
+     Partiful без разрешения не используем) и знак «плюс» дизайн-системы. Telegram —
+     белая с графитовой рамкой: слева Маргоша, справа официальный логотип Telegram
+     без изменений и отдельно от Маргоши. */
+  .follow{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
+  .cta{display:flex; align-items:center; gap:12px; min-height:60px; padding:8px 16px 8px 8px; border:2px solid var(--q-ink);
+    text-decoration:none; cursor:pointer}
+  .cta-partiful{background:var(--q-ink); color:var(--q-white)}
+  .cta-partiful:hover{box-shadow:inset 0 0 0 999px rgba(0,0,0,.14)}
+  .cta-telegram{background:var(--q-white); color:var(--q-ink)}
+  .cta-telegram:hover{background:var(--q-line)}
+  .cta:active{transform:translateY(1px)}
+  .cta-mark{flex:none; display:grid; place-items:center; width:40px; height:40px; background:var(--q-white); color:var(--q-ink)}
+  .cta-mark svg{width:16px; height:16px}
+  .cta-avatar{flex:none; display:block; width:40px; height:40px}
+  .cta-text{display:flex; flex-direction:column; min-width:0}
+  .cta-label{font:600 17px/1.15 var(--font-head); letter-spacing:.01em}
+  .cta-sub{margin-top:2px; font:400 15px/1.25 var(--font-brand)}
+  .cta-partiful .cta-sub{color:rgba(255,255,255,.82)}
+  .cta-telegram .cta-sub{color:var(--q-muted)}
+  .cta-go{flex:none; margin-left:auto; padding-left:4px; display:flex}
+  .cta-go svg{width:14px; height:14px}
+  .cta-tg{flex:none; display:block; width:24px; height:24px; margin-left:auto}
+  .intro .follow{margin-top:20px}
   .more, .back{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:8px 18px; border:2px solid var(--q-ink);
     background:var(--q-ink); color:var(--q-white); font:600 17px/1.15 var(--font-head); letter-spacing:.01em; text-decoration:none; cursor:pointer}
   .back{background:var(--q-white); color:var(--q-ink)}
@@ -200,6 +231,11 @@
      и подвала сайта (у Wix свои), переключатель RU / EN переезжает в заголовок */
   @media (max-width:479px){
     .pager > *{flex:1 1 auto}
+    .strip-foot > *, .strip-foot .follow{width:100%; margin-left:0}
+    .follow{grid-template-columns:1fr; grid-auto-rows:1fr}
+    .follow .cta{width:100%}
+    .strip-foot .more, .strip-foot .back{min-height:60px}
+    .cta-sub{display:none}
     .strip-title{font-size:21px; padding:8px 14px}
     .strip-title .count{display:none}
   }
@@ -223,6 +259,7 @@
     <div class="eyebrow" id="eyebrow"></div>
     <h1 id="title"></h1>
     <p class="lead" id="lead"></p>
+    <div class="follow" id="follow"></div>
   </section>
   <div class="filter" id="filter" role="group"></div>
   <div id="list"></div>
@@ -680,8 +717,10 @@ const T = {
     eyebrow: "События QARAVAN",
     upcoming: "Ближайшие события",
     allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`, back: "Назад",
-    showing: (a, b, n) => `События ${a}–${b} из ${n}`,
+    showing: (a, b, n) => a === b ? `Событие ${a} из ${n}` : `События ${a}–${b} из ${n}`,
     upcomingTab: "Ближайшие", pastTab: "Прошедшие", viewLabel: "События",
+    followGroup: "Следите за нашими событиями", followLabel: "Подписаться на нас в Partiful", followSub: "Узнавайте о новых событиях первыми",
+    tgLabel: "Напоминания в Telegram", tgSub: "Присылает наш бот Маргоша", newTab: "(откроется в новой вкладке)",
     lead: "Нажмите на событие: там подробности и регистрация. Приходите с друзьями — на каком бы языке они ни говорили.",
     empty: "Новые события скоро появятся.",
     all: "Все", filter: "Тип события",
@@ -701,8 +740,10 @@ const T = {
     eyebrow: "QARAVAN events",
     upcoming: "Events calendar",
     allEvents: "All events", more: n => `${n} more ${n === 1 ? "event" : "events"}`, back: "Back",
-    showing: (a, b, n) => `Events ${a}–${b} of ${n}`,
+    showing: (a, b, n) => a === b ? `Event ${a} of ${n}` : `Events ${a}–${b} of ${n}`,
     upcomingTab: "Upcoming", pastTab: "Past", viewLabel: "Events",
+    followGroup: "Keep up with our events", followLabel: "Follow us on Partiful", followSub: "Be the first to know about new events",
+    tgLabel: "Get reminders on Telegram", tgSub: "Sent by Margosha, our bot", newTab: "(opens in a new tab)",
     lead: "Tap an event for details and registration. Our events are open to everyone, whatever language you speak.",
     empty: "New events are coming soon.",
     all: "All", filter: "Event type",
@@ -803,6 +844,24 @@ const PAST = perDate(ARCHIVE.flatMap(m => m.events)).sort((a, b) => byDate(b, a)
 // Остальные события листаются прямо здесь: «Ещё N событий» и «Назад», без новых вкладок.
 // Все карточки одного размера, описание видно целиком (до 280 знаков), ничего не обрезается.
 const stripCols = () => innerWidth >= 1200 ? 4 : innerWidth >= 760 ? 3 : innerWidth >= 480 ? 2 : 1;
+const PARTIFUL = "https://partiful.com/u/kNieh2yCJV6BRLw4dLVx";
+const TELEGRAM_BOT = "https://t.me/qaravan_door_bot";
+const PLUS = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+function followHTML() {
+  const t = T[lang], ext = EMBED ? ` target="_blank" rel="noopener"` : "", nt = EMBED ? `<span class="qv-sr"> ${t.newTab}</span>` : "";
+  return `<div class="follow" role="group" aria-label="${t.followGroup}">
+      <a class="cta cta-partiful" href="${PARTIFUL}"${ext}>
+        <span class="cta-mark" aria-hidden="true">${PLUS}</span>
+        <span class="cta-text"><span class="cta-label">${t.followLabel}</span><span class="cta-sub">${t.followSub}</span></span>
+        <span class="cta-go" aria-hidden="true">${ARROW}</span>${nt}
+      </a>
+      <a class="cta cta-telegram" href="${TELEGRAM_BOT}"${ext}>
+        <img class="cta-avatar" src="assets/margosha.svg" width="40" height="40" alt="">
+        <span class="cta-text"><span class="cta-label">${t.tgLabel}</span><span class="cta-sub">${t.tgSub}</span></span>
+        <img class="cta-tg" src="assets/telegram-logo.svg" width="24" height="24" alt="">${nt}
+      </a>
+    </div>`;
+}
 const ARROW_BACK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7 4L3 8l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
 const strip = { view: "upcoming", type: "all", start: 0, shown: 0, history: [] };
 const stripSource = () => strip.view === "past" ? PAST : upcoming;
@@ -831,13 +890,14 @@ function stripHTML(items, start, fit, cols) {
       </div>`;
   }
   const pager = start > 0 || rest
-    ? `<div class="pager" style="--i:${Math.min(fit, 8)}">` +
+    ? `<div class="pager">` +
         (start > 0 ? `<button type="button" class="back" data-go="back">${ARROW_BACK}${t.back}</button>` : "") +
         (rest ? `<button type="button" class="more" data-go="next">${t.more(rest)}${ARROW}</button>` : "") + `</div>`
     : "";
+  const foot = `<div class="strip-foot" style="--i:${Math.min(fit, 8)}">${pager}${followHTML()}</div>`;
   return `<p class="qv-sr" aria-live="polite">${n ? t.showing(start + 1, start + Math.min(fit, n - start), n) : ""}</p>` + head +
     (n ? `<div class="mini" style="--cols:${cols}">${items.slice(start, start + fit).map(e => card(e, lang, past)).join("")}</div>`
-       : `<p class="empty">${t.empty}</p>`) + pager;
+       : `<p class="empty">${t.empty}</p>`) + foot;
 }
 
 // Высота самой высокой карточки среди всех событий (ближайших и прошедших) при этой ширине:
@@ -916,6 +976,7 @@ function render() {
   document.getElementById("eyebrow").innerHTML = `<span class="flag" style="--f:var(--q-sky)"></span>${esc(range || t.eyebrow)}`;
   document.getElementById("title").textContent = t.upcoming;
   document.getElementById("lead").textContent = t.lead;
+  document.getElementById("follow").outerHTML = followHTML().replace('<div class="follow"', '<div class="follow" id="follow"');
 
   // Фильтр: «Все» и только те типы, что есть среди ближайших событий
   const present = Object.keys(TYPES).filter(k => upcoming.some(e => typeOf(e) === k));

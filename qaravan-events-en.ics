@@ -1,0 +1,536 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//QARAVAN//Qaravan Events//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+NAME:Qaravan Events
+X-WR-CALNAME:Qaravan Events
+DESCRIPTION:QARAVAN community events in New York. New events appear here au
+ tomatically.
+X-WR-CALDESC:QARAVAN community events in New York. New events appear here a
+ utomatically.
+X-WR-TIMEZONE:America/New_York
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:2026-08-01-235d46d447@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260801T170000
+DURATION:PT2H
+SUMMARY:Pasta-Making Master Class
+LOCATION:Bushwick
+DESCRIPTION:Orecchiette from scratch\, only 15 spots\n\nPlease register in 
+ advance\, it helps us plan:\nhttps://partiful.com/e/wCQQnxGDkWSxgsp5FbxR\n
+ \nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/wCQQnxGDkWSxgsp5FbxR
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-02-399e9ed340@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260802T160000
+DURATION:PT2H
+SUMMARY:9/11 Memorial Museum Visit
+LOCATION:9/11 Memorial & Museum\, tickets in advance
+DESCRIPTION:Going together\; entry is free for New Yorkers\n\nPlease regist
+ er in advance\, it helps us plan:\nhttps://partiful.com/e/i6yI4MnhRHYBkAED
+ mKAQ\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/i6yI4MnhRHYBkAEDmKAQ
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-03-67f771df13@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260803T190000
+DURATION:PT2H
+SUMMARY:LGBTQ+ History Walking Tour
+LOCATION:Greenwich Village
+DESCRIPTION:Stonewall\, Julius' and more of queer New York\n\nPlease regist
+ er in advance\, it helps us plan:\nhttps://partiful.com/e/bzdBwjr08VtbX5mW
+ sufI\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/bzdBwjr08VtbX5mWsufI
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-06-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260806T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-09-ece1b1230b@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260809T180000
+DURATION:PT2H
+SUMMARY:United in Anger: A History of ACT UP
+LOCATION:Brooklyn
+DESCRIPTION:A documentary about ACT UP\, 15 seats\n\nPlease register in adv
+ ance\, it helps us plan:\nhttps://partiful.com/e/NGsRoEiKHozec7FFJYfF\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/NGsRoEiKHozec7FFJYfF
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-12-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260812T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-13-19c61e84ce@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260813T140000
+DURATION:PT2H
+SUMMARY:Beach Day: Rockaway
+LOCATION:Jacob Riis Park
+DESCRIPTION:A day at The People's Beach\n\nPlease register in advance\, it 
+ helps us plan:\nhttps://partiful.com/e/4bEHkQT0nAkQIIAcCT3U\n\nAll our eve
+ nts:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/4bEHkQT0nAkQIIAcCT3U
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-15-2a62559c95@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260815T081000
+DURATION:PT2H
+SUMMARY:Bear Mountain Hike & Swim
+LOCATION:Meeting point: Port Authority
+DESCRIPTION:A hike\, lunch at the top\, then the pool\n\nPlease register in
+  advance\, it helps us plan:\nhttps://partiful.com/e/9gIemtCpwA8zR7aCj1Yr\
+ n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/9gIemtCpwA8zR7aCj1Yr
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-20-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260820T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-26-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260826T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-08-29-89ce9734d7@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260829T170000
+DURATION:PT2H
+SUMMARY:Asylum Interview Experience: Q&A
+LOCATION:NYC Pride office
+DESCRIPTION:What USCIS asks\, answered by people who've been through it\n\n
+ Please register in advance\, it helps us plan:\nhttps://partiful.com/e/U2h
+ 85QFEd02MWl2phG5Y\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/U2h85QFEd02MWl2phG5Y
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-03-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260903T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-06-07ead1acd6@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260906T113000
+DURATION:PT2H
+SUMMARY:Art Class with Lilu
+LOCATION:Central Park
+DESCRIPTION:Watercolor from life: painting Bethesda Fountain\n\nPlease regi
+ ster in advance\, it helps us plan:\nhttps://partiful.com/e/N43yk4Hu89fHcE
+ C1c3bZ\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/N43yk4Hu89fHcEC1c3bZ
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-10-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260910T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-12-a649ba616f@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260912T110000
+DURATION:PT2H
+SUMMARY:Support Group with Simon
+LOCATION:Online
+DESCRIPTION:A peer support group you join through a short form\n\nTo join\,
+  fill in the short form:\nhttps://forms.monday.com/forms/7bcb691e5cfa7a1a2
+ 7851836a73928bd\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://forms.monday.com/forms/7bcb691e5cfa7a1a27851836a73928bd
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-16-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260916T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-19-c77998dae6@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260919T083000
+DURATION:PT2H
+SUMMARY:Qaravan Climbs Bull Hill
+LOCATION:Meeting point: Grand Central
+DESCRIPTION:An 8.5 km hike above the Hudson\, ice cream at the end\n\nPleas
+ e register in advance\, it helps us plan:\nhttps://partiful.com/e/6N0lOXvw
+ ZvJlFa3G6MGl\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/6N0lOXvwZvJlFa3G6MGl
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-19-4a20ec120b@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260919T180000
+DURATION:PT2H
+SUMMARY:Movie Night: Paris Is Burning
+LOCATION:Address after you RSVP
+DESCRIPTION:Ballroom and voguing in 1980s New York\n\nPlease register in ad
+ vance\, it helps us plan:\nhttps://partiful.com/e/Hx4woufRJ9eeHHznGkwc\n\n
+ All our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/Hx4woufRJ9eeHHznGkwc
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-20-537b2b2ef0@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260920T120000
+DURATION:PT2H
+SUMMARY:Bike Ride & Picnic in Prospect Park
+LOCATION:Grand Army Plaza
+DESCRIPTION:Two hours on bikes\, then a picnic at 2 PM\n\nPlease register i
+ n advance\, it helps us plan:\nhttps://partiful.com/e/sAIAUZPujCWJo5WEjVbT
+ \n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/sAIAUZPujCWJo5WEjVbT
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-21-48232d0269@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260921T190000
+DURATION:PT2H
+SUMMARY:Midtown: Walking Tour
+LOCATION:Midtown
+DESCRIPTION:Mansions\, Art Deco and stories you won't find in guidebooks\n\
+ nPlease register in advance\, it helps us plan:\nhttps://partiful.com/e/Ji
+ eZXWSi8UUxnHw318yv\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/JieZXWSi8UUxnHw318yv
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-24-0876fd2ff5@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260924T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:A support group you join through a short form\n\nTo join\, fill
+  in the short form:\nhttps://form.typeform.com/to/dbH75jNe\n\nAll our even
+ ts:\nhttps://www.qaravan.org/events
+URL:https://form.typeform.com/to/dbH75jNe
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-26-d85e26514a@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260926T113000
+DURATION:PT2H
+SUMMARY:Community Help Desk with Ezra & Olga
+LOCATION:Brooklyn Public Library
+DESCRIPTION:Papers\, work\, housing\, doctors: we'll tell you where to go\n
+ \nPlease register in advance\, it helps us plan:\nhttps://partiful.com/e/L
+ ZQzvHq6SIkfflKwNx8c\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/LZQzvHq6SIkfflKwNx8c
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-09-30-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20260930T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:Online support group meeting twice a week. Want to join? Fill o
+ ut the form at the registration link. Processing the form may take a few d
+ ays.\n\nTo join\, fill in the short form:\nhttps://feedback.qaravan.org/su
+ pport/gina\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-02-d3e16aab1c@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261002T190000
+DURATION:PT2H
+SUMMARY:A Normal Boy: How I Was Gay in Russia
+LOCATION:Kvartira Books\, Crown Heights
+DESCRIPTION:Journalist Miloslav Chemodanov is presenting a memoir about his
+  childhood in Russia\; he will read an excerpt from the book and answer qu
+ estions from the audience.\n\nPlease register in advance\, it helps us pla
+ n:\nhttps://partiful.com/e/UtUihERn7tT4X2KaEkHi\n\nAll our events:\nhttps:
+ //www.qaravan.org/events
+URL:https://partiful.com/e/UtUihERn7tT4X2KaEkHi
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-03-65814d47ad@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261003T083000
+DURATION:PT2H
+SUMMARY:Qaravan Goes Apple Picking
+LOCATION:Meeting point: Grand Central
+DESCRIPTION:Apple picking on an autumn farm in North Salem\n\nPlease regist
+ er in advance\, it helps us plan:\nhttps://partiful.com/e/ZGW7qS5h1mw2yRn8
+ w6Gs\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/ZGW7qS5h1mw2yRn8w6Gs
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-03-de3d2a3a21@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261003T110000
+DURATION:PT2H
+SUMMARY:Girls' Gathering with Alyona
+LOCATION:The Center\, 208 W 13th St
+DESCRIPTION:Meeting over coffee and talking about what matters\n\nPlease re
+ gister in advance\, it helps us plan:\nhttps://partiful.com/e/rftXnCTfbVgR
+ IcKBJooa\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/rftXnCTfbVgRIcKBJooa
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-06-a9c67919c9@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261006T181500
+DURATION:PT2H
+SUMMARY:I Rarely Wake Up Dreaming @ New York Film Festival
+LOCATION:Walter Reade Theater\, Lincoln Center
+DESCRIPTION:A queer drama about the war in Ukraine\, then a Q&A with the fi
+ lmmakers\n\nPlease register in advance\, it helps us plan:\nhttps://partif
+ ul.com/e/Wk0xVWGj0xb29TJtS1E3\n\nAll our events:\nhttps://www.qaravan.org/
+ events
+URL:https://partiful.com/e/Wk0xVWGj0xb29TJtS1E3
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-08-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261008T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:Online support group meeting twice a week. Want to join? Fill o
+ ut the form at the registration link. Processing the form may take a few d
+ ays.\n\nTo join\, fill in the short form:\nhttps://feedback.qaravan.org/su
+ pport/gina\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-10-dde4a68c40@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261010T170000
+DURATION:PT2H
+SUMMARY:Halloween with Qaravan: Come Carve Pumpkins With Us!
+LOCATION:Williamsburg\, Brooklyn
+DESCRIPTION:Bring a pumpkin\; carving tools and mulled wine are on us\n\nPl
+ ease register in advance\, it helps us plan:\nhttps://partiful.com/e/thbg9
+ ZfG4Zgh5H2g6xJT\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/thbg9ZfG4Zgh5H2g6xJT
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-14-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261014T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:Online support group meeting twice a week. Want to join? Fill o
+ ut the form at the registration link. Processing the form may take a few d
+ ays.\n\nTo join\, fill in the short form:\nhttps://feedback.qaravan.org/su
+ pport/gina\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-22-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261022T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:Online support group meeting twice a week. Want to join? Fill o
+ ut the form at the registration link. Processing the form may take a few d
+ ays.\n\nTo join\, fill in the short form:\nhttps://feedback.qaravan.org/su
+ pport/gina\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-24-54cb7c0873@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261024T084000
+DURATION:PT2H
+SUMMARY:Queer Halloween Hike to the Deserted Village
+LOCATION:Meeting point: Starbucks inside Port Authority
+DESCRIPTION:A hike in costume to a 19th-century village in New Jersey\n\nPl
+ ease register in advance\, it helps us plan:\nhttps://partiful.com/e/TkZ4S
+ DVBeAAA5ic7rs74\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/TkZ4SDVBeAAA5ic7rs74
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-28-7e5f1b41e4@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261028T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:Online support group meeting twice a week. Want to join? Fill o
+ ut the form at the registration link. Processing the form may take a few d
+ ays.\n\nTo join\, fill in the short form:\nhttps://feedback.qaravan.org/su
+ pport/gina\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
