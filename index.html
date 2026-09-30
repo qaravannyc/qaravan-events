@@ -76,9 +76,9 @@
 
   /* Месяц внутри списка — когда впереди события из разных месяцев */
   .month{margin:28px 0 10px; font:700 21px/1.12 var(--font-head); letter-spacing:-.005em}
-  .grid{display:grid; grid-template-columns:1fr; gap:12px}
-  @media (min-width:520px){ .grid{grid-template-columns:repeat(2,1fr)} }
-  @media (min-width:760px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  .grid{display:grid; grid-template-columns:1fr; gap:16px}
+  @media (min-width:520px){ .grid{grid-template-columns:repeat(2,1fr); gap:20px} }
+  @media (min-width:760px){ .grid{grid-template-columns:repeat(3,1fr); gap:24px} }
   @media (min-width:1060px){ .grid{grid-template-columns:repeat(4,1fr)} }
 
   /* Карточка события: тип, название, строка о событии, когда, где, ссылка.
@@ -147,17 +147,19 @@
   .strip-head h2 .count{font:400 16px/1.2 var(--font-brand); color:var(--q-muted); letter-spacing:0}
   .strip-head .end{display:flex; align-items:center; gap:20px}
   .strip-head .link{white-space:nowrap}
-  .mini{display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:12px}
+  .mini{display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:16px}
+  @media (min-width:680px){ .mini{gap:20px} }
   .mini .ev{padding:14px 16px 10px}
   .mini .ev .type{font-size:13px; gap:7px}
   .mini .ev .type .flag{font-size:13px}
   .mini .ev h3{margin-top:8px; font-size:18px; line-height:1.12}
-  .mini .ev .about{display:none}
+  .mini .ev .about{margin-top:4px; font-size:14px; line-height:1.35}
   .mini .ev .when{margin-top:8px; font-size:15px}
   .mini .ev .place{font-size:15px; line-height:1.35}
   .mini .ev .foot{padding-top:8px}
   .mini .link{min-height:28px; font-size:15px}
-  .mini .ev h3, .mini .ev .place{display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden}
+  .mini .ev h3, .mini .ev .about, .mini .ev .place{display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden}
+  .mini .ev .about{-webkit-line-clamp:3}
   .mini .ev h3{-webkit-line-clamp:4}
   .mini .ev .place{-webkit-line-clamp:2}
   /* Кнопка под карточками: всегда видна — «Ещё N событий» или «Все события» */
