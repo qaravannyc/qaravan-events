@@ -132,37 +132,42 @@
 
   @media (prefers-reduced-motion:reduce){ .acc summary svg{transition:none} }
 
-  /* Вставка на qaravan.org (Wix): events.qaravan.org/?embed=1 — одна лента карточек
-     фиксированной высоты, листается вбок. Без шапки, подвала, фильтра и архива. */
+  /* Вставка на qaravan.org (Wix): events.qaravan.org/?embed=1 — белая панель с сеткой
+     компактных карточек: 4 в ряд и два ряда на широком экране, 3 карточки одна под другой
+     на телефоне, дальше — ссылка «Ещё N событий». Без шапки, подвала, фильтра и архива. */
   .strip{display:none}
   html.embed, html.embed body{background:transparent}
-  html.embed body{padding:6px}
   html.embed .hdr, html.embed .ftr, html.embed .intro, html.embed .filter, html.embed #list, html.embed .past{display:none}
   html.embed main.wrap{max-width:none; padding:0}
-  html.embed .strip{display:block}
-  .strip-head{display:flex; align-items:center; gap:12px 16px; margin-bottom:16px}
-  .strip-head h2{font:700 26px/1.1 var(--font-head); letter-spacing:-.005em; margin-right:auto; display:flex; align-items:center; gap:10px}
-  .strip-head h2 .flag{font-size:18px}
+  html.embed .strip{display:block; min-height:100vh; background:var(--q-white); padding:20px}
+  .strip-head{display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px; margin-bottom:16px}
+  .strip-head h2{display:flex; align-items:baseline; flex-wrap:wrap; gap:4px 10px; margin-right:auto; font:700 26px/1.1 var(--font-head); letter-spacing:-.005em}
+  .strip-head h2 .flag{font-size:18px; align-self:center}
+  .strip-head h2 .count{font:400 16px/1.2 var(--font-brand); color:var(--q-muted); letter-spacing:0}
+  .strip-head .end{display:flex; align-items:center; gap:20px}
   .strip-head .link{white-space:nowrap}
-  .arrows{display:flex; gap:8px}
-  .arrows[hidden]{display:none}
-  .arrow{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:0; border:2px solid var(--q-ink);
-    background:var(--q-white); color:var(--q-ink); cursor:pointer}
-  .arrow:hover{background:var(--q-line)}
-  .arrow:active{transform:translateY(1px)}
-  .arrow:disabled{border-color:var(--q-edge); color:var(--q-edge); background:var(--q-white); cursor:default; transform:none}
-  .arrow svg{width:16px; height:16px}
-  .row{display:grid; grid-auto-flow:column; grid-auto-columns:min(300px, calc(100% - 48px)); gap:16px;
-    overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scroll-padding-inline:6px; scrollbar-width:none; padding:6px; margin:-6px}
-  .row::-webkit-scrollbar{display:none}
-  .row .ev{scroll-snap-align:start; height:366px}
-  .row .ev h3{font-size:21px}
-  .row .ev h3, .row .ev .about, .row .ev .place{display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden}
-  .row .ev h3{-webkit-line-clamp:4}
-  .row .ev .about{-webkit-line-clamp:3}
-  .row .ev .place{-webkit-line-clamp:2}
-  @media (max-width:559px){ .arrows{display:none} .strip-head h2{font-size:22px} }
-  @media (prefers-reduced-motion:no-preference){ .row{scroll-behavior:smooth} }
+  .mini{display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:12px}
+  .mini .ev{padding:14px 16px 10px}
+  .mini .ev .type{font-size:13px; gap:7px}
+  .mini .ev .type .flag{font-size:13px}
+  .mini .ev h3{margin-top:8px; font-size:18px; line-height:1.12}
+  .mini .ev .about{display:none}
+  .mini .ev .when{margin-top:8px; font-size:15px}
+  .mini .ev .place{font-size:15px; line-height:1.35}
+  .mini .ev .foot{padding-top:8px}
+  .mini .link{min-height:28px; font-size:15px}
+  .mini .ev h3, .mini .ev .place{display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden}
+  .mini .ev h3{-webkit-line-clamp:4}
+  .mini .ev .place{-webkit-line-clamp:2}
+  .more{display:inline-flex; margin-top:14px}
+  @media (max-width:479px){
+    html.embed .strip{padding:14px}
+    .strip-head{gap:10px}
+    .strip-head h2{font-size:22px; width:100%}
+    .strip-head h2 .count{display:none}
+    .strip-head .end .link{display:none}
+    .mini .ev h3{-webkit-line-clamp:3}
+  }
 </style>
 <script>if (/[?&]embed(=|&|$)/.test(location.search)) document.documentElement.classList.add("embed");</script>
 </head>
@@ -636,7 +641,7 @@ const T = {
     doc: "События QARAVAN",
     eyebrow: "События QARAVAN",
     upcoming: "Ближайшие события",
-    allEvents: "Все события", prev: "Назад", next: "Дальше",
+    allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`,
     lead: "Нажмите на событие: там подробности и регистрация. Приходите с друзьями — на каком бы языке они ни говорили.",
     empty: "Новые события скоро появятся.",
     all: "Все", filter: "Тип события",
@@ -654,8 +659,8 @@ const T = {
   en: {
     doc: "QARAVAN events",
     eyebrow: "QARAVAN events",
-    upcoming: "Upcoming events",
-    allEvents: "All events", prev: "Previous", next: "Next",
+    upcoming: "Events calendar",
+    allEvents: "All events", more: n => `${n} more ${n === 1 ? "event" : "events"}`,
     lead: "Tap an event for details and registration. Our events are open to everyone, whatever language you speak.",
     empty: "New events are coming soon.",
     all: "All", filter: "Event type",
@@ -731,9 +736,13 @@ function card(e, lang, past) {
 // ── Язык: ?lang=en в адресе, потом выбор человека, потом язык браузера ──
 const LANG_KEY = "qaravan-events-lang";
 function initialLang() {
-  const q = new URLSearchParams(location.search).get("lang");
+  const q = new URLSearchParams(location.search).get("lang"), embed = /[?&]embed(=|&|$)/.test(location.search);
+  let saved = null;
+  try { saved = localStorage.getItem(LANG_KEY); } catch (_) {}
+  // В вставке на qaravan.org свой выбор человека важнее ?lang из кода вставки
+  if (embed && (saved === "ru" || saved === "en")) return saved;
   if (q === "ru" || q === "en") return q;
-  try { const s = localStorage.getItem(LANG_KEY); if (s === "ru" || s === "en") return s; } catch (_) {}
+  if (saved === "ru" || saved === "en") return saved;
   const prefs = navigator.languages || [navigator.language || ""];
   return prefs.some(l => /^(ru|uk|be|kk)\b/i.test(l)) ? "ru" : "en";
 }
@@ -746,35 +755,28 @@ const upcoming = [...EVENTS].sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
 const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
 
-const CHEV_L = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
-const CHEV_R = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
-
+// Сколько карточек помещается: 4 / 3 / 2 в ряд — два ряда; на узком экране — 3 одна под другой
+const stripCols = () => innerWidth >= 900 ? 4 : innerWidth >= 680 ? 3 : innerWidth >= 480 ? 2 : 1;
+let shownCols = 0;
 function renderStrip() {
-  const t = T[lang], el = document.getElementById("strip");
+  const t = T[lang], el = document.getElementById("strip"), all = `https://events.qaravan.org/?lang=${lang}`;
+  const cols = shownCols = stripCols(), fit = cols === 1 ? 3 : cols * 2, rest = Math.max(0, upcoming.length - fit);
   document.documentElement.lang = lang;
+  const tabs = ["ru", "en"].map(l => `<button class="tab" type="button" role="tab" data-lang="${l}" lang="${l}" aria-label="${l === "ru" ? "Русский" : "English"}" aria-selected="${l === lang}" tabindex="${l === lang ? 0 : -1}">${l.toUpperCase()}</button>`).join("");
+  const more = rest ? t.more(rest) : cols === 1 ? t.allEvents : "";
   el.innerHTML = `<div class="strip-head">
-      <h2 id="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}</h2>
-      <a class="link" href="https://events.qaravan.org/?lang=${lang}" target="_blank" rel="noopener">${t.allEvents}${ARROW}</a>
-      <div class="arrows"><button class="arrow" type="button" data-dir="-1" aria-label="${t.prev}">${CHEV_L}</button><button class="arrow" type="button" data-dir="1" aria-label="${t.next}">${CHEV_R}</button></div>
+      <h2 id="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}${upcoming.length ? `<span class="count">${t.count(upcoming.length)}</span>` : ""}</h2>
+      <div class="end">
+        <div class="tabs" role="tablist" aria-label="Язык / Language">${tabs}</div>
+        <a class="link" href="${all}" target="_blank" rel="noopener">${t.allEvents}${ARROW}</a>
+      </div>
     </div>` + (upcoming.length
-      ? `<div class="row" id="row">${upcoming.map(e => card(e, lang)).join("")}</div>`
-      : `<p class="empty">${t.empty}</p>`);
-  const row = document.getElementById("row"), arrows = [...el.querySelectorAll(".arrow")];
-  if (!row) { el.querySelector(".arrows").hidden = true; return; }
-  const update = () => {
-    const max = row.scrollWidth - row.clientWidth - 2;
-    arrows[0].disabled = row.scrollLeft <= 2;
-    arrows[1].disabled = row.scrollLeft >= max;
-    el.querySelector(".arrows").hidden = max <= 0;
-  };
-  arrows.forEach(b => b.addEventListener("click", () => {
-    const step = row.querySelector(".ev").getBoundingClientRect().width + 16;
-    row.scrollBy({ left: +b.dataset.dir * step * Math.max(1, Math.floor(row.clientWidth / step)) });
-  }));
-  row.addEventListener("scroll", update, { passive: true });
-  addEventListener("resize", update);
-  update();
+      ? `<div class="mini" style="--cols:${cols}">${upcoming.slice(0, fit).map(e => card(e, lang)).join("")}</div>`
+      : `<p class="empty">${t.empty}</p>`) +
+    (more ? `<a class="link more" href="${all}" target="_blank" rel="noopener">${more}${ARROW}</a>` : "");
+  bindTabs(el);
 }
+if (EMBED) addEventListener("resize", () => { if (stripCols() !== shownCols) renderStrip(); });
 
 function render() {
   if (EMBED) return renderStrip();
@@ -834,19 +836,26 @@ function setLang(next) {
   if (next === lang) return;
   lang = next;
   try { localStorage.setItem(LANG_KEY, lang); } catch (_) {}
-  const u = new URL(location.href); u.searchParams.set("lang", lang);
-  try { history.replaceState(null, "", u); } catch (_) {}
+  if (!EMBED) {
+    const u = new URL(location.href); u.searchParams.set("lang", lang);
+    try { history.replaceState(null, "", u); } catch (_) {}
+  }
   render();
 }
 
-document.querySelectorAll(".tab").forEach((b, i, all) => {
-  b.addEventListener("click", () => setLang(b.dataset.lang));
-  b.addEventListener("keydown", ev => {
-    const j = ev.key === "ArrowRight" ? (i + 1) % all.length : ev.key === "ArrowLeft" ? (i - 1 + all.length) % all.length : -1;
-    if (j < 0) return;
-    ev.preventDefault(); setLang(all[j].dataset.lang); all[j].focus();
+function bindTabs(root) {
+  const all = [...root.querySelectorAll(".tab")];
+  all.forEach((b, i) => {
+    b.addEventListener("click", () => setLang(b.dataset.lang));
+    b.addEventListener("keydown", ev => {
+      const j = ev.key === "ArrowRight" ? (i + 1) % all.length : ev.key === "ArrowLeft" ? (i - 1 + all.length) % all.length : -1;
+      if (j < 0) return;
+      ev.preventDefault(); setLang(all[j].dataset.lang);
+      const next = root.querySelector(`.tab[data-lang="${all[j].dataset.lang}"]`); if (next) next.focus();
+    });
   });
-});
+}
+bindTabs(document.querySelector(".hdr"));
 document.getElementById("filter").addEventListener("click", ev => {
   const b = ev.target.closest(".fchip");
   if (b) { filter = b.dataset.type; render(); }

@@ -34,6 +34,6 @@ The page is bilingual with a RU / EN switch: every event carries a complete Engl
 
 The page follows the QARAVAN design system (the org's default Design System artifact, 2026-09 revision): Fira Sans / Fira Sans Condensed from `assets/fonts/`, the official wordmark files in `assets/` (never redraw or retype the logo), white page, square hairline cards, brand colours only as category flags, ink text, no emoji. Check a layout change against the design system before proposing it.
 
-`?embed=1` renders the fixed-height card strip that qaravan.org (Wix) embeds at 450px. Any change to card content or styles must keep every card fitting that strip: re-measure the embed's height at 300–1280px widths in both languages.
+`?embed=1` renders the compact card grid that qaravan.org (Wix) embeds at a fixed height: 600px on desktop, 850px in Wix's mobile layout. Any change to card content or styles must keep the embed within those heights: re-measure it at 240–1280px widths in both languages, including worst-case long titles.
 
 Never use RUSA anywhere (links, text, handles): the organization is QARAVAN. Telegram: https://t.me/+KkHErPk38VA3Yzgy
