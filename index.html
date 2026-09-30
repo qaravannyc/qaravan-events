@@ -159,13 +159,18 @@
   .mini .ev h3, .mini .ev .place{display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden}
   .mini .ev h3{-webkit-line-clamp:4}
   .mini .ev .place{-webkit-line-clamp:2}
-  .more{display:inline-flex; margin-top:14px}
+  /* Кнопка под карточками: всегда видна — «Ещё N событий» или «Все события» */
+  .more{display:inline-flex; align-items:center; justify-content:center; gap:8px; margin-top:16px; min-height:44px; padding:8px 18px;
+    background:var(--q-ink); color:var(--q-white); font:600 17px/1.15 var(--font-head); letter-spacing:.01em; text-decoration:none}
+  .more:hover{box-shadow:inset 0 0 0 999px rgba(0,0,0,.14)}
+  .more:active{transform:translateY(1px)}
+  .more svg{width:14px; height:14px; flex:none}
   @media (max-width:479px){
     html.embed .strip{padding:14px}
     .strip-head{gap:10px}
     .strip-head h2{font-size:22px; width:100%}
     .strip-head h2 .count{display:none}
-    .strip-head .end .link{display:none}
+    .more{display:flex; width:100%}
     .mini .ev h3{-webkit-line-clamp:3}
   }
 </style>
@@ -692,7 +697,7 @@ function timeText(time, lang) {                              // "17:00" → «17
   if (!m) return time || "";
   if (lang === "ru") return m[1].padStart(2, "0") + ":" + m[2];
   const h = +m[1];
-  return (h % 12 || 12) + ":" + m[2] + (h < 12 ? " AM" : " PM");
+  return (h % 12 || 12) + ":" + m[2] + (h < 12 ? "\u00a0AM" : "\u00a0PM");   // «7:30 PM» не рвётся на две строки
 }
 
 // Строка «когда»: «СБ, 10 октября, 17:00» / «Sat, Oct 10, 5:00 PM».
@@ -734,13 +739,9 @@ function card(e, lang, past) {
 // ── Язык: ?lang=en в адресе, потом выбор человека, потом язык браузера ──
 const LANG_KEY = "qaravan-events-lang";
 function initialLang() {
-  const q = new URLSearchParams(location.search).get("lang"), embed = /[?&]embed(=|&|$)/.test(location.search);
-  let saved = null;
-  try { saved = localStorage.getItem(LANG_KEY); } catch (_) {}
-  // В вставке на qaravan.org свой выбор человека важнее ?lang из кода вставки
-  if (embed && (saved === "ru" || saved === "en")) return saved;
+  const q = new URLSearchParams(location.search).get("lang");
   if (q === "ru" || q === "en") return q;
-  if (saved === "ru" || saved === "en") return saved;
+  try { const s = localStorage.getItem(LANG_KEY); if (s === "ru" || s === "en") return s; } catch (_) {}
   const prefs = navigator.languages || [navigator.language || ""];
   return prefs.some(l => /^(ru|uk|be|kk)\b/i.test(l)) ? "ru" : "en";
 }
@@ -760,17 +761,13 @@ const stripCols = () => innerWidth >= 900 ? 4 : innerWidth >= 680 ? 3 : innerWid
 function stripHTML(fit, cols) {
   const t = T[lang], all = `https://events.qaravan.org/?lang=${lang}`, rest = Math.max(0, upcoming.length - fit);
   const tabs = ["ru", "en"].map(l => `<button class="tab" type="button" role="tab" data-lang="${l}" lang="${l}" aria-label="${l === "ru" ? "Русский" : "English"}" aria-selected="${l === lang}" tabindex="${l === lang ? 0 : -1}">${l.toUpperCase()}</button>`).join("");
-  const more = rest ? t.more(rest) : cols === 1 ? t.allEvents : "";
   return `<div class="strip-head">
       <h2 id="strip-title"><span class="flag" style="--f:var(--q-sky)"></span>${t.upcoming}${upcoming.length ? `<span class="count">${t.count(upcoming.length)}</span>` : ""}</h2>
-      <div class="end">
-        <div class="tabs" role="tablist" aria-label="Язык / Language">${tabs}</div>
-        <a class="link" href="${all}" target="_blank" rel="noopener">${t.allEvents}${ARROW}</a>
-      </div>
+      <div class="end"><div class="tabs" role="tablist" aria-label="Язык / Language">${tabs}</div></div>
     </div>` + (upcoming.length
       ? `<div class="mini" style="--cols:${cols}">${upcoming.slice(0, fit).map(e => card(e, lang)).join("")}</div>`
       : `<p class="empty">${t.empty}</p>`) +
-    (more ? `<a class="link more" href="${all}" target="_blank" rel="noopener">${more}${ARROW}</a>` : "");
+    `<a class="more" href="${all}" target="_blank" rel="noopener">${rest ? t.more(rest) : t.allEvents}${ARROW}</a>`;
 }
 function renderStrip() {
   const el = document.getElementById("strip"), cols = stripCols(), pad = parseFloat(getComputedStyle(el).paddingBottom) || 0;
@@ -789,6 +786,7 @@ if (EMBED) {
   let queued = false;
   addEventListener("resize", () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; renderStrip(); }); } });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => renderStrip());
+  addEventListener("load", () => renderStrip());
 }
 
 function render() {
