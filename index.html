@@ -3,110 +3,171 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>События QARAVAN</title>
-<meta name="description" content="Ближайшие события QARAVAN. Жмите на событие — внутри детали и регистрация.">
-<meta property="og:title" content="События QARAVAN">
-<meta property="og:description" content="Все ближайшие события в одном месте. Жмите и регистрируйтесь 🧡">
-<meta name="theme-color" content="#FAF4E8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<title>События QARAVAN · QARAVAN events</title>
+<meta name="description" content="Ближайшие события QARAVAN в Нью-Йорке. Upcoming QARAVAN events in New York.">
+<meta property="og:title" content="События QARAVAN · QARAVAN events">
+<meta property="og:description" content="Все ближайшие события в одном месте. All upcoming events in one place.">
+<meta name="theme-color" content="#ffffff">
+<link rel="preload" href="assets/fonts/FiraSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/FiraSansCondensed-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  /* Дизайн-система QARAVAN (ревизия 2026-09): шрифты Fira Sans и Fira Sans Condensed,
+     белая страница, квадратные формы, шесть цветов бренда только флажками и метками,
+     весь текст — графитом на белом. Значения — из tokens.json дизайн-системы. */
+  @font-face{font-family:"Fira Sans";src:url("assets/fonts/FiraSans-Regular.woff2") format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:"Fira Sans";src:url("assets/fonts/FiraSans-Medium.woff2") format("woff2");font-weight:500;font-display:swap}
+  @font-face{font-family:"Fira Sans";src:url("assets/fonts/FiraSans-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Fira Sans Condensed";src:url("assets/fonts/FiraSansCondensed-SemiBold.woff2") format("woff2");font-weight:600;font-display:swap}
+  @font-face{font-family:"Fira Sans Condensed";src:url("assets/fonts/FiraSansCondensed-Bold.woff2") format("woff2");font-weight:700;font-display:swap}
+
   :root{
-    --bg:#FAF4E8; --ink:#1c1c1c; --muted:#6b6558; --card:#ffffff;
-    --orange:#E8890C; --purple:#7B4FD8; --blue:#2196D9; --green:#2E9E44; --red:#E23838;
+    color-scheme:light;
+    --q-red:#ff3333; --q-orange:#ff9933; --q-yellow:#f8f36e; --q-green:#66cc66; --q-sky:#0099cc; --q-purple:#7668aa;
+    --q-ink:#333333; --q-white:#ffffff; --q-muted:#5e5a53; --q-line:#ece8de; --q-edge:#8a857b;
+    --accent:var(--q-sky);
+    --font-brand:"Fira Sans","Helvetica Neue",Arial,sans-serif;
+    --font-head:"Fira Sans Condensed","Arial Narrow","Fira Sans",Arial,sans-serif;
+    --gutter:16px;
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    background:var(--bg); color:var(--ink);
-    font-family:'Montserrat',-apple-system,'Segoe UI',sans-serif;
-    -webkit-font-smoothing:antialiased;
-    padding:28px 16px 48px;
-  }
-  .wrap{max-width:480px; margin:0 auto;}
-  header{text-align:center; margin-bottom:22px;}
-  .logo{
-    display:inline-block; background:#333333; border-radius:14px;
-    padding:8px 18px 10px; font-weight:800; font-size:26px; letter-spacing:.5px;
-  }
-  /* Фирменные цвета логотипа QARAVAN (сняты с оригинала на qaravan.org) */
-  .logo span:nth-child(1){color:#FFFFFF}
-  .logo span:nth-child(2){color:#FF3333}
-  .logo span:nth-child(3){color:#FF9933}
-  .logo span:nth-child(4){color:#F8F36E}
-  .logo span:nth-child(5){color:#66CC66}
-  .logo span:nth-child(6){color:#0099CC}
-  .logo span:nth-child(7){color:#7668AA}
-  .badge{
-    display:inline-block; margin-top:14px; background:var(--red); color:#fff;
-    font-weight:800; font-size:12px; letter-spacing:1.5px; border-radius:999px;
-    padding:6px 14px;
-  }
-  h1{font-size:26px; font-weight:800; margin-top:10px; letter-spacing:-.3px;}
-  .sub{margin-top:6px; color:var(--muted); font-size:14px; font-weight:600;}
-  .note{margin-top:12px; color:var(--muted); font-size:13px; font-weight:600; line-height:1.4;}
-  .card{
-    display:flex; gap:14px; align-items:center;
-    background:var(--card); border-radius:18px; padding:14px 16px;
-    margin-top:12px; text-decoration:none; color:inherit;
-    box-shadow:0 1px 2px rgba(30,25,10,.06), 0 6px 18px rgba(30,25,10,.06);
-    transition:transform .12s ease, box-shadow .12s ease;
-  }
-  .card:active{transform:scale(.985);}
-  @media (hover:hover){ .card:hover{transform:translateY(-2px); box-shadow:0 2px 4px rgba(30,25,10,.07), 0 10px 24px rgba(30,25,10,.09);} }
-  .date{flex:0 0 58px; text-align:center; font-weight:800;}
-  .date .num{font-size:26px; line-height:1; display:block;}
-  .date .num.small{font-size:15px; line-height:1.25;}
-  .date .dow{font-size:10px; letter-spacing:1.2px; color:var(--muted); font-weight:700; display:block; margin-top:3px;}
-  .info{min-width:0; flex:1;}
-  .info .title{display:block; font-weight:800; font-size:15.5px; line-height:1.25;}
-  .info .ru{display:block; color:var(--muted); font-size:13px; font-weight:600; margin-top:3px; line-height:1.35;}
-  .info .meta{display:block; font-size:12px; font-weight:700; margin-top:5px; color:var(--ink); opacity:.75;}
-  .arrow{margin-left:auto; flex:0 0 auto; color:var(--muted); font-weight:800;}
-  /* Подпись месяца внутри списка — когда впереди события из разных месяцев */
-  .month{margin:24px 0 -2px 4px; font-size:11px; letter-spacing:1.5px; font-weight:800; color:var(--muted); text-transform:uppercase;}
-  .empty{margin-top:16px; text-align:center; color:var(--muted); font-size:14px; font-weight:600;}
+  @media (min-width:640px){ :root{ --gutter:32px; } }
 
-  /* Прошлые месяцы — свёрнутый блок под текущим списком */
-  .archive{margin-top:28px;}
-  .archive summary{
-    display:flex; align-items:center; gap:14px; cursor:pointer; list-style:none;
-    background:rgba(28,28,28,.055); border-radius:18px; padding:14px 16px;
-    -webkit-tap-highlight-color:transparent; user-select:none;
-  }
-  .archive summary::-webkit-details-marker{display:none;}
-  .archive summary::marker{content:"";}
-  .archive summary:focus-visible{outline:2px solid var(--ink); outline-offset:2px;}
-  .archive .arch-label{display:block; font-size:10px; letter-spacing:1.5px; font-weight:800; color:var(--muted);}
-  .archive .arch-title{display:block; font-size:15.5px; font-weight:800; margin-top:3px; line-height:1.25;}
-  .archive .arch-title .arch-count{color:var(--muted); font-weight:700; white-space:nowrap;}
-  .archive .arch-hint{margin-left:auto; flex:0 0 auto; display:flex; align-items:center; gap:6px; color:var(--muted); font-size:12px; font-weight:700;}
-  .archive .arch-hint .hide{display:none;}
-  .archive[open] .arch-hint .show{display:none;}
-  .archive[open] .arch-hint .hide{display:inline;}
-  .archive .chev{display:inline-block; font-size:16px; font-weight:800; transform:rotate(90deg); transition:transform .2s ease;}
-  .archive[open] .chev{transform:rotate(-90deg);}
-  .archive .past{padding-bottom:4px;}
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--q-white); color:var(--q-ink); font:400 16px/1.5 var(--font-brand); -webkit-font-smoothing:antialiased}
+  h1,h2,h3,p{margin:0}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  ::selection{background:var(--q-yellow); color:var(--q-ink)}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 var(--gutter)}
 
-  footer{text-align:center; margin-top:26px; color:var(--muted); font-size:13px; font-weight:600;}
-  footer a{color:var(--ink); font-weight:800; text-decoration:none;}
+  /* Флажок: квадрат цвета бренда. Жёлтый на белом — с тонкой графитовой кромкой. */
+  .flag{display:inline-block; flex:none; width:.62em; height:.62em; background:var(--f,var(--q-ink))}
+  .flag.y{box-shadow:inset 0 0 0 1px var(--q-ink)}
+
+  /* Шапка: логотип (ссылка на qaravan.org) и переключатель RU / EN */
+  .hdr{border-bottom:1px solid var(--q-line)}
+  .hdr .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:68px}
+  .home{display:inline-flex; align-items:center; min-height:44px}
+  .home img{display:block; width:150px; height:auto}
+  .tabs{display:inline-flex; border:2px solid var(--q-ink); background:var(--q-white)}
+  .tab{min-height:40px; min-width:48px; padding:6px 14px; border:0; background:transparent; color:var(--q-ink);
+    font:600 16px/1.15 var(--font-head); letter-spacing:.01em; cursor:pointer}
+  .tab+.tab{box-shadow:inset 2px 0 0 var(--q-line)}
+  .tab:hover{background:var(--q-line)}
+  .tab[aria-selected="true"]{background:var(--q-ink); color:var(--q-white); box-shadow:none}
+  .tab:focus-visible{outline-offset:-5px}
+  .tab[aria-selected="true"]:focus-visible{outline-color:var(--q-yellow)}
+
+  /* Заголовок страницы: надстрочник с флажком, заголовок, подводка */
+  .intro{padding:32px 0 24px}
+  .eyebrow{display:inline-flex; align-items:center; gap:10px; font:600 13.5px/1.2 var(--font-head); letter-spacing:.1em; text-transform:uppercase}
+  .eyebrow .flag{font-size:17px}
+  h1{margin-top:12px; font:700 34px/1.06 var(--font-head); letter-spacing:-.005em; text-wrap:balance}
+  .lead{margin-top:12px; font:400 17px/1.5 var(--font-brand); color:var(--q-muted); max-width:40em}
+  @media (min-width:640px){ .intro{padding:48px 0 32px} h1{font-size:46px} .lead{font-size:18px} }
+
+  /* Фильтр по типу события: «Все» и по флажку на каждый тип */
+  .filter{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px}
+  .fchip{display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:6px 14px; border:2px solid var(--q-line);
+    background:var(--q-white); color:var(--q-ink); font:600 15px/1.2 var(--font-brand); cursor:pointer}
+  .fchip .flag{font-size:16px}
+  .fchip:hover{border-color:var(--q-ink)}
+  .fchip[aria-pressed="true"]{background:var(--q-ink); border-color:var(--q-ink); color:var(--q-white)}
+
+  /* Месяц внутри списка — когда впереди события из разных месяцев */
+  .month{margin:32px 0 12px; font:700 24px/1.12 var(--font-head); letter-spacing:-.005em}
+  .grid{display:grid; grid-template-columns:1fr; gap:16px}
+  @media (min-width:640px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:1000px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+  /* Карточка события: тип, название, строка о событии, когда, где, ссылка.
+     Вся карточка нажимается: ссылка растянута на неё целиком. */
+  .ev{position:relative; display:flex; flex-direction:column; background:var(--q-white); border:1px solid var(--q-line); padding:20px 20px 16px}
+  .ev:hover{background:var(--q-line)}
+  .ev:focus-within{outline:3px solid var(--accent); outline-offset:2px}
+  .ev .type{display:flex; align-items:center; gap:8px; font:600 14px/1.25 var(--font-brand)}
+  .ev .type .flag{font-size:16px}
+  .ev h3{margin-top:12px; font:700 23px/1.1 var(--font-head); letter-spacing:-.005em; text-wrap:balance}
+  .ev .about{margin-top:8px; font:400 16px/1.45 var(--font-brand)}
+  .ev .when{margin-top:14px; font:600 16px/1.3 var(--font-head); letter-spacing:.01em}
+  .ev .place{margin-top:2px; font:400 15px/1.4 var(--font-brand); color:var(--q-muted)}
+  .ev .foot{margin-top:auto; padding-top:16px}
+  .link{display:inline-flex; align-items:center; gap:6px; min-height:32px; color:var(--q-ink); font:600 16px/1.2 var(--font-brand);
+    text-decoration:underline; text-decoration-color:var(--q-sky); text-decoration-thickness:2px; text-underline-offset:4px}
+  .link svg{width:14px; height:14px; flex:none}
+  .ev .link::after{content:""; position:absolute; inset:0}
+  .ev .link:focus-visible{outline:none}
+  .ev:hover .link{text-decoration-color:currentColor; text-decoration-thickness:3px}
+  @media (min-width:640px){ .ev{padding:22px 24px 20px} .ev h3{font-size:24px} }
+  .empty{margin-top:8px; font:400 17px/1.5 var(--font-brand); color:var(--q-muted)}
+
+  /* Прошедшие месяцы: строки-аккордеон под графитовой линейкой */
+  .past{margin-top:64px}
+  .past h2{font:700 28px/1.12 var(--font-head); letter-spacing:-.005em; margin-bottom:16px}
+  .acc{border-top:2px solid var(--q-ink)}
+  .acc details{border-bottom:1px solid var(--q-line)}
+  .acc summary{display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:56px; padding:12px 14px;
+    font:600 17px/1.35 var(--font-brand); cursor:pointer; list-style:none; -webkit-tap-highlight-color:transparent}
+  .acc summary::-webkit-details-marker{display:none}
+  .acc summary::marker{content:""}
+  .acc summary:hover{background:var(--q-line)}
+  .acc summary:focus-visible{outline-offset:-3px}
+  .acc details[open] summary{box-shadow:inset 6px 0 0 var(--q-sky); padding-left:22px}
+  .acc summary .count{color:var(--q-muted); font-weight:400}
+  .acc summary svg{width:16px; height:16px; flex:none; transition:transform .15s ease-out}
+  .acc details[open] summary svg{transform:rotate(180deg)}
+  .acc .grid{padding:8px 0 24px}
+
+  /* Подвал: графитовая полоса, логотип для тёмного фона, ссылки */
+  .ftr{margin-top:64px; background:var(--q-ink); color:var(--q-white)}
+  .ftr .wrap{padding-top:36px; padding-bottom:22px}
+  .ftr img{display:block; width:150px; height:auto}
+  .ftr .tag{margin-top:16px; font:400 15px/1.5 var(--font-brand); color:rgba(255,255,255,.82); max-width:26em}
+  .ftr ul{list-style:none; margin:20px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:4px 24px}
+  .ftr a{display:inline-flex; align-items:center; min-height:32px; font:500 16px/1.3 var(--font-brand); color:var(--q-white); text-decoration:none}
+  .ftr a:hover{text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:4px}
+  .ftr :focus-visible{outline-color:var(--q-yellow)}
+  .ftr .base{margin-top:24px; padding-top:16px; border-top:1px solid rgba(255,255,255,.22); display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px;
+    font:400 14px/1.4 var(--font-brand); color:rgba(255,255,255,.8)}
+
+  @media (prefers-reduced-motion:reduce){ .acc summary svg{transition:none} }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="logo"><span>q</span><span>a</span><span>r</span><span>a</span><span>v</span><span>a</span><span>n</span></div><br>
-    <span class="badge" id="badge"></span>
+<header class="hdr">
+  <div class="wrap">
+    <a class="home" href="https://qaravan.org"><img src="assets/logo-wordmark.svg" width="150" height="31" alt="qaravan"></a>
+    <div class="tabs" role="tablist" aria-label="Язык / Language">
+      <button class="tab" type="button" role="tab" data-lang="ru" lang="ru" aria-label="Русский">RU</button>
+      <button class="tab" type="button" role="tab" data-lang="en" lang="en" aria-label="English">EN</button>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <section class="intro">
+    <div class="eyebrow" id="eyebrow"></div>
     <h1 id="title"></h1>
-    <p class="sub">Жмите на событие — внутри детали и регистрация 🧡</p>
-    <p class="note">Our events are open to anyone, regardless of the language you speak!</p>
-  </header>
+    <p class="lead" id="lead"></p>
+  </section>
+  <div class="filter" id="filter" role="group"></div>
   <div id="list"></div>
-  <div id="archive"></div>
-  <footer>
-    <a href="https://qaravan.org">qaravan.org</a> 
-  </footer>
-</div>
+  <section class="past" id="past" hidden>
+    <h2 id="past-title"></h2>
+    <div class="acc" id="archive"></div>
+  </section>
+</main>
+<footer class="ftr">
+  <div class="wrap">
+    <img src="assets/logo-wordmark-dark.svg" width="150" height="31" alt="qaravan">
+    <p class="tag" id="tagline"></p>
+    <ul>
+      <li><a href="https://qaravan.org">qaravan.org</a></li>
+      <li><a href="https://t.me/rusaconnects">Telegram</a></li>
+      <li><a href="https://givebutter.com/qaravan" id="donate"></a></li>
+    </ul>
+    <div class="base"><a href="https://www.instagram.com/qaravan_org">@qaravan_org</a><span>© 2026 QARAVAN</span></div>
+  </div>
+</footer>
 
 <script>
 // ══════════════════════════════════════════════════════════════
@@ -118,10 +179,19 @@
 //     Одно событие = один блок в фигурных скобках { ... }.
 //     • Добавить — скопируйте любой блок и поправьте текст.
 //     • Отменили — сотрите его блок целиком (вместе с запятой).
-//     • dates — дата события в виде "ГГГГ-ММ-ДД". Число, день недели,
-//       месяц в шапке и порядок карточек страница считает сама.
-//       Несколько дат в одной карточке (как у группы поддержки) —
-//       через запятую: dates: ["2026-10-01", "2026-10-08", "2026-10-15"].
+//     • dates — дата события в виде "ГГГГ-ММ-ДД". Несколько дат в одной
+//       карточке (как у группы поддержки) — через запятую:
+//       dates: ["2026-10-01", "2026-10-08", "2026-10-15"].
+//     • time — время начала по 24 часа: "19:30". У поездок — время сбора.
+//       Страница сама пишет «19:30» по-русски и «7:30 PM» по-английски.
+//     • type — тип события, как в колонке Category на доске monday:
+//       "support" — группы поддержки, "community" — хайки, пикники, встречи,
+//       "resources" — помощь с документами и Q&A, "culture" — кино, книги,
+//       мастер-классы, музеи, "action" — прайды и волонтёрство.
+//     • en и ru — одно и то же событие на двух языках, каждое полностью:
+//       title — название, about — одна короткая строка о событии,
+//       place — где («Сбор: Grand Central» / «Meeting point: Grand Central»).
+//     Число, день недели, месяц и порядок карточек страница считает сама.
 //  3. Прошедшие события переносить никуда не нужно: каждую ночь робот
 //     (Actions → «archive past events», файл robot/archive-past.mjs)
 //     сам убирает их из EVENTS в ARCHIVE — свёрнутый список прошлых
@@ -133,51 +203,114 @@
 const EVENTS = [
   {
     dates: ["2026-09-30"],
-    title: "Support Group with Gina",
-    ru: "Группа поддержки, вход по анкете",
-    meta: "7:30 PM · Zoom",
+    time: "19:30",
+    type: "support",
+    en: {
+      title: "Support Group with Gina",
+      about: "A support group you join through a short form",
+      place: "Online"
+    },
+    ru: {
+      title: "Группа поддержки с Джиной",
+      about: "Встречаемся онлайн, вход по анкете",
+      place: "Онлайн"
+    },
     link: "https://feedback.qaravan.org/support/gina"
   },
   {
     dates: ["2026-10-02"],
-    title: "A Normal Boy: How I Was Gay in Russia",
-    ru: "Милослав Чемоданов читает отрывки и отвечает на вопросы",
-    meta: "7:00 PM · Kvartira Books, Crown Heights",
+    time: "19:00",
+    type: "culture",
+    en: {
+      title: "A Normal Boy: How I Was Gay in Russia",
+      about: "Miloslav Chemodanov reads from his book and takes questions",
+      place: "Kvartira Books, Crown Heights"
+    },
+    ru: {
+      title: "Нормальный мальчик. Как я был геем в России",
+      about: "Милослав Чемоданов читает отрывки и отвечает на вопросы",
+      place: "Kvartira Books, Краун-Хайтс"
+    },
     link: "https://partiful.com/e/UtUihERn7tT4X2KaEkHi"
   },
   {
     dates: ["2026-10-03"],
-    title: "Qaravan Goes Apple Picking",
-    ru: "Собираем яблоки на осенней ферме в North Salem",
-    meta: "сбор 8:30 AM · Grand Central",
+    time: "08:30",
+    type: "community",
+    en: {
+      title: "Qaravan Goes Apple Picking",
+      about: "Apple picking on an autumn farm in North Salem",
+      place: "Meeting point: Grand Central"
+    },
+    ru: {
+      title: "QARAVAN едет за яблоками",
+      about: "Собираем яблоки на осенней ферме в North Salem",
+      place: "Сбор: Grand Central"
+    },
     link: "https://partiful.com/e/ZGW7qS5h1mw2yRn8w6Gs"
   },
   {
     dates: ["2026-10-03"],
-    title: "Girls' Gathering with Alyona",
-    ru: "Девичник: знакомимся за кофе, говорим о важном",
-    meta: "11:00 AM · The Center, 208 W 13th St",
+    time: "11:00",
+    type: "community",
+    en: {
+      title: "Girls' Gathering with Alyona",
+      about: "Meeting over coffee and talking about what matters",
+      place: "The Center, 208 W 13th St"
+    },
+    ru: {
+      title: "Девичник с Алёной",
+      about: "Знакомимся за кофе и говорим о важном",
+      place: "The Center, 208 W 13th St"
+    },
     link: "https://partiful.com/e/rftXnCTfbVgRIcKBJooa"
   },
   {
     dates: ["2026-10-06"],
-    title: "I Rarely Wake Up Dreaming @ New York Film Festival",
-    ru: "Квир-драма о войне в Украине и встреча с создателями",
-    meta: "6:15 PM · Walter Reade Theater, Lincoln Center",
+    time: "18:15",
+    type: "culture",
+    en: {
+      title: "I Rarely Wake Up Dreaming @ New York Film Festival",
+      about: "A queer drama about the war in Ukraine, then a Q&A with the filmmakers",
+      place: "Walter Reade Theater, Lincoln Center"
+    },
+    ru: {
+      title: "I Rarely Wake Up Dreaming на Нью-Йоркском кинофестивале",
+      about: "Квир-драма о войне в Украине и встреча с создателями",
+      place: "Walter Reade Theater, Линкольн-центр"
+    },
     link: "https://partiful.com/e/Wk0xVWGj0xb29TJtS1E3"
   },
   {
     dates: ["2026-10-10"],
-    title: "Halloween with Qaravan: Come Carve Pumpkins With Us!",
-    ru: "Вырезаем тыквы: приносите свою, глинтвейн за нами",
-    meta: "5:00 PM · Уильямсбург",
+    time: "17:00",
+    type: "community",
+    en: {
+      title: "Halloween with Qaravan: Come Carve Pumpkins With Us!",
+      about: "Bring a pumpkin; carving tools and mulled wine are on us",
+      place: "Williamsburg, Brooklyn"
+    },
+    ru: {
+      title: "Вырезаем тыквы к Хеллоуину",
+      about: "Приносите тыкву, инструменты и глинтвейн за нами",
+      place: "Уильямсбург, Бруклин"
+    },
     link: "https://partiful.com/e/thbg9ZfG4Zgh5H2g6xJT"
   },
   {
     dates: ["2026-10-24"],
-    title: "Queer Halloween Hike to the Deserted Village",
-    ru: "Хайк в костюмах к заброшенной деревне XIX века",
-    meta: "сбор 8:40 AM · Starbucks внутри Port Authority",
+    time: "08:40",
+    type: "community",
+    en: {
+      title: "Queer Halloween Hike to the Deserted Village",
+      about: "A hike in costume to a 19th-century village in New Jersey",
+      place: "Meeting point: Starbucks inside Port Authority"
+    },
+    ru: {
+      title: "Квир-хайк на Хеллоуин к заброшенной деревне",
+      about: "Идём в костюмах к деревне XIX века в Нью-Джерси",
+      place: "Сбор: Starbucks внутри Port Authority"
+    },
     link: "https://partiful.com/e/TkZ4SDVBeAAA5ic7rs74"
   }
 ];
@@ -189,58 +322,130 @@ const ARCHIVE = [
     events: [
       {
         dates: ["2026-09-03", "2026-09-10", "2026-09-16", "2026-09-24"],
-        title: "Support Group with Gina",
-        ru: "Группа поддержки, вход по анкете",
-        meta: "7:30 PM · Zoom",
+        time: "19:30",
+        type: "support",
+        en: {
+          title: "Support Group with Gina",
+          about: "A support group you join through a short form",
+          place: "Online"
+        },
+        ru: {
+          title: "Группа поддержки с Джиной",
+          about: "Встречаемся онлайн, вход по анкете",
+          place: "Онлайн"
+        },
         link: "https://form.typeform.com/to/dbH75jNe"
       },
       {
         dates: ["2026-09-06"],
-        title: "Art Class with Lilu",
-        ru: "Акварель с натуры: рисуем фонтан Bethesda",
-        meta: "11:30 AM · Central Park",
+        time: "11:30",
+        type: "culture",
+        en: {
+          title: "Art Class with Lilu",
+          about: "Watercolor from life: painting Bethesda Fountain",
+          place: "Central Park"
+        },
+        ru: {
+          title: "Акварель у фонтана Bethesda",
+          about: "Рисуем с натуры в Центральном парке",
+          place: "Центральный парк"
+        },
         link: "https://partiful.com/e/N43yk4Hu89fHcEC1c3bZ"
       },
       {
         dates: ["2026-09-12"],
-        title: "Support Group with Simon",
-        ru: "Группа равной поддержки, вход по анкете",
-        meta: "11:00 AM · онлайн",
+        time: "11:00",
+        type: "support",
+        en: {
+          title: "Support Group with Simon",
+          about: "A peer support group you join through a short form",
+          place: "Online"
+        },
+        ru: {
+          title: "Группа равной поддержки с Саймоном",
+          about: "Встречаемся онлайн, вход по анкете",
+          place: "Онлайн"
+        },
         link: "https://forms.monday.com/forms/7bcb691e5cfa7a1a27851836a73928bd"
       },
       {
         dates: ["2026-09-19"],
-        title: "Qaravan Climbs Bull Hill",
-        ru: "Хайк над Гудзоном, 8,5 км, в конце — мороженое",
-        meta: "сбор 8:30 AM · Grand Central",
+        time: "08:30",
+        type: "community",
+        en: {
+          title: "Qaravan Climbs Bull Hill",
+          about: "An 8.5 km hike above the Hudson, ice cream at the end",
+          place: "Meeting point: Grand Central"
+        },
+        ru: {
+          title: "Поход на Bull Hill",
+          about: "Хайк над Гудзоном, 8,5 км, в конце — мороженое",
+          place: "Сбор: Grand Central"
+        },
         link: "https://partiful.com/e/6N0lOXvwZvJlFa3G6MGl"
       },
       {
         dates: ["2026-09-19"],
-        title: "Movie Night: Paris Is Burning",
-        ru: "Кинопоказ: балы и вогинг в Нью-Йорке восьмидесятых",
-        meta: "6:00 PM · адрес — после регистрации",
+        time: "18:00",
+        type: "culture",
+        en: {
+          title: "Movie Night: Paris Is Burning",
+          about: "Ballroom and voguing in 1980s New York",
+          place: "Address after you RSVP"
+        },
+        ru: {
+          title: "Кинопоказ «Paris Is Burning»",
+          about: "Балы и вогинг в Нью-Йорке восьмидесятых",
+          place: "Адрес — после регистрации"
+        },
         link: "https://partiful.com/e/Hx4woufRJ9eeHHznGkwc"
       },
       {
         dates: ["2026-09-20"],
-        title: "Bike Ride & Picnic in Prospect Park",
-        ru: "Два часа на велосипедах, в 2 PM — пикник",
-        meta: "12:00 PM · Grand Army Plaza",
+        time: "12:00",
+        type: "community",
+        en: {
+          title: "Bike Ride & Picnic in Prospect Park",
+          about: "Two hours on bikes, then a picnic at 2 PM",
+          place: "Grand Army Plaza"
+        },
+        ru: {
+          title: "Велопрогулка и пикник в Prospect Park",
+          about: "Два часа катаемся, в 14:00 — пикник",
+          place: "Grand Army Plaza"
+        },
         link: "https://partiful.com/e/sAIAUZPujCWJo5WEjVbT"
       },
       {
         dates: ["2026-09-21"],
-        title: "Midtown: Walking Tour",
-        ru: "Особняки, ар-деко и истории, которых нет в путеводителях",
-        meta: "7:00 PM · Мидтаун",
+        time: "19:00",
+        type: "community",
+        en: {
+          title: "Midtown: Walking Tour",
+          about: "Mansions, Art Deco and stories you won't find in guidebooks",
+          place: "Midtown"
+        },
+        ru: {
+          title: "Мидтаун: архитектура, которую не замечают",
+          about: "Особняки, ар-деко и истории, которых нет в путеводителях",
+          place: "Мидтаун"
+        },
         link: "https://partiful.com/e/JieZXWSi8UUxnHw318yv"
       },
       {
         dates: ["2026-09-26"],
-        title: "Community Help Desk with Ezra & Olga",
-        ru: "Документы, работа, жильё, врачи — подскажем, к кому идти",
-        meta: "11:30 AM · Brooklyn Public Library",
+        time: "11:30",
+        type: "resources",
+        en: {
+          title: "Community Help Desk with Ezra & Olga",
+          about: "Papers, work, housing, doctors: we'll tell you where to go",
+          place: "Brooklyn Public Library"
+        },
+        ru: {
+          title: "Час вопросов с Эзрой и Ольгой",
+          about: "Документы, работа, жильё, врачи — подскажем, к кому идти",
+          place: "Brooklyn Public Library"
+        },
         link: "https://partiful.com/e/LZQzvHq6SIkfflKwNx8c"
       }
     ]
@@ -250,58 +455,130 @@ const ARCHIVE = [
     events: [
       {
         dates: ["2026-08-01"],
-        title: "Pasta-Making Master Class",
-        ru: "Готовим орекьетте с нуля, мест всего 15",
-        meta: "5:00 PM · Бушвик",
+        time: "17:00",
+        type: "culture",
+        en: {
+          title: "Pasta-Making Master Class",
+          about: "Orecchiette from scratch, only 15 spots",
+          place: "Bushwick"
+        },
+        ru: {
+          title: "Готовим пасту с нуля: мастер-класс",
+          about: "Делаем орекьетте, мест всего 15",
+          place: "Бушвик"
+        },
         link: "https://partiful.com/e/wCQQnxGDkWSxgsp5FbxR"
       },
       {
         dates: ["2026-08-02"],
-        title: "9/11 Memorial Museum Visit",
-        ru: "Идём вместе, вход бесплатный для нью-йоркцев",
-        meta: "4:00 PM · билет — заранее",
+        time: "16:00",
+        type: "culture",
+        en: {
+          title: "9/11 Memorial Museum Visit",
+          about: "Going together; entry is free for New Yorkers",
+          place: "9/11 Memorial & Museum, tickets in advance"
+        },
+        ru: {
+          title: "Идём в музей 9/11",
+          about: "Идём вместе, вход бесплатный для нью-йоркцев",
+          place: "9/11 Memorial & Museum, билет — заранее"
+        },
         link: "https://partiful.com/e/i6yI4MnhRHYBkAEDmKAQ"
       },
       {
         dates: ["2026-08-03"],
-        title: "LGBTQ+ History Walking Tour",
-        ru: "Квир-история Нью-Йорка: Stonewall, Julius' и не только",
-        meta: "7:00 PM · Greenwich Village",
+        time: "19:00",
+        type: "culture",
+        en: {
+          title: "LGBTQ+ History Walking Tour",
+          about: "Stonewall, Julius' and more of queer New York",
+          place: "Greenwich Village"
+        },
+        ru: {
+          title: "Пеший тур по ЛГБТК+ истории Нью-Йорка",
+          about: "Stonewall, Julius' и другие места квир-истории",
+          place: "Гринвич-Виллидж"
+        },
         link: "https://partiful.com/e/bzdBwjr08VtbX5mWsufI"
       },
       {
         dates: ["2026-08-06", "2026-08-12", "2026-08-20", "2026-08-26"],
-        title: "Support Group with Gina",
-        ru: "Группа поддержки, вход по анкете",
-        meta: "7:30 PM · Zoom",
+        time: "19:30",
+        type: "support",
+        en: {
+          title: "Support Group with Gina",
+          about: "A support group you join through a short form",
+          place: "Online"
+        },
+        ru: {
+          title: "Группа поддержки с Джиной",
+          about: "Встречаемся онлайн, вход по анкете",
+          place: "Онлайн"
+        },
         link: "https://form.typeform.com/to/dbH75jNe"
       },
       {
         dates: ["2026-08-09"],
-        title: "United in Anger: A History of ACT UP",
-        ru: "Кинопоказ о движении ACT UP, мест 15",
-        meta: "6:00 PM · Бруклин",
+        time: "18:00",
+        type: "culture",
+        en: {
+          title: "United in Anger: A History of ACT UP",
+          about: "A documentary about ACT UP, 15 seats",
+          place: "Brooklyn"
+        },
+        ru: {
+          title: "Кинопоказ «United in Anger»: история ACT UP",
+          about: "Документальный фильм о движении ACT UP, 15 мест",
+          place: "Бруклин"
+        },
         link: "https://partiful.com/e/NGsRoEiKHozec7FFJYfF"
       },
       {
         dates: ["2026-08-13"],
-        title: "Beach Day: Rockaway",
-        ru: "Пляжный день на The People's Beach",
-        meta: "2:00 PM · Jacob Riis Park",
+        time: "14:00",
+        type: "community",
+        en: {
+          title: "Beach Day: Rockaway",
+          about: "A day at The People's Beach",
+          place: "Jacob Riis Park"
+        },
+        ru: {
+          title: "Пляжный день в Рокавее",
+          about: "Отдыхаем на The People's Beach",
+          place: "Jacob Riis Park"
+        },
         link: "https://partiful.com/e/4bEHkQT0nAkQIIAcCT3U"
       },
       {
         dates: ["2026-08-15"],
-        title: "Bear Mountain Hike & Swim",
-        ru: "Хайк, обед на вершине и бассейн",
-        meta: "сбор 8:10 AM · Port Authority",
+        time: "08:10",
+        type: "community",
+        en: {
+          title: "Bear Mountain Hike & Swim",
+          about: "A hike, lunch at the top, then the pool",
+          place: "Meeting point: Port Authority"
+        },
+        ru: {
+          title: "Хайк и купание на Bear Mountain",
+          about: "Хайк, обед на вершине и бассейн",
+          place: "Сбор: Port Authority"
+        },
         link: "https://partiful.com/e/9gIemtCpwA8zR7aCj1Yr"
       },
       {
         dates: ["2026-08-29"],
-        title: "Asylum Interview Experience: Q&A",
-        ru: "Что спрашивают в USCIS? Отвечают те, кто прошёл сам",
-        meta: "5:00 PM · место скоро",
+        time: "17:00",
+        type: "resources",
+        en: {
+          title: "Asylum Interview Experience: Q&A",
+          about: "What USCIS asks, answered by people who've been through it",
+          place: "NYC Pride office"
+        },
+        ru: {
+          title: "Интервью на убежище: вопросы и ответы",
+          about: "Что спрашивают в USCIS? Отвечают те, кто прошёл сам",
+          place: "Офис NYC Pride"
+        },
         link: "https://partiful.com/e/U2h85QFEd02MWl2phG5Y"
       }
     ]
@@ -309,94 +586,203 @@ const ARCHIVE = [
 ];
 
 // ── Дальше ничего менять не нужно ─────────────────────────────
-const COLORS = ["#E8890C", "#7B4FD8", "#2196D9", "#2E9E44", "#E23838"];
-const MONTHS_EN = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"];
-const MONTHS_RU = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
-const MONTHS_RU_NOM = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
-const DOW_RU = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
 
+// Пять типов событий и их цвета — как в дизайн-системе (Qaravan.EVENT_TYPES).
+// Названия типов по правилу дизайн-системы английские на обоих языках.
+const TYPES = {
+  support:   { color: "var(--q-purple)", label: "Support groups" },
+  community: { color: "var(--q-orange)", label: "Community" },
+  resources: { color: "var(--q-sky)",    label: "Resource navigation" },
+  culture:   { color: "var(--q-red)",    label: "Education & culture" },
+  action:    { color: "var(--q-yellow)", label: "Action & pride", yellow: true }
+};
+
+const T = {
+  ru: {
+    doc: "События QARAVAN",
+    eyebrow: "События QARAVAN",
+    upcoming: "Ближайшие события",
+    lead: "Нажмите на событие: там подробности и регистрация. Приходите с друзьями — на каком бы языке они ни говорили.",
+    empty: "Новые события скоро появятся.",
+    all: "Все", filter: "Тип события",
+    register: "Регистрация", apply: "Заполнить анкету", page: "Страница события",
+    past: "Прошедшие события",
+    tagline: "Русскоязычное ЛГБТК+ сообщество в США",
+    donate: "Поддержать QARAVAN",
+    months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+    monthsOf: ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"],
+    dow: ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"],
+    and: "и",
+    count: n => { const a = n % 10, b = n % 100;
+      return n + " " + (a === 1 && b !== 11 ? "событие" : a >= 2 && a <= 4 && (b < 12 || b > 14) ? "события" : "событий"); }
+  },
+  en: {
+    doc: "QARAVAN events",
+    eyebrow: "QARAVAN events",
+    upcoming: "Upcoming events",
+    lead: "Tap an event for details and registration. Our events are open to everyone, whatever language you speak.",
+    empty: "New events are coming soon.",
+    all: "All", filter: "Event type",
+    register: "Register", apply: "Fill in the form", page: "Event page",
+    past: "Past events",
+    tagline: "Russian-speaking LGBTQ+ community in the US",
+    donate: "Support QARAVAN",
+    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    short: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    dow: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    and: "and",
+    count: n => n + (n === 1 ? " event" : " events")
+  }
+};
+
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const sortedDates = e => [...e.dates].sort();
 const firstDate = e => sortedDates(e)[0];
-const monthOf = iso => iso.slice(0, 7);                       // "2026-10-03" → "2026-10"
-const byDate = (a, b) => firstDate(a).localeCompare(firstDate(b));
+const monthOf = iso => iso.slice(0, 7);
+const hhmm = t => String(t || "").padStart(5, "0");
+const byDate = (a, b) => firstDate(a).localeCompare(firstDate(b)) || hhmm(a.time).localeCompare(hhmm(b.time));
+const parts = iso => { const [y, m, d] = iso.split("-").map(Number); return { y, m, d, dow: new Date(Date.UTC(y, m - 1, d)).getUTCDay() }; };
+const text = (e, lang, key) => (e[lang] && e[lang][key]) || (e[lang === "ru" ? "en" : "ru"] || {})[key] || "";
+const typeOf = e => TYPES[e.type] ? e.type : "community";
+const list = (xs, and) => xs.length < 2 ? xs.join("") : xs.slice(0, -1).join(", ") + " " + and + " " + xs[xs.length - 1];
 
-function monthLabel(ym) {                                     // "2026-10" → { en: "OCTOBER", ru: "октября", nom: "Октябрь", year: 2026 }
-  const [y, m] = ym.split("-").map(Number);
-  return { en: MONTHS_EN[m - 1], ru: MONTHS_RU[m - 1], nom: MONTHS_RU_NOM[m - 1], year: y };
+function timeText(time, lang) {                              // "17:00" → «17:00» / «5:00 PM»
+  const m = /^(\d{1,2}):(\d{2})$/.exec(time || "");
+  if (!m) return time || "";
+  if (lang === "ru") return m[1].padStart(2, "0") + ":" + m[2];
+  const h = +m[1];
+  return (h % 12 || 12) + ":" + m[2] + (h < 12 ? " AM" : " PM");
 }
 
-function badgeFor(months) {                                   // ["2026-09", "2026-10"] → "SEPTEMBER – OCTOBER 2026"
-  const a = monthLabel(months[0]), b = monthLabel(months[months.length - 1]);
-  if (months.length === 1) return `${a.en} ${a.year}`;
-  return a.year === b.year ? `${a.en} – ${b.en} ${a.year}` : `${a.en} ${a.year} – ${b.en} ${b.year}`;
+// Строка «когда»: «СБ, 10 октября, 17:00» / «Sat, Oct 10, 5:00 PM».
+// Несколько дат: «3, 10, 16 и 24 сентября, 19:30» / «Sep 3, 10, 16 and 24, 7:30 PM».
+function whenText(e, lang) {
+  const t = T[lang], ds = sortedDates(e).map(parts), time = timeText(e.time, lang);
+  let day;
+  if (ds.length === 1) {
+    const x = ds[0];
+    day = lang === "ru" ? `${t.dow[x.dow]}, ${x.d} ${t.monthsOf[x.m - 1]}` : `${t.dow[x.dow]}, ${t.short[x.m - 1]} ${x.d}`;
+  } else {
+    const groups = [];
+    for (const x of ds) {
+      const g = groups[groups.length - 1];
+      if (g && g.m === x.m) g.days.push(x.d); else groups.push({ m: x.m, days: [x.d] });
+    }
+    day = lang === "ru"
+      ? list(groups.map(g => `${list(g.days, t.and)} ${t.monthsOf[g.m - 1]}`), t.and)
+      : list(groups.map(g => `${t.short[g.m - 1]} ${g.days.join(", ")}`), t.and);
+    if (lang === "en" && groups.length === 1) day = `${t.short[groups[0].m - 1]} ${list(groups[0].days, t.and)}`;
+  }
+  return time ? `${day}, ${time}` : day;
 }
 
-// Колонка с датой: числа (по два в строке) и дни недели — считаются из dates.
-function dateColumn(e) {
-  const ds = sortedDates(e).map(iso => {
-    const [y, m, d] = iso.split("-").map(Number);
-    return { d, dow: DOW_RU[new Date(Date.UTC(y, m - 1, d)).getUTCDay()] };
-  });
-  const lines = [];
-  for (let i = 0; i < ds.length; i += 2) lines.push(ds.slice(i, i + 2).map(x => x.d).join(" · "));
-  return { num: lines.join("<br>"), small: ds.length > 1, dow: [...new Set(ds.map(x => x.dow))].join(" / ") };
+const ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+const CHEVRON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+
+function card(e, lang, past) {
+  const t = T[lang], k = typeOf(e), ty = TYPES[k];
+  const label = past ? t.page : k === "support" ? t.apply : t.register;
+  return `<article class="ev" lang="${lang}">
+      <div class="type"><span class="flag${ty.yellow ? " y" : ""}" style="--f:${ty.color}"></span><span lang="en">${ty.label}</span></div>
+      <h3>${esc(text(e, lang, "title"))}</h3>
+      <p class="about">${esc(text(e, lang, "about"))}</p>
+      <p class="when">${esc(whenText(e, lang))}</p>
+      <p class="place">${esc(text(e, lang, "place"))}</p>
+      <div class="foot"><a class="link" href="${esc(e.link)}">${label}${ARROW}</a></div>
+    </article>`;
 }
 
-function renderCards(events, offset = 0) {
-  return events.map((e, i) => {
-    const color = COLORS[(offset + i) % COLORS.length];
-    const d = dateColumn(e);
-    return `<a class="card" href="${e.link}">
-    <span class="date"><span class="num${d.small ? " small" : ""}" style="color:${color}">${d.num}</span><span class="dow">${d.dow}</span></span>
-    <span class="info">
-      <span class="title">${e.title}</span>
-      <span class="ru">${e.ru}</span>
-      <span class="meta">${e.meta}</span>
-    </span>
-    <span class="arrow">›</span>
-  </a>`;
-  }).join("");
+// ── Язык: ?lang=en в адресе, потом выбор человека, потом язык браузера ──
+const LANG_KEY = "qaravan-events-lang";
+function initialLang() {
+  const q = new URLSearchParams(location.search).get("lang");
+  if (q === "ru" || q === "en") return q;
+  try { const s = localStorage.getItem(LANG_KEY); if (s === "ru" || s === "en") return s; } catch (_) {}
+  const prefs = navigator.languages || [navigator.language || ""];
+  return prefs.some(l => /^(ru|uk|be|kk)\b/i.test(l)) ? "ru" : "en";
 }
-
-function plural(n) {
-  const m10 = n % 10, m100 = n % 100;
-  if (m10 === 1 && m100 !== 11) return n + " событие";
-  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return n + " события";
-  return n + " событий";
-}
+let lang = initialLang(), filter = "all";
 
 const upcoming = [...EVENTS].sort(byDate);
 const months = [...new Set(upcoming.map(e => monthOf(firstDate(e))))];
-const badge = months.length ? badgeFor(months) : "";
-document.getElementById("badge").textContent = badge;
-document.getElementById("badge").style.display = badge ? "" : "none";
-document.getElementById("title").textContent = months.length === 1 ? "События " + monthLabel(months[0]).ru : "Ближайшие события";
-document.title = "События QARAVAN" + (badge ? " — " + badge.toLowerCase() : "");
+const archive = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month));
 
-// Если впереди события из разных месяцев, между ними — подпись с месяцем.
-let shown = 0;
-document.getElementById("list").innerHTML = !upcoming.length
-  ? `<p class="empty">Новые события скоро появятся 🧡</p>`
-  : months.map(ym => {
-      const part = upcoming.filter(e => monthOf(firstDate(e)) === ym);
-      const html = (months.length > 1 ? `<div class="month">${monthLabel(ym).nom}</div>` : "") + renderCards(part, shown);
-      shown += part.length;
-      return html;
-    }).join("");
+function render() {
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.title = t.doc;
+  document.querySelectorAll(".tab").forEach(b => {
+    const on = b.dataset.lang === lang;
+    b.setAttribute("aria-selected", on); b.tabIndex = on ? 0 : -1;
+  });
 
-document.getElementById("archive").innerHTML = [...ARCHIVE].sort((a, b) => b.month.localeCompare(a.month)).map(m => {
-  const l = monthLabel(m.month), events = [...m.events].sort(byDate);
-  return `<details class="archive">
-    <summary>
-      <span class="arch-info">
-        <span class="arch-label">${l.en} ${l.year}</span>
-        <span class="arch-title">События ${l.ru} <span class="arch-count">· ${plural(events.length)}</span></span>
-      </span>
-      <span class="arch-hint"><span class="show">Показать</span><span class="hide">Скрыть</span> <span class="chev">›</span></span>
-    </summary>
-    <div class="past">${renderCards(events)}</div>
-  </details>`;
-}).join("");
+  const monthName = ym => { const [y, m] = ym.split("-").map(Number); return { name: t.months[m - 1], y }; };
+  let range = "";
+  if (months.length) {
+    const a = monthName(months[0]), b = monthName(months[months.length - 1]);
+    range = months.length === 1 ? `${a.name} ${a.y}` : a.y === b.y ? `${a.name} – ${b.name} ${a.y}` : `${a.name} ${a.y} – ${b.name} ${b.y}`;
+  }
+  document.getElementById("eyebrow").innerHTML = `<span class="flag" style="--f:var(--q-sky)"></span>${esc(range || t.eyebrow)}`;
+  document.getElementById("title").textContent = t.upcoming;
+  document.getElementById("lead").textContent = t.lead;
+
+  // Фильтр: «Все» и только те типы, что есть среди ближайших событий
+  const present = Object.keys(TYPES).filter(k => upcoming.some(e => typeOf(e) === k));
+  if (!present.includes(filter)) filter = "all";
+  const fl = document.getElementById("filter");
+  fl.setAttribute("aria-label", t.filter);
+  fl.hidden = present.length < 2;
+  fl.innerHTML = `<button type="button" class="fchip" data-type="all" aria-pressed="${filter === "all"}">${t.all}</button>` +
+    present.map(k => `<button type="button" class="fchip" data-type="${k}" aria-pressed="${filter === k}"><span class="flag${TYPES[k].yellow ? " y" : ""}" style="--f:${TYPES[k].color}"></span><span lang="en">${TYPES[k].label}</span></button>`).join("");
+
+  const shown = upcoming.filter(e => filter === "all" || typeOf(e) === filter);
+  const shownMonths = months.filter(ym => shown.some(e => monthOf(firstDate(e)) === ym));
+  document.getElementById("list").innerHTML = !shown.length
+    ? `<p class="empty">${t.empty}</p>`
+    : shownMonths.map(ym => {
+        const part = shown.filter(e => monthOf(firstDate(e)) === ym);
+        const head = months.length > 1 ? `<h2 class="month">${monthName(ym).name}</h2>` : "";
+        return head + `<div class="grid">${part.map(e => card(e, lang)).join("")}</div>`;
+      }).join("");
+
+  const open = new Set([...document.querySelectorAll("#archive details[open]")].map(d => d.dataset.month));
+  document.getElementById("past").hidden = !archive.length;
+  document.getElementById("past-title").textContent = t.past;
+  document.getElementById("archive").innerHTML = archive.map(m => {
+    const l = monthName(m.month), events = [...m.events].sort(byDate);
+    return `<details data-month="${m.month}"${open.has(m.month) ? " open" : ""}>
+      <summary><span>${l.name} ${l.y} <span class="count">· ${t.count(events.length)}</span></span>${CHEVRON}</summary>
+      <div class="grid">${events.map(e => card(e, lang, true)).join("")}</div>
+    </details>`;
+  }).join("");
+
+  document.getElementById("tagline").textContent = t.tagline;
+  document.getElementById("donate").textContent = t.donate;
+}
+
+function setLang(next) {
+  if (next === lang) return;
+  lang = next;
+  try { localStorage.setItem(LANG_KEY, lang); } catch (_) {}
+  const u = new URL(location.href); u.searchParams.set("lang", lang);
+  try { history.replaceState(null, "", u); } catch (_) {}
+  render();
+}
+
+document.querySelectorAll(".tab").forEach((b, i, all) => {
+  b.addEventListener("click", () => setLang(b.dataset.lang));
+  b.addEventListener("keydown", ev => {
+    const j = ev.key === "ArrowRight" ? (i + 1) % all.length : ev.key === "ArrowLeft" ? (i - 1 + all.length) % all.length : -1;
+    if (j < 0) return;
+    ev.preventDefault(); setLang(all[j].dataset.lang); all[j].focus();
+  });
+});
+document.getElementById("filter").addEventListener("click", ev => {
+  const b = ev.target.closest(".fchip");
+  if (b) { filter = b.dataset.type; render(); }
+});
+
+render();
 </script>
 </body>
 </html>

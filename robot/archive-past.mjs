@@ -36,19 +36,44 @@ function extract(html, name) {
 
 function checkDates(e, where) {
   if (!Array.isArray(e.dates) || !e.dates.length || !e.dates.every(d => /^\d{4}-\d{2}-\d{2}$/.test(d))) {
-    throw new Error(`${where}: у события «${e.title}» dates должны быть списком дат вида "ГГГГ-ММ-ДД"`);
+    throw new Error(`${where}: у события «${name(e)}» dates должны быть списком дат вида "ГГГГ-ММ-ДД"`);
   }
   return [...new Set(e.dates)].sort();
 }
 
-const byDate = (a, b) => a.dates[0].localeCompare(b.dates[0]);
-const KEYS = ["dates", "title", "ru", "meta", "link"];
+// Страница двуязычная: у каждого события должны быть обе половины, en и ru.
+const TYPES = ["support", "community", "resources", "culture", "action"];
+const LANG_KEYS = ["title", "about", "place"];
+const name = e => (e && e.en && e.en.title) || (e && e.ru && e.ru.title) || (e && e.title) || "без названия";
+function checkEvent(e, where) {
+  const problems = [];
+  if (!TYPES.includes(e.type)) problems.push(`type должен быть одним из: ${TYPES.join(", ")}`);
+  if (e.time != null && !/^([01]?\d|2[0-3]):[0-5]\d$/.test(e.time)) problems.push(`time должно быть вида "19:30", а не «${e.time}»`);
+  for (const lang of ["en", "ru"]) {
+    if (!e[lang] || typeof e[lang] !== "object") { problems.push(`нет блока ${lang}: { title, about, place }`); continue; }
+    for (const k of LANG_KEYS) if (typeof e[lang][k] !== "string" || !e[lang][k].trim()) problems.push(`пустое ${lang}.${k}`);
+  }
+  if (typeof e.link !== "string" || !e.link.trim()) problems.push("пустая ссылка link");
+  if (problems.length) throw new Error(`${where}: у события «${name(e)}» ${problems.join("; ")}`);
+  return checkDates(e, where);
+}
+
+const hhmm = t => String(t || "").padStart(5, "0");
+const byDate = (a, b) => a.dates[0].localeCompare(b.dates[0]) || hhmm(a.time).localeCompare(hhmm(b.time));
+const KEYS = ["dates", "time", "type", "en", "ru", "link"];
 const str = s => JSON.stringify(String(s));
 
+function langText(block, pad) {
+  const keys = [...LANG_KEYS.filter(k => block[k] != null), ...Object.keys(block).filter(k => !LANG_KEYS.includes(k))];
+  return `{\n${keys.map(k => `${pad}  ${k}: ${typeof block[k] === "string" ? str(block[k]) : JSON.stringify(block[k])}`).join(",\n")}\n${pad}}`;
+}
 function eventText(e, indent) {
   const pad = " ".repeat(indent), outer = " ".repeat(indent - 2);
   const lines = [`${pad}dates: [${e.dates.map(str).join(", ")}]`];
-  for (const k of KEYS.slice(1)) if (e[k] != null) lines.push(`${pad}${k}: ${str(e[k])}`);
+  for (const k of KEYS.slice(1)) {
+    if (e[k] == null) continue;
+    lines.push(`${pad}${k}: ${k === "en" || k === "ru" ? langText(e[k], pad) : str(e[k])}`);
+  }
   for (const k of Object.keys(e)) if (!KEYS.includes(k)) lines.push(`${pad}${k}: ${JSON.stringify(e[k])}`);
   return `${outer}{\n${lines.join(",\n")}\n${outer}}`;
 }
@@ -64,7 +89,7 @@ if (ev.end > ar.start) throw new Error("EVENTS должен идти в файл
 // Делим каждое событие на прошедшие и будущие даты.
 const upcoming = [], moved = [];
 for (const e of ev.value) {
-  const dates = checkDates(e, "EVENTS");
+  const dates = checkEvent(e, "EVENTS");
   const past = dates.filter(d => d < today), future = dates.filter(d => d >= today);
   if (past.length) moved.push({ ...e, dates: past });
   if (future.length) upcoming.push({ ...e, dates: future });
@@ -75,19 +100,19 @@ if (!moved.length) {
   process.exit(0);
 }
 
-// Складываем прошедшее в архив: по месяцам, одно и то же событие (название +
-// ссылка) внутри месяца — одной карточкой со всеми его датами.
+// Складываем прошедшее в архив: по месяцам, одно и то же событие (английское
+// название + ссылка) внутри месяца — одной карточкой со всеми его датами.
 const archive = ar.value.map(m => {
   if (!/^\d{4}-\d{2}$/.test(m.month)) throw new Error(`ARCHIVE: month должен быть вида "ГГГГ-ММ", а не «${m.month}»`);
-  return { ...m, events: (m.events || []).map(e => ({ ...e, dates: checkDates(e, "ARCHIVE") })) };
+  return { ...m, events: (m.events || []).map(e => ({ ...e, dates: checkEvent(e, "ARCHIVE") })) };
 });
 for (const e of moved) {
-  console.log(`→ в архив: ${e.title} (${e.dates.join(", ")})`);
+  console.log(`→ в архив: ${name(e)} (${e.dates.join(", ")})`);
   for (const d of e.dates) {
     const month = d.slice(0, 7);
     let m = archive.find(x => x.month === month);
     if (!m) archive.push(m = { month, events: [] });
-    const same = m.events.find(x => x.title === e.title && x.link === e.link);
+    const same = m.events.find(x => name(x) === name(e) && x.link === e.link);
     if (same) same.dates = [...new Set([...same.dates, d])].sort();
     else m.events.push({ ...e, dates: [d] });
   }
