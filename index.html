@@ -12,6 +12,7 @@
 <link rel="preload" href="assets/fonts/FiraSansCondensed-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FiraSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FiraSansCondensed-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/partiful-logo.png" as="image">
 <link rel="preload" href="assets/margosha.svg" as="image">
 <link rel="preload" href="assets/telegram-logo.svg" as="image">
 <style>
@@ -204,9 +205,9 @@
   .strip-foot.one-row .pager > *{flex:1 1 auto; min-height:60px; padding-inline:12px}
   .strip-foot .follow.is-cal, .strip-foot.one-row .pager + .follow.is-cal{grid-column:1 / -1}
 
-  /* Кнопки «Подписаться в Partiful» и «Напоминания в Telegram»: одна форма, одна высота,
-     квадратная плашка слева. Partiful — основная тёмная кнопка, только текст (логотип
-     Partiful без разрешения не используем) и знак «плюс» дизайн-системы. Telegram —
+  /* Кнопки «Подпишитесь на нас в Partiful» и «Получайте напоминания в Telegram»: одна форма,
+     одна высота, квадратная плашка слева. Partiful — основная тёмная кнопка: знак «плюс»
+     дизайн-системы, «Follow us on» и белый логотип Partiful. Telegram —
      белая с графитовой рамкой: слева Маргоша, справа официальный логотип Telegram
      без изменений и отдельно от Маргоши. */
   .follow{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
@@ -259,6 +260,10 @@
   .cta-label{font:600 17px/1.15 var(--font-head); letter-spacing:.01em}
   .cta-sub{margin-top:2px; font:400 15px/1.25 var(--font-brand)}
   .cta-partiful .cta-sub{color:rgba(255,255,255,.82)}
+  /* «Follow us on» + логотип Partiful (белый, файл с сайта Partiful без изменений, только уменьшен):
+     низ слова partiful стоит на одной линии с текстом */
+  .cta-pf-label{display:flex; flex-wrap:wrap; align-items:center; gap:2px 7px}
+  .cta-pf{display:block; flex:none; width:auto; height:24px; position:relative; top:1px}
   .cta-telegram .cta-sub{color:var(--q-muted)}
   .cta-go{flex:none; margin-left:auto; padding-left:4px; display:flex}
   .cta-go svg{width:14px; height:14px}
@@ -766,7 +771,7 @@ const T = {
     allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`, back: "Назад",
     showing: (a, b, n) => a === b ? `Событие ${a} из ${n}` : `События ${a}–${b} из ${n}`,
     upcomingTab: "Ближайшие", pastTab: "Прошедшие", viewLabel: "События",
-    followGroup: "Следите за нашими событиями", followLabel: "Подпишитесь на нас в Partiful", followSub: "Узнавайте о новых событиях первыми",
+    followGroup: "Следите за нашими событиями", followOn: "Подпишитесь на нас в", followSub: "Узнавайте о новых событиях первыми",
     tgLabel: "Получайте напоминания в Telegram", tgSub: "Присылает наш бот Маргоша", newTab: "(откроется в новой вкладке)",
     calLabel: "Подпишитесь на наш календарь", calSub: "Календарь Qaravan Events, который пополняется с каждым новым событием", calLangLabel: "Язык календаря", calLead: "Подпишитесь в:",
     calGoogle: "Google Календаре", calApple: "«Календаре» на iPhone, iPad или Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Ссылка на календарь",
@@ -795,7 +800,7 @@ const T = {
     allEvents: "All events", more: n => `${n} more ${n === 1 ? "event" : "events"}`, back: "Back",
     showing: (a, b, n) => a === b ? `Event ${a} of ${n}` : `Events ${a}–${b} of ${n}`,
     upcomingTab: "Upcoming", pastTab: "Past", viewLabel: "Events",
-    followGroup: "Keep up with our events", followLabel: "Follow us on Partiful", followSub: "Be the first to know about new events",
+    followGroup: "Keep up with our events", followOn: "Follow us on", followSub: "Be the first to know about new events",
     tgLabel: "Get reminders on Telegram", tgSub: "Sent by Margosha, our bot", newTab: "(opens in a new tab)",
     calLabel: "Subscribe to our calendar", calSub: "Qaravan Events calendar that updates as events are added", calLangLabel: "Calendar language", calLead: "Subscribe in:",
     calGoogle: "Google Calendar", calApple: "Calendar on iPhone, iPad or Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Calendar link",
@@ -942,7 +947,7 @@ function followHTML() {
   return `<div class="follow" role="group" aria-label="${t.followGroup}">
       <a class="cta cta-partiful" href="${PARTIFUL}"${ext}>
         <span class="cta-mark" aria-hidden="true">${PLUS}</span>
-        <span class="cta-text"><span class="cta-label">${t.followLabel}</span><span class="cta-sub">${t.followSub}</span></span>
+        <span class="cta-text"><span class="cta-label cta-pf-label">${t.followOn} <img class="cta-pf" src="assets/partiful-logo.png" width="88" height="24" alt="Partiful"></span><span class="cta-sub">${t.followSub}</span></span>
         <span class="cta-go" aria-hidden="true">${ARROW}</span>${nt}
       </a>
       <a class="cta cta-telegram" href="${TELEGRAM_BOT}"${ext}>
