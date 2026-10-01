@@ -40,6 +40,10 @@ The page follows the QARAVAN design system (the org's default Design System arti
 
 `qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the nightly robot rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours). The feeds start at `FROM = "2026-08-01"` in the script: the history before it (imported from Partiful into `ARCHIVE`) stays on the page but out of subscribers' calendars.
 
+## Counting subscribers and clicks
+
+`COUNTER` in `index.html` is the GoatCounter site code (`qaravan` means https://qaravan.goatcounter.com); empty switches counting off. It counts views of the page and both embeds (`/`, `/embed/home`, `/embed/events`), opening the calendar panel (`calendar-open`), each way to subscribe with the feed language (`calendar-google-en`, `calendar-apple-ru`, `calendar-outlook-…`, `calendar-copy-…`), Partiful (`partiful-follow`) and Telegram (`telegram-reminders`) clicks, and `calendar-unique-people` / `partiful-unique-people` / `telegram-unique-people`, sent once per device (a localStorage flag) to count different people. No cookies, no personal data, nothing under Do Not Track / Global Privacy Control or outside events.qaravan.org. Never add Google Analytics or anything that identifies a person: this community's privacy comes first. To count another button, give it `data-count="name"` (plus `data-once="name"` for a once-per-device count) and a title in `COUNT_TITLES`.
+
 Never use RUSA anywhere (links, text, handles): the organization is QARAVAN. Telegram: https://t.me/+KkHErPk38VA3Yzgy
 
 Never use the middle dot (`·`, `•`) anywhere: not as a separator, not in titles, labels, feeds or comments. Write a sentence, a comma, a slash between the two languages, or a muted second line instead.

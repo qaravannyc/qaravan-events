@@ -5333,6 +5333,46 @@ const PARTIFUL = "https://partiful.com/u/kNieh2yCJV6BRLw4dLVx";
 const TELEGRAM_BOT = "https://t.me/qaravan_door_bot";
 const FEED = l => `https://events.qaravan.org/qaravan-events-${l}.ics`;
 const cal = { open: false, lang: null };
+
+// Счётчик GoatCounter: сколько раз выбирают способ подписаться на календарь, Partiful и
+// Telegram, сколько это разных людей, и просмотры страницы и обеих вставок. Без cookie и без
+// личных данных; не считаем при «Do Not Track» / Global Privacy Control и вне events.qaravan.org.
+// «…-unique-people» уходит один раз с устройства: браузер только помнит, что уже посчитан.
+// COUNTER — адрес сайта в GoatCounter (qaravan → qaravan.goatcounter.com); пусто — счётчик выключен.
+const COUNTER = "";
+const COUNT_ON = !!COUNTER && location.hostname === "events.qaravan.org"
+  && navigator.doNotTrack !== "1" && window.doNotTrack !== "1" && navigator.globalPrivacyControl !== true;
+const COUNT_TITLES = {
+  "calendar-open": "Calendar: opened the subscribe panel",
+  "calendar-google": "Calendar: Google Calendar", "calendar-apple": "Calendar: Apple Calendar",
+  "calendar-outlook": "Calendar: Outlook", "calendar-copy": "Calendar: copied the link",
+  "calendar-unique-people": "Calendar: different people who chose a way to subscribe (once per device)",
+  "partiful-follow": "Partiful: Follow us on Partiful",
+  "partiful-unique-people": "Partiful: different people who clicked Follow (once per device)",
+  "telegram-reminders": "Telegram: Get reminders on Telegram",
+  "telegram-unique-people": "Telegram: different people who clicked Get reminders (once per device)",
+};
+function count(path, title, event) {
+  if (!COUNT_ON) return;
+  const q = new URLSearchParams({ p: path, t: title, e: event ? "true" : "false" });
+  if (!event) { q.set("s", [screen.width, screen.height, devicePixelRatio || 1].join(",")); if (!EMBED) q.set("r", document.referrer); }
+  q.set("rnd", Math.random().toString(36).slice(2));
+  const url = `https://${COUNTER}.goatcounter.com/count?${q}`;
+  try { fetch(url, { mode: "no-cors", credentials: "omit", keepalive: true }); } catch (_) { new Image().src = url; }
+}
+function countOnce(what) {
+  let first = true;
+  try { const k = "qaravan-counted-" + what; if (localStorage.getItem(k)) first = false; else localStorage.setItem(k, "1"); } catch (_) {}
+  if (first) count(what + "-unique-people", COUNT_TITLES[what + "-unique-people"], true);
+}
+// data-count="calendar-google-en" — что нажали (и язык календаря), data-once="calendar" — для «разных людей»
+document.addEventListener("click", ev => {
+  const el = ev.target.closest("[data-count]");
+  if (!el) return;
+  const path = el.dataset.count, base = path.replace(/-(en|ru)$/, "");
+  count(path, (COUNT_TITLES[base] || path) + (path !== base ? (path.endsWith("-ru") ? ", Russian" : ", English") : ""), true);
+  if (el.dataset.once) countOnce(el.dataset.once);
+}, true);
 const UA = navigator.userAgent || "";
 const IS_ANDROID = /Android/i.test(UA), IS_PHONE = IS_ANDROID || /iPhone|iPad|iPod/i.test(UA) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 const CAL_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 3.5h11v10h-11zM2.5 7h11M5.5 1.5v3M10.5 1.5v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
@@ -5352,11 +5392,11 @@ function calPanelHTML() {
       </div>
       <p class="cal-lead">${t.calLead}</p>
       <div class="cal-options">
-        <a class="cal-opt" href="${google}"${ext}>${t.calGoogle}${ARROW}</a>
-        ${IS_ANDROID ? "" : `<a class="cal-opt" href="${webcal}"${ext}>${t.calApple}${ARROW}</a>`}
-        ${IS_PHONE ? "" : `<a class="cal-opt" href="${outlook}"${ext}>${t.calOutlook}${ARROW}</a>`}
+        <a class="cal-opt" href="${google}"${ext} data-count="calendar-google-${cl}" data-once="calendar">${t.calGoogle}${ARROW}</a>
+        ${IS_ANDROID ? "" : `<a class="cal-opt" href="${webcal}"${ext} data-count="calendar-apple-${cl}" data-once="calendar">${t.calApple}${ARROW}</a>`}
+        ${IS_PHONE ? "" : `<a class="cal-opt" href="${outlook}"${ext} data-count="calendar-outlook-${cl}" data-once="calendar">${t.calOutlook}${ARROW}</a>`}
       </div>
-      <div class="cal-copy"><input class="cal-url" type="text" readonly value="${feed}" aria-label="${t.calUrlLabel}"><button type="button" class="cal-copy-btn" data-cal="copy">${t.calCopy}</button></div>
+      <div class="cal-copy"><input class="cal-url" type="text" readonly value="${feed}" aria-label="${t.calUrlLabel}"><button type="button" class="cal-copy-btn" data-cal="copy" data-count="calendar-copy-${cl}" data-once="calendar">${t.calCopy}</button></div>
       <p class="cal-note">${IS_PHONE ? t.calPhoneGoogle + " " : ""}${t.calNote}</p>
       <p class="cal-tm">${t.calTrademarks}</p>
     </div></div>`;
@@ -5366,17 +5406,17 @@ function followHTML() {
   if (cal.open) return calPanelHTML();
   const t = T[lang], ext = EMBED ? ` target="_blank" rel="noopener"` : "", nt = EMBED ? `<span class="qv-sr"> ${t.newTab}</span>` : "";
   return `<div class="follow" role="group" aria-label="${t.followGroup}">
-      <a class="cta cta-partiful" href="${PARTIFUL}"${ext}>
+      <a class="cta cta-partiful" href="${PARTIFUL}"${ext} data-count="partiful-follow" data-once="partiful">
         <span class="cta-mark" aria-hidden="true">${PLUS}</span>
         <span class="cta-text"><span class="cta-label cta-pf-label">${t.followOn} <img class="cta-pf" src="assets/partiful-logo.png" width="88" height="24" alt="Partiful"></span><span class="cta-sub">${t.followSub}</span></span>
         <span class="cta-go" aria-hidden="true">${ARROW}</span>${nt}
       </a>
-      <a class="cta cta-telegram" href="${TELEGRAM_BOT}"${ext}>
+      <a class="cta cta-telegram" href="${TELEGRAM_BOT}"${ext} data-count="telegram-reminders" data-once="telegram">
         <img class="cta-avatar" src="assets/margosha.svg" width="40" height="40" alt="">
         <span class="cta-text"><span class="cta-label">${t.tgLabel}</span><span class="cta-sub">${t.tgSub}</span></span>
         <img class="cta-tg" src="assets/telegram-logo.svg" width="24" height="24" alt="">${nt}
       </a>
-      <button type="button" class="cta cta-cal" data-cal="open" aria-expanded="false">
+      <button type="button" class="cta cta-cal" data-cal="open" aria-expanded="false" data-count="calendar-open">
         <span class="cta-mark ink" aria-hidden="true">${CAL_ICON}</span>
         <span class="cta-text"><span class="cta-label">${t.calLabel}</span><span class="cta-sub">${t.calSub}</span></span>
         <span class="cta-go" aria-hidden="true">${ARROW}</span>
@@ -5623,6 +5663,7 @@ const fontsIn = document.fonts && document.fonts.load
   : Promise.resolve();
 fontsIn.then(() => {
   cardIndex = 0; render();
+  count(PAGE ? "/embed/events" : EMBED ? "/embed/home" : "/", PAGE ? "qaravan.org/events (embed)" : EMBED ? "qaravan.org home page (embed)" : "events.qaravan.org", false);
   const c = document.documentElement.classList;
   c.add("entering"); c.remove("loading");
   setTimeout(() => c.remove("entering"), 1400);   // дальше (фильтр, язык) — без анимации
