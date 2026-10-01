@@ -41,3 +41,5 @@ The page follows the QARAVAN design system (the org's default Design System arti
 `qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the nightly robot rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours).
 
 Never use RUSA anywhere (links, text, handles): the organization is QARAVAN. Telegram: https://t.me/+KkHErPk38VA3Yzgy
+
+Never use the middle dot (`·`, `•`) anywhere: not as a separator, not in titles, labels, feeds or comments. Write a sentence, a comma, a slash between the two languages, or a muted second line instead.

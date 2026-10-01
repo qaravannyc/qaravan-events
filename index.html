@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>События QARAVAN · QARAVAN events</title>
+<title>События QARAVAN / QARAVAN events</title>
 <meta name="description" content="Ближайшие события QARAVAN в Нью-Йорке. Upcoming QARAVAN events in New York.">
-<meta property="og:title" content="События QARAVAN · QARAVAN events">
+<meta property="og:title" content="События QARAVAN / QARAVAN events">
 <meta property="og:description" content="Все ближайшие события в одном месте. All upcoming events in one place.">
 <meta name="theme-color" content="#ffffff">
 <link rel="preload" href="assets/fonts/FiraSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
@@ -119,7 +119,7 @@
   .acc summary:hover{background:var(--q-line)}
   .acc summary:focus-visible{outline-offset:-3px}
   .acc details[open] summary{box-shadow:inset 6px 0 0 var(--q-sky); padding-left:22px}
-  .acc summary .count{color:var(--q-muted); font-weight:400}
+  .acc summary .count{margin-left:10px; color:var(--q-muted); font-weight:400}
   .acc summary svg{width:16px; height:16px; flex:none; transition:transform .15s ease-out}
   .acc details[open] summary svg{transform:rotate(180deg)}
   .acc .grid{padding:8px 0 24px}
@@ -169,7 +169,9 @@
   .strip-title .flag{font-size:16px}
   .strip-title .count{font:400 16px/1.2 var(--font-brand); color:var(--q-muted); letter-spacing:0}
   .strip-head .end{display:flex; align-items:center; gap:20px; margin-left:auto}
-  .mini{display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:16px}
+  .strip{--gap:16px}
+  @media (min-width:680px){ .strip{--gap:20px} }
+  .mini{display:grid; grid-template-columns:repeat(var(--cols,4),minmax(0,1fr)); gap:var(--gap)}
   /* Все карточки одного размера: высота — по самой высокой из всех событий (ближайших и прошедших) */
   .grid .ev, .mini .ev{height:var(--card-h, auto)}
   .measure{height:0; overflow:hidden; visibility:hidden; align-items:start}
@@ -177,7 +179,6 @@
   .measuring *{animation:none !important}
   .strip .filter{margin:0 0 16px}
   .tab .tab-count{font-weight:400; opacity:.75; margin-left:4px}
-  @media (min-width:680px){ .mini{gap:20px} }
   .mini .ev{padding:14px 16px 10px}
   .mini .ev .type{font-size:13px; gap:7px}
   .mini .ev .type .flag{font-size:13px}
@@ -189,9 +190,19 @@
   .mini .link{min-height:28px; font-size:15px}
   /* Кнопка под карточками: всегда видна — «Ещё N событий» или «Все события» */
   .pager{display:flex; flex-wrap:wrap; gap:12px}
-  /* Нижний ряд вставки: листание слева, кнопки «Partiful» и «Telegram» справа */
-  .strip-foot{display:flex; flex-wrap:wrap; align-items:stretch; justify-content:space-between; gap:12px 16px; margin-top:16px}
-  .strip-foot .follow{margin-left:auto}
+  /* Низ вставки стоит на той же сетке, что и карточки (те же колонки и промежутки), поэтому
+     края кнопок совпадают с краями карточек. Три колонки: листание строкой выше, под ним три
+     кнопки — по одной под каждой колонкой. Четыре колонки: всё в один ряд, листание в первой.
+     Узко: всё друг под другом во всю ширину. */
+  .strip-foot{display:grid; grid-template-columns:repeat(var(--cols,1),minmax(0,1fr)); gap:12px var(--gap); margin-top:var(--gap)}
+  .strip-foot > *{grid-column:1 / -1}
+  .strip-foot .follow{width:auto; grid-template-columns:repeat(var(--fcols,1),minmax(0,1fr)); gap:12px var(--gap)}
+  .strip-foot.one-row .pager{grid-column:1}
+  .strip-foot.one-row .follow{grid-column:1 / span 3}
+  .strip-foot.one-row .pager + .follow{grid-column:2 / span 3}
+  .strip-foot.one-row .pager{flex-wrap:nowrap}
+  .strip-foot.one-row .pager > *{flex:1 1 auto; min-height:60px; padding-inline:12px}
+  .strip-foot .follow.is-cal, .strip-foot.one-row .pager + .follow.is-cal{grid-column:1 / -1}
 
   /* Кнопки «Подписаться в Partiful» и «Напоминания в Telegram»: одна форма, одна высота,
      квадратная плашка слева. Partiful — основная тёмная кнопка, только текст (логотип
@@ -199,7 +210,7 @@
      белая с графитовой рамкой: слева Маргоша, справа официальный логотип Telegram
      без изменений и отдельно от Маргоши. */
   .follow{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
-  .intro .follow{width:100%}
+  .intro .follow{width:100%; column-gap:24px}
   html.embed .cta-sub{display:none}
   @media (max-width:759px){ .follow{grid-template-columns:1fr; width:100%} }
   button.cta{font:inherit; text-align:left}
@@ -268,7 +279,6 @@
     .pager > *{flex:1 1 auto}
     .strip-head > .tabs{flex:1 1 100%}
     .strip-head > .tabs .tab{flex:1 1 0; min-width:0; padding:6px 8px}
-    .strip-foot > *, .strip-foot .follow{width:100%; margin-left:0}
     .follow{grid-template-columns:1fr; grid-auto-rows:1fr}
     .follow .cta{width:100%}
     .strip-foot .more, .strip-foot .back{min-height:60px}
@@ -327,19 +337,19 @@
 //     и нажмите карандаш («Edit this file») справа сверху.
 //  2. Меняйте ТОЛЬКО текст в кавычках в списке EVENTS ниже.
 //     Одно событие = один блок в фигурных скобках { ... }.
-//     • Добавить — скопируйте любой блок и поправьте текст.
-//     • Отменили — сотрите его блок целиком (вместе с запятой).
-//     • dates — дата события в виде "ГГГГ-ММ-ДД". Если событие повторяется
+//     - Добавить — скопируйте любой блок и поправьте текст.
+//     - Отменили — сотрите его блок целиком (вместе с запятой).
+//     - dates — дата события в виде "ГГГГ-ММ-ДД". Если событие повторяется
 //       (как группа поддержки) — все даты через запятую в одном блоке:
 //       dates: ["2026-10-01", "2026-10-08", "2026-10-15"].
 //       На сайте каждая дата показывается отдельной карточкой.
-//     • time — время начала по 24 часа: "19:30". У поездок — время сбора.
+//     - time — время начала по 24 часа: "19:30". У поездок — время сбора.
 //       Страница сама пишет «19:30» по-русски и «7:30 PM» по-английски.
-//     • type — тип события, как в колонке Category на доске monday:
+//     - type — тип события, как в колонке Category на доске monday:
 //       "support" — группы поддержки, "community" — хайки, пикники, встречи,
 //       "resources" — помощь с документами и Q&A, "culture" — кино, книги,
 //       мастер-классы, музеи, "action" — прайды и волонтёрство.
-//     • en и ru — одно и то же событие на двух языках, каждое полностью:
+//     - en и ru — одно и то же событие на двух языках, каждое полностью:
 //       title — название, about — описание события (до 280 знаков, показывается целиком),
 //       place — где («Сбор: Grand Central» / «Meeting point: Grand Central»).
 //     Число, день недели, месяц и порядок карточек страница считает сама.
@@ -758,7 +768,7 @@ const T = {
     upcomingTab: "Ближайшие", pastTab: "Прошедшие", viewLabel: "События",
     followGroup: "Следите за нашими событиями", followLabel: "Подпишитесь на нас в Partiful", followSub: "Узнавайте о новых событиях первыми",
     tgLabel: "Получайте напоминания в Telegram", tgSub: "Присылает наш бот Маргоша", newTab: "(откроется в новой вкладке)",
-    calLabel: "Подпишитесь на наш календарь", calSub: "Qaravan Events · обновляется сам", calLangLabel: "Язык календаря", calLead: "Подпишитесь в:",
+    calLabel: "Подпишитесь на наш календарь", calSub: "Календарь Qaravan Events, который пополняется с каждым новым событием", calLangLabel: "Язык календаря", calLead: "Подпишитесь в:",
     calGoogle: "Google Календаре", calApple: "«Календаре» на iPhone, iPad или Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Ссылка на календарь",
     calCopy: "Скопировать ссылку", calCopied: "Скопировано", calCopyFail: "Выделите ссылку и скопируйте", calClose: "Закрыть",
     calNote: "Новые события появятся в календаре сами. В Google Календаре — в течение суток.",
@@ -787,7 +797,7 @@ const T = {
     upcomingTab: "Upcoming", pastTab: "Past", viewLabel: "Events",
     followGroup: "Keep up with our events", followLabel: "Follow us on Partiful", followSub: "Be the first to know about new events",
     tgLabel: "Get reminders on Telegram", tgSub: "Sent by Margosha, our bot", newTab: "(opens in a new tab)",
-    calLabel: "Subscribe to our calendar", calSub: "Qaravan Events · updates on its own", calLangLabel: "Calendar language", calLead: "Subscribe in:",
+    calLabel: "Subscribe to our calendar", calSub: "Qaravan Events calendar that updates as events are added", calLangLabel: "Calendar language", calLead: "Subscribe in:",
     calGoogle: "Google Calendar", calApple: "Calendar on iPhone, iPad or Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Calendar link",
     calCopy: "Copy link", calCopied: "Copied", calCopyFail: "Select the link and copy it", calClose: "Close",
     calNote: "New events appear on their own. Google Calendar can take up to a day to show them.",
@@ -979,7 +989,7 @@ function stripHTML(items, start, fit, cols) {
         (start > 0 ? `<button type="button" class="back" data-go="back">${ARROW_BACK}${t.back}</button>` : "") +
         (rest ? `<button type="button" class="more" data-go="next">${t.more(rest)}${ARROW}</button>` : "") + `</div>`
     : "";
-  const foot = `<div class="strip-foot" style="--i:${Math.min(fit, 8)}">${pager}${followHTML()}</div>`;
+  const foot = `<div class="strip-foot${cols >= 4 ? " one-row" : ""}" style="--i:${Math.min(fit, 8)}; --cols:${cols}; --fcols:${cols >= 3 ? 3 : 1}">${pager}${followHTML()}</div>`;
   return `<p class="qv-sr" aria-live="polite">${n ? t.showing(start + 1, start + Math.min(fit, n - start), n) : ""}</p>` + head +
     (n ? `<div class="mini" style="--cols:${cols}">${items.slice(start, start + fit).map(e => card(e, lang, past)).join("")}</div>`
        : `<p class="empty">${t.empty}</p>`) + foot;
@@ -1102,7 +1112,7 @@ function render() {
   document.getElementById("archive").innerHTML = archive.map(m => {
     const l = monthName(m.month), events = perDate(m.events).sort(byDate);
     return `<details data-month="${m.month}"${open.has(m.month) ? " open" : ""}>
-      <summary><span>${l.name} ${l.y} <span class="count">· ${t.count(events.length)}</span></span>${CHEVRON}</summary>
+      <summary><span>${l.name} ${l.y} <span class="count">${t.count(events.length)}</span></span>${CHEVRON}</summary>
       <div class="grid">${events.map(e => card(e, lang, true)).join("")}</div>
     </details>`;
   }).join("");
