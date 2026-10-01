@@ -198,7 +198,42 @@
      Partiful без разрешения не используем) и знак «плюс» дизайн-системы. Telegram —
      белая с графитовой рамкой: слева Маргоша, справа официальный логотип Telegram
      без изменений и отдельно от Маргоши. */
-  .follow{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
+  .follow{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
+  .intro .follow{width:100%}
+  html.embed .cta-sub{display:none}
+  @media (max-width:759px){ .follow{grid-template-columns:1fr; width:100%} }
+  button.cta{font:inherit; text-align:left}
+  .cta-cal{background:var(--q-white); color:var(--q-ink)}
+  .cta-cal:hover{background:var(--q-line)}
+  .cta-cal .cta-sub{color:var(--q-muted)}
+  .cta-mark.ink{background:var(--q-ink); color:var(--q-white)}
+
+  /* Панель «Подписаться на календарь»: язык календаря, Google / Apple / Outlook,
+     ссылка для всего остального. Названия сервисов — только текстом (без логотипов). */
+  .follow.is-cal{display:block; width:100%}
+  .cal{background:var(--q-white); border:2px solid var(--q-ink); padding:14px 18px 12px}
+  .cal-head{display:flex; flex-wrap:wrap; align-items:center; gap:10px 16px}
+  .cal-title{display:inline-flex; align-items:center; gap:10px; margin:0 auto 0 0; font:700 22px/1.1 var(--font-head); letter-spacing:-.005em}
+  .cal-title svg{width:18px; height:18px}
+  .cal-lang{display:inline-flex; align-items:center; gap:10px}
+  .cal-lang-label{font:400 15px/1.2 var(--font-brand); color:var(--q-muted)}
+  .cal-close{display:grid; place-items:center; width:44px; height:44px; padding:0; border:2px solid var(--q-ink); background:var(--q-white); color:var(--q-ink); cursor:pointer}
+  .cal-close:hover{background:var(--q-line)}
+  .cal-close svg{width:16px; height:16px}
+  .cal-lead{margin-top:10px; font:600 16px/1.3 var(--font-brand)}
+  .cal-options{display:flex; flex-wrap:wrap; gap:10px; margin-top:8px}
+  .cal-opt{display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:8px 16px; background:var(--q-ink); color:var(--q-white);
+    font:600 17px/1.15 var(--font-head); letter-spacing:.01em; text-decoration:none}
+  .cal-opt:hover{box-shadow:inset 0 0 0 999px rgba(0,0,0,.14)}
+  .cal-opt svg{width:14px; height:14px; flex:none}
+  .cal-copy{display:flex; gap:8px; margin-top:10px}
+  .cal-url{flex:1; min-width:0; min-height:44px; padding:8px 12px; border:2px solid var(--q-edge); background:var(--q-white); color:var(--q-ink); font:400 15px/1.2 var(--font-brand)}
+  .cal-url:focus{border-color:var(--q-ink)}
+  .cal-copy-btn{min-height:44px; padding:8px 16px; border:2px solid var(--q-ink); background:var(--q-white); color:var(--q-ink); font:600 17px/1.15 var(--font-head); cursor:pointer; white-space:nowrap}
+  .cal-copy-btn:hover{background:var(--q-line)}
+  .cal-note{margin-top:8px; font:400 15px/1.4 var(--font-brand); color:var(--q-muted)}
+  .cal-tm{margin-top:4px; font:400 12px/1.4 var(--font-brand); color:var(--q-muted)}
+  @media (max-width:479px){ .cal-options > *{flex:1 1 100%} .cal-copy{flex-wrap:wrap} .cal-copy-btn{flex:1 1 100%} .cal-lang{width:100%} }
   .cta{display:flex; align-items:center; gap:12px; min-height:60px; padding:8px 16px 8px 8px; border:2px solid var(--q-ink);
     text-decoration:none; cursor:pointer}
   .cta-partiful{background:var(--q-ink); color:var(--q-white)}
@@ -721,8 +756,14 @@ const T = {
     allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`, back: "Назад",
     showing: (a, b, n) => a === b ? `Событие ${a} из ${n}` : `События ${a}–${b} из ${n}`,
     upcomingTab: "Ближайшие", pastTab: "Прошедшие", viewLabel: "События",
-    followGroup: "Следите за нашими событиями", followLabel: "Подписаться на нас в Partiful", followSub: "Узнавайте о новых событиях первыми",
-    tgLabel: "Напоминания в Telegram", tgSub: "Присылает наш бот Маргоша", newTab: "(откроется в новой вкладке)",
+    followGroup: "Следите за нашими событиями", followLabel: "Подпишитесь на нас в Partiful", followSub: "Узнавайте о новых событиях первыми",
+    tgLabel: "Получайте напоминания в Telegram", tgSub: "Присылает наш бот Маргоша", newTab: "(откроется в новой вкладке)",
+    calLabel: "Подпишитесь на наш календарь", calSub: "Qaravan Events · обновляется сам", calLangLabel: "Язык календаря", calLead: "Подпишитесь в:",
+    calGoogle: "Google Календаре", calApple: "«Календаре» на iPhone, iPad или Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Ссылка на календарь",
+    calCopy: "Скопировать ссылку", calCopied: "Скопировано", calCopyFail: "Выделите ссылку и скопируйте", calClose: "Закрыть",
+    calNote: "Новые события появятся в календаре сами. В Google Календаре — в течение суток.",
+    calPhoneGoogle: "В Google Календаре подписаться можно только с компьютера, на телефоне — по ссылке.",
+    calTrademarks: "Google Календарь — товарный знак Google LLC. Apple, iPhone, iPad и Mac — товарные знаки Apple Inc. Microsoft и Outlook — товарные знаки Microsoft. QARAVAN с этими компаниями не связан.",
     lead: "Нажмите на событие: там подробности и регистрация. Приходите с друзьями — на каком бы языке они ни говорили.",
     empty: "Новые события скоро появятся.",
     all: "Все", filter: "Тип события",
@@ -746,6 +787,12 @@ const T = {
     upcomingTab: "Upcoming", pastTab: "Past", viewLabel: "Events",
     followGroup: "Keep up with our events", followLabel: "Follow us on Partiful", followSub: "Be the first to know about new events",
     tgLabel: "Get reminders on Telegram", tgSub: "Sent by Margosha, our bot", newTab: "(opens in a new tab)",
+    calLabel: "Subscribe to our calendar", calSub: "Qaravan Events · updates on its own", calLangLabel: "Calendar language", calLead: "Subscribe in:",
+    calGoogle: "Google Calendar", calApple: "Calendar on iPhone, iPad or Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Calendar link",
+    calCopy: "Copy link", calCopied: "Copied", calCopyFail: "Select the link and copy it", calClose: "Close",
+    calNote: "New events appear on their own. Google Calendar can take up to a day to show them.",
+    calPhoneGoogle: "Google Calendar lets you subscribe only from a computer; on a phone, use the link.",
+    calTrademarks: "Google Calendar is a trademark of Google LLC. Apple, iPhone, iPad and Mac are trademarks of Apple Inc. Microsoft and Outlook are trademarks of Microsoft. QARAVAN is not affiliated with these companies.",
     lead: "Tap an event for details and registration. Our events are open to everyone, whatever language you speak.",
     empty: "New events are coming soon.",
     all: "All", filter: "Event type",
@@ -848,8 +895,39 @@ const PAST = perDate(ARCHIVE.flatMap(m => m.events)).sort((a, b) => byDate(b, a)
 const stripCols = () => innerWidth >= 1200 ? 4 : innerWidth >= 760 ? 3 : innerWidth >= 480 ? 2 : 1;
 const PARTIFUL = "https://partiful.com/u/kNieh2yCJV6BRLw4dLVx";
 const TELEGRAM_BOT = "https://t.me/qaravan_door_bot";
+const FEED = l => `https://events.qaravan.org/qaravan-events-${l}.ics`;
+const cal = { open: false, lang: null };
+const UA = navigator.userAgent || "";
+const IS_ANDROID = /Android/i.test(UA), IS_PHONE = IS_ANDROID || /iPhone|iPad|iPod/i.test(UA) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const CAL_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 3.5h11v10h-11zM2.5 7h11M5.5 1.5v3M10.5 1.5v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+const CLOSE = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
+function calPanelHTML() {
+  const t = T[lang], cl = cal.lang || lang, feed = FEED(cl), webcal = feed.replace(/^https:/, "webcal:");
+  const google = `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(webcal)}`;
+  const outlook = `https://outlook.live.com/calendar/0/addfromweb?url=${encodeURIComponent(feed)}&name=${encodeURIComponent("Qaravan Events")}`;
+  const ext = EMBED ? ` target="_blank" rel="noopener"` : "";
+  const tabs = `<div class="tabs" role="tablist" aria-label="${t.calLangLabel}">` + ["en", "ru"].map(l =>
+    `<button class="tab" type="button" role="tab" data-cal-lang="${l}" lang="${l}" aria-selected="${cl === l}" tabindex="${cl === l ? 0 : -1}">${l === "en" ? "English" : "Русский"}</button>`).join("") + `</div>`;
+  return `<div class="follow is-cal"><div class="cal" role="region" aria-labelledby="cal-title">
+      <div class="cal-head">
+        <h3 class="cal-title" id="cal-title">${CAL_ICON}Qaravan Events</h3>
+        <span class="cal-lang"><span class="cal-lang-label">${t.calLangLabel}</span>${tabs}</span>
+        <button type="button" class="cal-close" data-cal="close" aria-label="${t.calClose}">${CLOSE}</button>
+      </div>
+      <p class="cal-lead">${t.calLead}</p>
+      <div class="cal-options">
+        <a class="cal-opt" href="${google}"${ext}>${t.calGoogle}${ARROW}</a>
+        ${IS_ANDROID ? "" : `<a class="cal-opt" href="${webcal}"${ext}>${t.calApple}${ARROW}</a>`}
+        ${IS_PHONE ? "" : `<a class="cal-opt" href="${outlook}"${ext}>${t.calOutlook}${ARROW}</a>`}
+      </div>
+      <div class="cal-copy"><input class="cal-url" type="text" readonly value="${feed}" aria-label="${t.calUrlLabel}"><button type="button" class="cal-copy-btn" data-cal="copy">${t.calCopy}</button></div>
+      <p class="cal-note">${IS_PHONE ? t.calPhoneGoogle + " " : ""}${t.calNote}</p>
+      <p class="cal-tm">${t.calTrademarks}</p>
+    </div></div>`;
+}
 const PLUS = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
 function followHTML() {
+  if (cal.open) return calPanelHTML();
   const t = T[lang], ext = EMBED ? ` target="_blank" rel="noopener"` : "", nt = EMBED ? `<span class="qv-sr"> ${t.newTab}</span>` : "";
   return `<div class="follow" role="group" aria-label="${t.followGroup}">
       <a class="cta cta-partiful" href="${PARTIFUL}"${ext}>
@@ -862,6 +940,11 @@ function followHTML() {
         <span class="cta-text"><span class="cta-label">${t.tgLabel}</span><span class="cta-sub">${t.tgSub}</span></span>
         <img class="cta-tg" src="assets/telegram-logo.svg" width="24" height="24" alt="">${nt}
       </a>
+      <button type="button" class="cta cta-cal" data-cal="open" aria-expanded="false">
+        <span class="cta-mark ink" aria-hidden="true">${CAL_ICON}</span>
+        <span class="cta-text"><span class="cta-label">${t.calLabel}</span><span class="cta-sub">${t.calSub}</span></span>
+        <span class="cta-go" aria-hidden="true">${ARROW}</span>
+      </button>
     </div>`;
 }
 const ARROW_BACK = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7 4L3 8l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>';
@@ -952,6 +1035,20 @@ if (EMBED) {
   });
 }
 
+// Кнопки под заголовком на events.qaravan.org (во вставках они внизу, в renderStrip)
+function renderFollow() {
+  if (EMBED) return renderStrip();
+  document.getElementById("follow").outerHTML = followHTML().replace('<div class="follow', '<div id="follow" class="follow');
+}
+async function copyFeed(btn) {
+  const input = btn.parentElement.querySelector(".cal-url"), t = T[lang];
+  let ok = false;
+  try { await navigator.clipboard.writeText(input.value); ok = true; } catch (_) {}
+  if (!ok) { input.focus(); input.select(); try { ok = document.execCommand("copy"); } catch (_) {} }
+  btn.textContent = ok ? t.calCopied : t.calCopyFail;
+  if (!ok) { input.focus(); input.select(); }
+}
+
 // Главная страница events.qaravan.org: все карточки одного размера — по самой высокой из всех
 function equalizeAll() {
   const main = document.querySelector("main");
@@ -978,7 +1075,7 @@ function render() {
   document.getElementById("eyebrow").innerHTML = `<span class="flag" style="--f:var(--q-sky)"></span>${esc(range || t.eyebrow)}`;
   document.getElementById("title").textContent = t.upcoming;
   document.getElementById("lead").textContent = t.lead;
-  document.getElementById("follow").outerHTML = followHTML().replace('<div class="follow"', '<div class="follow" id="follow"');
+  renderFollow();
 
   // Фильтр: «Все» и только те типы, что есть среди ближайших событий
   const present = Object.keys(TYPES).filter(k => upcoming.some(e => typeOf(e) === k));
@@ -1027,6 +1124,16 @@ function setLang(next) {
 }
 
 document.addEventListener("click", ev => {
+  const c = ev.target.closest("[data-cal], [data-cal-lang]");
+  if (c) {
+    if (c.dataset.calLang) { cal.lang = c.dataset.calLang; renderFollow(); const tab = document.querySelector(`[data-cal-lang="${cal.lang}"]`); if (tab) tab.focus(); return; }
+    if (c.dataset.cal === "copy") return copyFeed(c);
+    cal.open = c.dataset.cal === "open"; cal.lang = cal.open ? lang : null;
+    renderFollow();
+    const next = document.querySelector(cal.open ? ".cal .cal-opt" : '[data-cal="open"]');
+    if (next) next.focus({ preventScroll: true });
+    return;
+  }
   const l = ev.target.closest("[data-lang]");
   if (l) return setLang(l.dataset.lang);
   const inStrip = EMBED && ev.target.closest("#strip");
@@ -1046,13 +1153,18 @@ document.addEventListener("click", ev => {
 });
 // стрелки влево / вправо (и Home / End) внутри любого набора вкладок
 document.addEventListener("keydown", ev => {
+  if (ev.key === "Escape" && cal.open && ev.target.closest(".cal")) {
+    cal.open = false; cal.lang = null; renderFollow();
+    const b = document.querySelector('[data-cal="open"]'); if (b) b.focus({ preventScroll: true });
+    return;
+  }
   const tab = ev.target.closest('[role="tab"]');
   if (!tab) return;
   const tabs = [...tab.closest('[role="tablist"]').querySelectorAll('[role="tab"]')], i = tabs.indexOf(tab), n = tabs.length;
   const j = ev.key === "ArrowRight" ? (i + 1) % n : ev.key === "ArrowLeft" ? (i - 1 + n) % n : ev.key === "Home" ? 0 : ev.key === "End" ? n - 1 : -1;
   if (j < 0) return;
   ev.preventDefault();
-  const key = tabs[j].dataset.lang ? `[data-lang="${tabs[j].dataset.lang}"]` : `[data-view="${tabs[j].dataset.view}"]`;
+  const d = tabs[j].dataset, key = d.lang ? `[data-lang="${d.lang}"]` : d.view ? `[data-view="${d.view}"]` : `[data-cal-lang="${d.calLang}"]`;
   tabs[j].click();
   const again = (EMBED ? document.getElementById("strip") : document).querySelector(`[role="tab"]${key}`);
   if (again) again.focus();
