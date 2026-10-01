@@ -1002,13 +1002,19 @@ function stripHTML(items, start, fit, cols) {
 
 // Высота самой высокой карточки среди всех событий (ближайших и прошедших) при этой ширине:
 // её получают все карточки, поэтому размер не меняется ни от страницы, ни от вкладки, ни от фильтра.
+// Архив большой, поэтому мерим один раз на язык и ширину; догрузившийся шрифт сбрасывает запомненное.
+const tallCache = new Map();
+if (document.fonts) document.fonts.addEventListener("loadingdone", () => tallCache.clear());
 function tallestCard(host, cls, style) {
+  const key = [lang, cls, style || "", host.clientWidth].join("|");
+  if (tallCache.has(key)) return tallCache.get(key);
   const m = document.createElement("div");
   m.className = cls + " measure"; if (style) m.setAttribute("style", style);
   m.innerHTML = [...upcoming.map(e => card(e, lang)), ...PAST.map(e => card(e, lang, true))].join("");
   host.appendChild(m);
   let h = 0; m.querySelectorAll(".ev").forEach(e => { h = Math.max(h, e.getBoundingClientRect().height); });
   m.remove(); cardIndex = 0;
+  if (h) tallCache.set(key, Math.ceil(h));
   return Math.ceil(h);
 }
 

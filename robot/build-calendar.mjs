@@ -22,6 +22,9 @@ function extract(name) {
   return vm.runInNewContext("(" + html.slice(start, close + 2) + ")", Object.create(null), { timeout: 1000 });
 }
 const events = [...extract("EVENTS"), ...extract("ARCHIVE").flatMap(m => m.events || [])];
+// История до августа 2026 (перенесённая из Partiful в архив сайта) в календари не идёт:
+// подписчикам нужны новые события, а не сотни встреч прошлых лет в их календаре.
+const FROM = "2026-08-01";
 
 const TYPES = { support: "Support groups", community: "Community", resources: "Resource navigation", culture: "Education & culture", action: "Action & pride" };
 const TEXT = {
@@ -65,7 +68,7 @@ const VTIMEZONE = [
 
 function build(lang) {
   const t = TEXT[lang];
-  const perDate = events.flatMap(e => [...new Set(e.dates)].sort().map(d => ({ e, d })))
+  const perDate = events.flatMap(e => [...new Set(e.dates)].filter(d => d >= FROM).sort().map(d => ({ e, d })))
     .sort((a, b) => a.d.localeCompare(b.d) || String(a.e.time || "").padStart(5, "0").localeCompare(String(b.e.time || "").padStart(5, "0")));
   const lines = [
     "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//QARAVAN//Qaravan Events//" + lang.toUpperCase(), "CALSCALE:GREGORIAN",
