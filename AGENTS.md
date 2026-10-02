@@ -44,7 +44,7 @@ exactly what the bot will lose.
 - `?embed=1&lang=en` (qaravan.org home) and `?embed=page` (qaravan.org/events): the embed code lives on Wix, not here. Keep both parameters and `lang` working.
 - Support-group `link`s point to `https://feedback.qaravan.org/support/<name>`, served by qaravan-forms (`gina` and `simon` exist). Don't link a new name there before the form exists.
 - The page links the bot as `https://t.me/qaravan_door_bot`; a plain `/start` opens the reminder settings.
-- `https://events.qaravan.org/bio/`: the Instagram bio link (qaravan.org/insta redirects to it from Wix). Keep the path.
+- `https://events.qaravan.org/bio/`: the link in the Instagram bio of @qaravan_org. Keep the path. (There is no qaravan.org/insta or other short address for it.)
 
 ## What this repository depends on
 
@@ -132,7 +132,6 @@ The page follows the QARAVAN design system (the org's default Design System arti
 - Page code renders every team-written string as text (`h()`), accepts only http(s) addresses, and sets no cookies. `API_URL` in `bio/index.html` is the Worker address (empty = the page is read-only and shows `links.json`). The page counts clicks through the same GoatCounter `COUNTER` rules as `index.html` (`bio-link-<title>`, `bio-unique-people`; off while editing).
 - Try it locally with no Cloudflare account: `EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs`, open http://localhost:8787/bio/.
 - If the page moves to another domain, add it to `ALLOWED_ORIGINS` in events-robot `bio/deploy.mjs` and run the `bio worker` workflow.
-- qaravan.org is on Wix, so `qaravan.org/insta` is a redirect there (Wix redirect manager, or a Wix page with the same iframe code as the events embed) to `https://events.qaravan.org/bio/`.
 
 Never use RUSA anywhere (links, text, handles): the organization is QARAVAN. Telegram: https://t.me/+KkHErPk38VA3Yzgy
 
