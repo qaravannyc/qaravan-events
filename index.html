@@ -12220,10 +12220,14 @@ function renderStrip(anim) {
   el.classList.add("measuring");                                // меряем без анимации: иначе карточки «ниже» на 10 px
   // 1) одна высота на все карточки
   el.innerHTML = "";
-  el.style.setProperty("--card-h", tallestCard(el, "mini", `--cols:${cols}`) + "px");
+  const cardH = tallestCard(el, "mini", `--cols:${cols}`);
+  el.style.setProperty("--card-h", cardH + "px");
   // 2) столько целых рядов, сколько помещается в высоту вставки
   const fits = () => innerHeight < 120 || el.lastElementChild.getBoundingClientRect().bottom <= innerHeight + 0.5;
   let fit = items.length - start;
+  // Больше рядов, чем высота вставки / высота карточки, не влезет никогда: начинаем с этого числа,
+  // а не со всего архива (иначе сотни перерисовок на каждое нажатие «Ещё»).
+  if (innerHeight >= 120 && cardH > 0) fit = Math.min(fit, (Math.ceil(innerHeight / cardH) + 1) * cols);
   cardIndex = 0; el.innerHTML = stripHTML(items, start, fit, cols);
   while (fit > 1 && !fits()) {
     const rows = Math.ceil(fit / cols) - 1;
