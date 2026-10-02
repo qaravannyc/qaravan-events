@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>QARAVAN: ссылки / links</title>
-<meta name="description" content="Русскоязычное ЛГБТК+ сообщество в США. Russian-speaking LGBTQ+ community in the US.">
+<meta name="description" content="Все ссылки QARAVAN в одном месте. All QARAVAN links in one place.">
 <meta property="og:title" content="QARAVAN: ссылки / links">
 <meta property="og:description" content="Все ссылки QARAVAN в одном месте. All QARAVAN links in one place.">
 <meta name="theme-color" content="#ffffff">
@@ -216,7 +216,7 @@
     <div class="pub-col">
       <section class="intro">
         <div class="eyebrow"><span class="flag" style="--f:var(--q-sky)"></span>@qaravan_org</div>
-        <h1 id="title"></h1>
+        <h1 class="qv-sr">QARAVAN</h1>
       </section>
       <div class="links" id="links"></div>
       <noscript><p class="empty">QARAVAN: <a href="https://givebutter.com/qaravan">givebutter.com/qaravan</a>, <a href="https://events.qaravan.org">events.qaravan.org</a></p></noscript>
@@ -242,7 +242,7 @@
 //  Команда правит ссылки кнопкой «Редактировать ссылки» внизу страницы; руками здесь ничего
 //  менять не нужно. Подробности: AGENTS.md и README.md, раздел «Ссылки для Instagram bio».
 // ══════════════════════════════════════════════════════════════
-const API_URL = "";   // адрес воркера, например "https://qaravan-bio.<аккаунт>.workers.dev" (без слэша в конце)
+const API_URL = "https://qaravan-bio.jolly-bar-b5ed.workers.dev";   // воркер qaravan-bio на аккаунте Cloudflare QARAVAN (без слэша в конце)
 const LOCAL = ["localhost", "127.0.0.1"].includes(location.hostname);
 const API = LOCAL ? location.origin : API_URL;   // локально страницу и воркер отдаёт bio-worker/dev-server.mjs
 
@@ -275,7 +275,7 @@ document.addEventListener("click", ev => {
 // ── Тексты ──
 const T = {
   ru: {
-    doc: "QARAVAN: ссылки", tagline: "Русскоязычное ЛГБТК+ сообщество в США", empty: "Скоро здесь появятся ссылки.",
+    doc: "QARAVAN: ссылки", empty: "Скоро здесь появятся ссылки.",
     newTab: "(откроется в новой вкладке)", edit: "Редактировать ссылки",
     signInTitle: "Вход для команды", password: "Пароль", yourName: "Ваше имя для истории (необязательно)", signIn: "Войти", cancel: "Отмена", close: "Закрыть",
     wrongPassword: "Пароль не подошёл.", tooMany: "Слишком много попыток. Попробуйте через 15 минут.",
@@ -288,9 +288,9 @@ const T = {
     addLink: "Добавить ссылку", addHeading: "Добавить заголовок",
     help: "Перетащите ссылку за ручку слева или двигайте кнопками со стрелками. Главная ссылка — тёмная кнопка, обычная — рамка, тихая — строка текста. Правки появятся на странице только после «Опубликовать».",
     untitled: "Без названия",
-    titleEn: "Название по-английски", titleRu: "Название по-русски", url: "Адрес ссылки",
-    noteEn: "Подпись под названием, по-английски", noteRu: "Подпись под названием, по-русски", noteHint: "Необязательно. Одна короткая строка.",
-    badgeEn: "Метка по-английски", badgeRu: "Метка по-русски", badgeHint: "Необязательно. Например: New и Новое.",
+    titleEn: "Название, EN", titleRu: "Название, RU", url: "Адрес ссылки",
+    noteEn: "Подпись под названием, EN", noteRu: "Подпись под названием, RU", noteHint: "Необязательно. Одна короткая строка.",
+    badgeEn: "Метка, EN", badgeRu: "Метка, RU", badgeHint: "Необязательно. Например: New и Новое.",
     importance: "Важность", tier: { feature: "Главная", standard: "Обычная", quiet: "Тихая" },
     flagLabel: "Цвет флажка", flagNone: "Без флажка", flags: { red: "Красный", orange: "Оранжевый", yellow: "Жёлтый", green: "Зелёный", sky: "Голубой", purple: "Фиолетовый" },
     hideIt: "Скрыть со страницы", from: "Показывать с", until: "Показывать до", scheduleHint: "Даты по нью-йоркскому времени: ссылка сама появится и сама исчезнет.",
@@ -299,12 +299,14 @@ const T = {
     chipHeading: "Заголовок", chipHidden: "Скрыта", chipFrom: d => `С ${d}`, chipUntil: d => `До ${d}`, chipEnded: "Закончилась",
     conflictTitle: "Страницу уже изменили", conflictText: "Пока вы правили, кто-то опубликовал свою версию.", loadTheirs: "Загрузить их версию", overwrite: "Опубликовать мою",
     needTitle: "Добавьте название.", needUrl: "Проверьте адрес ссылки: он должен начинаться с https://",
+    changePw: "Сменить пароль", currentPw: "Нынешний пароль", newPw: "Новый пароль, не короче 8 знаков", repeatPw: "Новый пароль ещё раз", savePw: "Сменить",
+    pwMismatch: "Новые пароли не совпадают.", pwShort: "Новый пароль короче 8 знаков.", pwChanged: "Пароль сменён. Остальные выйдут из редактора и войдут уже с новым паролем.",
     current: "сейчас на странице", historyTitle: "Прежние версии", historyEmpty: "Пока нет прежних версий.", restore: "Вернуть", noName: "без имени",
     nLinks: n => { const a = n % 10, b = n % 100; return n + " " + (a === 1 && b !== 11 ? "ссылка" : a >= 2 && a <= 4 && (b < 12 || b > 14) ? "ссылки" : "ссылок"); },
     restored: n => `Версия ${n} загружена. Нажмите «Опубликовать», чтобы она появилась на странице.`
   },
   en: {
-    doc: "QARAVAN links", tagline: "Russian-speaking LGBTQ+ community in the US", empty: "Links are coming soon.",
+    doc: "QARAVAN links", empty: "Links are coming soon.",
     newTab: "(opens in a new tab)", edit: "Edit links",
     signInTitle: "Team sign-in", password: "Password", yourName: "Your name for the history (optional)", signIn: "Sign in", cancel: "Cancel", close: "Close",
     wrongPassword: "That password didn't work.", tooMany: "Too many tries. Please wait 15 minutes.",
@@ -317,9 +319,9 @@ const T = {
     addLink: "Add a link", addHeading: "Add a heading",
     help: "Drag a link by the handle on the left, or use the arrow buttons. A featured link is a dark button, a standard link has a frame, a quiet link is a line of text. Changes reach the page only after you press Publish.",
     untitled: "Untitled",
-    titleEn: "Title in English", titleRu: "Title in Russian", url: "Link address",
-    noteEn: "Line under the title, in English", noteRu: "Line under the title, in Russian", noteHint: "Optional. One short line.",
-    badgeEn: "Label in English", badgeRu: "Label in Russian", badgeHint: "Optional. For example: New and Новое.",
+    titleEn: "Title, EN", titleRu: "Title, RU", url: "Link address",
+    noteEn: "Line under the title, EN", noteRu: "Line under the title, RU", noteHint: "Optional. One short line.",
+    badgeEn: "Label, EN", badgeRu: "Label, RU", badgeHint: "Optional. For example: New and Новое.",
     importance: "Importance", tier: { feature: "Featured", standard: "Standard", quiet: "Quiet" },
     flagLabel: "Colour flag", flagNone: "No flag", flags: { red: "Red", orange: "Orange", yellow: "Yellow", green: "Green", sky: "Sky blue", purple: "Purple" },
     hideIt: "Hide from the page", from: "Show from", until: "Show until", scheduleHint: "Dates in New York time: the link appears and disappears on its own.",
@@ -328,6 +330,8 @@ const T = {
     chipHeading: "Heading", chipHidden: "Hidden", chipFrom: d => `From ${d}`, chipUntil: d => `Until ${d}`, chipEnded: "Ended",
     conflictTitle: "The page was changed", conflictText: "Someone published their version while you were editing.", loadTheirs: "Load their version", overwrite: "Publish mine anyway",
     needTitle: "Add a title.", needUrl: "Check the link address: it must start with https://",
+    changePw: "Change password", currentPw: "Current password", newPw: "New password, at least 8 characters", repeatPw: "New password again", savePw: "Change",
+    pwMismatch: "The new passwords don't match.", pwShort: "The new password is shorter than 8 characters.", pwChanged: "Password changed. Everyone else is signed out and will need the new password.",
     current: "live now", historyTitle: "Earlier versions", historyEmpty: "No earlier versions yet.", restore: "Restore", noName: "no name",
     nLinks: n => `${n} ${n === 1 ? "item" : "items"}`,
     restored: n => `Version ${n} loaded. Press Publish to put it on the page.`
@@ -417,9 +421,8 @@ function renderLinks() {
 function renderChrome() {
   document.documentElement.lang = S.lang;
   document.title = t().doc + (S.lang === "ru" ? " / links" : " / ссылки");
-  $("#title").textContent = t().tagline;
   $("#edit-open").textContent = t().edit;
-  $("#tabs").replaceChildren(...["ru", "en"].map(l => h("button", { class: "tab", type: "button", role: "tab", "data-lang": l, lang: l, "aria-label": l === "ru" ? "Русский" : "English", "aria-selected": String(l === S.lang), tabindex: l === S.lang ? "0" : "-1" }, l.toUpperCase())));
+  $("#tabs").replaceChildren(...["ru", "en"].map(l => h("button", { class: "tab", type: "button", role: "tab", "data-lang": l, lang: l, "aria-selected": String(l === S.lang), tabindex: l === S.lang ? "0" : "-1" }, l.toUpperCase())));
 }
 function renderAll() { renderChrome(); renderLinks(); if (S.editing) renderEditor(); }
 
@@ -498,13 +501,33 @@ function openLogin(message) {
       msg.hidden = true;
       const r = await api("/login", { method: "POST", body: { password: pw.value } });
       if (r.ok) {
-        S.token = r.data.token; S.name = nm.value.trim();
-        try { sessionStorage.setItem(TOKEN_KEY, JSON.stringify({ token: S.token, expires: r.data.expires, name: S.name })); } catch (_) {}
+        S.name = nm.value.trim(); saveToken(r.data);
         dlg.close(); enterEditing();
       } else say(r.status === 401 ? t().wrongPassword : r.status === 429 ? t().tooMany : r.status === 503 ? t().notReady : t().offline);
     } });
   pw.id = "pw"; nm.id = "nm";
   pw.focus();
+}
+function saveToken(d) {
+  S.token = d.token;
+  try { sessionStorage.setItem(TOKEN_KEY, JSON.stringify({ token: d.token, expires: d.expires, name: S.name })); } catch (_) {}
+}
+// Смена пароля: нужен нынешний пароль; все остальные после неё выходят из редактора
+function openChangePassword() {
+  const field2 = (id, label, ac) => { const el = h("input", { class: "in", type: "password", id, autocomplete: ac, required: true }); return [el, h("div", { class: "f" }, h("label", { for: id }, label), el)]; };
+  const [cur, curF] = field2("pw-cur", t().currentPw, "current-password"), [nx, nxF] = field2("pw-new", t().newPw, "new-password"), [rp, rpF] = field2("pw-rep", t().repeatPw, "new-password");
+  const msg = h("p", { class: "msg err", hidden: true });
+  const say = text => { msg.replaceChildren(flagEl("red"), text); msg.hidden = false; };
+  modal(t().changePw, [msg, curF, nxF, rpF], [{ label: t().savePw, primary: true, submit: true }, { label: t().cancel }], { onsubmit: async dlg => {
+    msg.hidden = true;
+    if (nx.value.length < 8) return say(t().pwShort);
+    if (nx.value !== rp.value) return say(t().pwMismatch);
+    const r = await api("/password", { method: "POST", auth: true, body: { password: cur.value, next: nx.value } });
+    if (r.ok) { saveToken(r.data); dlg.close(); toast(t().pwChanged); return; }
+    if (r.status === 401 && r.data && r.data.error === "unauthorized") { dlg.close(); signOut(); openLogin(t().sessionExpired); return; }
+    say(r.status === 401 ? t().wrongPassword : r.status === 429 ? t().tooMany : r.status === 400 ? t().pwShort : t().offline);
+  } });
+  cur.focus();
 }
 function openEditor() {
   if (!API) { toast(t().notReady, { error: true }); return; }
@@ -633,6 +656,7 @@ function renderEditor() {
     h("div", { class: "eadd emore" },
       h("button", { type: "button", class: "btn alt", onclick: openHistory }, t().history),
       h("button", { type: "button", class: "btn alt", onclick: exportCopy }, t().exportCopy),
+      h("button", { type: "button", class: "btn alt", onclick: openChangePassword }, t().changePw),
       h("button", { type: "button", class: "btn alt", onclick: leaveEditing }, t().signOut)),
     h("p", { class: "ehelp" }, t().help),
     h("div", { class: "eadd" },

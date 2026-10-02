@@ -9,7 +9,7 @@ other QARAVAN systems rely on. Keep it true: see "Keeping this file live".
 
 | Repository | What it is | Runs on |
 | - | - | - |
-| `qaravannyc/qaravan-events` (this one) | events.qaravan.org: the events page, its `EVENTS` and `ARCHIVE` lists, the embeds on qaravan.org, the `.ics` calendar feeds, the link-in-bio page `/bio/` | GitHub Pages from `main`; the bio page's backend (`bio-worker/`) on a Cloudflare Worker |
+| `qaravannyc/qaravan-events` (this one) | events.qaravan.org: the events page, its `EVENTS` and `ARCHIVE` lists, the embeds on qaravan.org, the `.ics` calendar feeds, the link-in-bio page `/bio/` | GitHub Pages from `main`; the bio page's backend (`bio-worker/`) on a Cloudflare Worker deployed from events-robot |
 | `qaravannyc/events-robot` | Robots between Partiful, monday.com, Gmail, Google Photos and Slack; the Telegram bot @qaravan_door_bot, which reads this page every hour | GitHub Actions, Cloudflare Workers |
 | `qaravannyc/qaravan-forms` | feedback.qaravan.org: feedback and survey forms, photo upload, support-group intake forms, monday webhooks | Vercel |
 
@@ -50,8 +50,8 @@ exactly what the bot will lose.
 
 - Content: the monday.com board "QARAVAN's Event Calendar" (id 4774572020) is where event details come from (Category to `type`, "Name (Russian)" to `ru.title`, "Short description" to `about`). No code here reads monday.
 - qaravan-forms for the `/support/<name>` intake pages; Partiful for event links.
-- Cloudflare Worker `qaravan-bio` (code in `bio-worker/`, one KV namespace `BIO`) stores the `/bio/` link list and checks the team password. It is deployed by hand with wrangler, not by an Action.
-- No secrets in this repository. Both workflows use only `GITHUB_TOKEN`. The bio page's password (`EDIT_PASSWORD`) exists only as a Cloudflare Worker secret: never write it into a file, a commit, a page or a log.
+- Cloudflare Worker `qaravan-bio` at https://qaravan-bio.jolly-bar-b5ed.workers.dev (QARAVAN's Cloudflare account, the same one as the Telegram bot; KV namespace `qaravan-bio-links`, binding `BIO`) stores the `/bio/` link list and the team password. Its code is `bio-worker/worker.mjs` here, but it is deployed by the `bio worker` workflow in events-robot (`bio/deploy.mjs`, with that repo's `CLOUDFLARE_API_TOKEN`), which takes the file from this repo's `main`. After changing `bio-worker/worker.mjs`, push here, then run that workflow (it also runs on changes to its own files there).
+- No secrets in this repository. Both workflows use only `GITHUB_TOKEN`. The bio password is kept only as a salted hash in the Worker's KV: never write the password into a file, a commit, a page, a log or a workflow input.
 
 ## Robots and schedules
 
@@ -123,14 +123,15 @@ The page follows the QARAVAN design system (the org's default Design System arti
 
 ### Link in bio (`/bio/`)
 
-`bio/index.html` is the Instagram bio page: wordmark, RU / EN switch, one narrow column of links, nothing else. The team edits it in the browser (footer button "Edit links" or `/bio/#edit`), not in git. The list lives in the Worker's KV (`bio-worker/worker.mjs`: `GET /links` public, `POST /login`, `PUT /links`, `GET /history`); `bio/links.json` is only the first list and the fallback when the Worker is unreachable or empty.
+`bio/index.html` is the Instagram bio page: wordmark, RU / EN switch, one narrow column of links, nothing else. The team edits it in the browser (footer button "Edit links" or `/bio/#edit`), not in git. The list lives in the Worker's KV (`bio-worker/worker.mjs`: `GET /links` and `GET /status` public, `POST /setup` once, `POST /login`, `POST /password`, `PUT /links`, `GET /history`); `bio/links.json` is only the first list and the fallback when the Worker is unreachable or empty.
 
 - Item: `{ id, type: "link" | "heading", title: {en, ru}, url, note: {en, ru}, badge: {en, ru}, tier: "feature" | "standard" | "quiet", flag, hidden, from, until }`. A missing language falls back to the other. `from` / `until` are inclusive New York dates; the Worker also drops hidden and out-of-schedule items from the public list. The shape is validated in `validateItems` (Worker) and `normalize` (page): change both together, and the tests.
 - Importance (`tier`) is the "highlight" control: featured is the ink button, standard the framed card, quiet a line of text. `flag` is one brand colour square, the only use of colour. Every card carries the same safety rules as the events page: no emoji, no middle dot, no RUSA.
-- Password: one shared team password, set with `npx wrangler secret put EDIT_PASSWORD` in `bio-worker/`. The Worker issues a 12 hour token (HMAC keyed by the password, so changing the password signs everybody out), allows 8 wrong tries per 15 minutes per hashed IP, keeps the last 40 versions with who and when, and answers 409 when two people publish over each other. Never put the password anywhere in this repo.
+- Password: one shared team password, at least 8 characters. KV keeps `auth` = a random salt and an HMAC of the password, never the password. `POST /setup` set the first one (it refuses once a password exists); the team changes it in the editor ("Change password", `POST /password`, needs the current one). Lost password: delete the `auth` key in the KV namespace in the Cloudflare dashboard and call `/setup` again. The Worker issues a 12 hour token (HMAC keyed by the stored hash, so a new password signs everybody out), allows 8 wrong tries per 15 minutes per hashed IP, keeps the last 40 versions with who and when, and answers 409 when two people publish over each other.
+- No "Russian" anywhere on the bio page (the owner's rule, 2026-10-02): no tagline under the handle, and the editor labels the two languages RU / EN.
 - Page code renders every team-written string as text (`h()`), accepts only http(s) addresses, and sets no cookies. `API_URL` in `bio/index.html` is the Worker address (empty = the page is read-only and shows `links.json`). The page counts clicks through the same GoatCounter `COUNTER` rules as `index.html` (`bio-link-<title>`, `bio-unique-people`; off while editing).
-- Try it locally with no Cloudflare account: `EDIT_PASSWORD=test node bio-worker/dev-server.mjs`, open http://localhost:8787/bio/.
-- First deploy (once, by someone with the Cloudflare account): `cd bio-worker`, `npx wrangler kv namespace create BIO`, paste the id into `wrangler.toml`, `npx wrangler secret put EDIT_PASSWORD`, `npx wrangler deploy`, then put the printed `https://qaravan-bio.<account>.workers.dev` into `API_URL`. If the page moves to another domain, add it to `ALLOWED_ORIGINS` in `wrangler.toml` and redeploy.
+- Try it locally with no Cloudflare account: `EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs`, open http://localhost:8787/bio/.
+- If the page moves to another domain, add it to `ALLOWED_ORIGINS` in events-robot `bio/deploy.mjs` and run the `bio worker` workflow.
 - qaravan.org is on Wix, so `qaravan.org/insta` is a redirect there (Wix redirect manager, or a Wix page with the same iframe code as the events embed) to `https://events.qaravan.org/bio/`.
 
 Never use RUSA anywhere (links, text, handles): the organization is QARAVAN. Telegram: https://t.me/+KkHErPk38VA3Yzgy

@@ -4,14 +4,18 @@
 //
 //   GET  /links         public list (hidden and out-of-schedule links removed);
 //                       with a valid token: the full list with everything
+//   GET  /status        {configured, version}: is a password set, which version is live
+//   POST /setup         {password}: sets the first team password; works once, when none is set
 //   POST /login         {password} -> {token, expires}; 8 wrong tries per 15 min per device
+//   POST /password      {password, next} (token) -> changes the password, returns a new token
 //   PUT  /links         {items, version, editor?, force?} (token) -> publishes a new version
 //   GET  /history       (token) the last versions: who, when, how many links
 //   GET  /history/<n>   (token) one earlier version, to restore it
 //
-// Secret: EDIT_PASSWORD (wrangler secret put EDIT_PASSWORD). It is never stored in the
-// repo or in the page. A token is "<expiry>.<HMAC of the expiry, keyed by the password>",
-// so changing the password signs everybody out.
+// The password is never stored in the repo, the page or a Cloudflare setting: KV keeps only
+// a random salt and an HMAC of the password ("auth"). A token is "<expiry>.<HMAC of the
+// expiry, keyed by that hash>", so changing the password signs everybody out.
+// Deployed by the "bio worker" workflow in qaravannyc/events-robot (bio/deploy.mjs).
 
 const TOKEN_HOURS = 12;
 const MAX_ITEMS = 80;
@@ -39,15 +43,26 @@ async function same(a, b) {
   return d === 0;
 }
 
-async function makeToken(env) {
+// ── Password: KV "auth" = { salt, hash }; hash = HMAC(salt, password) ──
+const MIN_PASSWORD = 8;
+const readAuth = env => env.BIO.get("auth", "json");
+async function writeAuth(env, password) {
+  const salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+  const auth = { salt, hash: await hmac(salt, password), changed: new Date().toISOString() };
+  await env.BIO.put("auth", JSON.stringify(auth));
+  return auth;
+}
+const checkPassword = async (auth, password) => !!auth && same(await hmac(auth.salt, String(password || "")), auth.hash);
+
+async function makeToken(auth) {
   const exp = Date.now() + TOKEN_HOURS * 3600 * 1000;
-  return { token: `${exp}.${await hmac(env.EDIT_PASSWORD, "bio:" + exp)}`, expires: exp };
+  return { token: `${exp}.${await hmac(auth.hash, "bio:" + exp)}`, expires: exp };
 }
 async function authed(request, env) {
-  if (!env.EDIT_PASSWORD) return false;
   const m = /^Bearer (\d+)\.([0-9a-f]{64})$/.exec(request.headers.get("authorization") || "");
   if (!m || Number(m[1]) < Date.now()) return false;
-  return same(m[2], await hmac(env.EDIT_PASSWORD, "bio:" + m[1]));
+  const auth = await readAuth(env);
+  return !!auth && same(m[2], await hmac(auth.hash, "bio:" + m[1]));
 }
 
 function cors(request, env) {
@@ -128,19 +143,35 @@ export default {
         return reply(data);
       }
 
-      if (path === "/login" && request.method === "POST") {
-        if (!env.EDIT_PASSWORD) return reply({ error: "not-configured" }, 503);
+      if (path === "/status" && request.method === "GET") {
+        return reply({ configured: !!(await readAuth(env)), version: (await readLinks(env)).version });
+      }
+
+      if (path === "/setup" && request.method === "POST") {
+        if (await readAuth(env)) return reply({ error: "already-set" }, 409);
+        let body = {};
+        try { body = await request.json(); } catch (_) {}
+        if (typeof body.password !== "string" || body.password.length < MIN_PASSWORD) return reply({ error: "too-short", min: MIN_PASSWORD }, 400);
+        return reply(await makeToken(await writeAuth(env, body.password)));
+      }
+
+      if ((path === "/login" || path === "/password") && request.method === "POST") {
+        const auth = await readAuth(env);
+        if (!auth) return reply({ error: "not-configured" }, 503);
+        if (path === "/password" && !(await authed(request, env))) return reply({ error: "unauthorized" }, 401);
         const key = await ipKey(request);
         const tries = Number(await env.BIO.get(key)) || 0;
         if (tries >= TRIES) return reply({ error: "too-many-tries" }, 429, { "retry-after": String(TRIES_WINDOW) });
         let body = {};
         try { body = await request.json(); } catch (_) {}
-        if (!(await same(body.password || "", env.EDIT_PASSWORD))) {
+        if (!(await checkPassword(auth, body.password))) {
           await env.BIO.put(key, String(tries + 1), { expirationTtl: TRIES_WINDOW });
           return reply({ error: "wrong-password" }, 401);
         }
         await env.BIO.delete(key);
-        return reply(await makeToken(env));
+        if (path === "/login") return reply(await makeToken(auth));
+        if (typeof body.next !== "string" || body.next.length < MIN_PASSWORD) return reply({ error: "too-short", min: MIN_PASSWORD }, 400);
+        return reply(await makeToken(await writeAuth(env, body.next)));
       }
 
       if (path === "/links" && request.method === "PUT") {

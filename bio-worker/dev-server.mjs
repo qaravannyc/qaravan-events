@@ -1,6 +1,6 @@
 // Local try-out of the link-in-bio page together with its Worker, no Cloudflare account needed:
-//   EDIT_PASSWORD=anything node bio-worker/dev-server.mjs      then open http://localhost:8787/bio/
-// Serves this repository as static files and runs worker.mjs on /links, /login, /history with
+//   EDIT_PASSWORD=anything-8-or-more node bio-worker/dev-server.mjs      then open http://localhost:8787/bio/
+// Serves this repository as static files and runs worker.mjs on /links, /login, /password, /history, /status, /setup with
 // an in-memory KV (everything resets when you stop it). Also used by worker.test.mjs.
 import http from "node:http";
 import fs from "node:fs";
@@ -23,11 +23,14 @@ export function fakeKV() {
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const TYPES = { ".html": "text/html; charset=utf-8", ".json": "application/json", ".svg": "image/svg+xml", ".woff2": "font/woff2", ".png": "image/png", ".js": "text/javascript", ".css": "text/css" };
 
-export function start(port = 8787, env = {}) {
-  const e = { BIO: fakeKV(), EDIT_PASSWORD: process.env.EDIT_PASSWORD || "", ALLOWED_ORIGINS: `http://localhost:${port},http://127.0.0.1:${port}`, ...env };
+export async function start(port = 8787, env = {}) {
+  const { EDIT_PASSWORD = process.env.EDIT_PASSWORD || "", ...rest } = env;
+  const e = { BIO: fakeKV(), ALLOWED_ORIGINS: `http://localhost:${port},http://127.0.0.1:${port}`, ...rest };
+  // The real Worker gets its first password once through POST /setup; do the same here.
+  if (EDIT_PASSWORD) await worker.fetch(new Request(`http://localhost:${port}/setup`, { method: "POST", body: JSON.stringify({ password: EDIT_PASSWORD }) }), e);
   const server = http.createServer(async (req, res) => {
     const u = new URL(req.url, `http://localhost:${port}`);
-    if (/^\/(links|login|history)(\/|$)/.test(u.pathname)) {
+    if (/^\/(links|login|history|status|setup|password)(\/|$)/.test(u.pathname)) {
       const chunks = [];
       for await (const c of req) chunks.push(c);
       const body = chunks.length ? Buffer.concat(chunks) : undefined;
@@ -46,7 +49,7 @@ export function start(port = 8787, env = {}) {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  if (!process.env.EDIT_PASSWORD) { console.error("Set EDIT_PASSWORD first, e.g. EDIT_PASSWORD=test node bio-worker/dev-server.mjs"); process.exit(1); }
+  if (!process.env.EDIT_PASSWORD) { console.error("Set EDIT_PASSWORD first, e.g. EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs"); process.exit(1); }
   const port = Number(process.env.PORT) || 8787;
   await start(port);
   console.log(`http://localhost:${port}/bio/   (sign in with your EDIT_PASSWORD; data lives in memory)`);

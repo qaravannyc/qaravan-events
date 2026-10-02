@@ -77,17 +77,13 @@
 
 Названия и подписи у каждой ссылки двуязычные; если заполнен один язык, на другом покажется он.
 
-**Как устроено.** Страница статическая (GitHub Pages), а список ссылок и проверку пароля держит маленький сервер на Cloudflare Workers: папка [`bio-worker/`](bio-worker/). Пароля нет ни в репозитории, ни на странице: он лежит только в секретах Cloudflare. Пока сервер не подключён, страница показывает список из [`bio/links.json`](bio/links.json) и не редактируется.
+**Пароль.** Один общий пароль команды. Сменить его может любой, кто его знает: в редакторе кнопка «Сменить пароль» (нужен нынешний пароль). После смены все остальные выходят из редактора и входят уже с новым.
 
-**Первый запуск (один раз, нужен доступ к Cloudflare).**
+**Как устроено.** Страница статическая (GitHub Pages), а список ссылок и пароль хранит маленький сервер `qaravan-bio` на Cloudflare (тот же аккаунт QARAVAN, что у телеграм-бота). Пароля нет ни в репозитории, ни на странице: сервер хранит только его отпечаток (хеш). Код сервера — [`bio-worker/worker.mjs`](bio-worker/worker.mjs), выкладывает его workflow «bio worker» в репозитории events-robot: после правки кода запустите его там (Actions → bio worker → Run workflow). Если сервер недоступен, страница показывает последний список, который видел этот браузер, или [`bio/links.json`](bio/links.json).
 
-1. `cd bio-worker`, затем `npx wrangler login` и `npx wrangler kv namespace create BIO`. Вставьте выданный `id` в `wrangler.toml`.
-2. `npx wrangler secret put EDIT_PASSWORD` и введите пароль команды. Сменить пароль можно той же командой: все, кто вошёл, выйдут сами.
-3. `npx wrangler deploy`. Он напечатает адрес вида `https://qaravan-bio.<аккаунт>.workers.dev`. Впишите его в `API_URL` в начале скрипта `bio/index.html`.
-4. В Wix: Marketing & SEO, URL Redirect Manager, переадресация `/insta` на `https://events.qaravan.org/bio/`. Если Wix не принимает внешний адрес, создайте на Wix страницу `/insta` со вставкой Embed HTML и тем же кодом, что для страницы событий, но с адресом `https://events.qaravan.org/bio/`.
-5. Ссылку `qaravan.org/insta` вставьте в Instagram bio.
+**qaravan.org/insta.** В Wix: Marketing & SEO, URL Redirect Manager, переадресация `/insta` на `https://events.qaravan.org/bio/`. Если Wix не принимает внешний адрес, создайте на Wix страницу `/insta` со вставкой Embed HTML и тем же кодом, что для страницы событий, но с адресом `https://events.qaravan.org/bio/`.
 
-**Проверить у себя без Cloudflare:** `EDIT_PASSWORD=test node bio-worker/dev-server.mjs`, затем http://localhost:8787/bio/ (данные в памяти, после остановки пропадают). Тесты сервера: `node --test bio-worker/worker.test.mjs`.
+**Проверить у себя без Cloudflare:** `EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs`, затем http://localhost:8787/bio/ (данные в памяти, после остановки пропадают). Тесты сервера: `node --test bio-worker/worker.test.mjs`.
 
 **Сколько людей нажимает.** Когда в `COUNTER` в `bio/index.html` стоит адрес GoatCounter (как в `index.html`), нажатия считаются по ссылкам: `bio-link-<название>`, а `bio-unique-people` — сколько разных людей нажали хоть на одну. Без cookie и личных данных, при «Do Not Track» не считается, пока человек редактирует — тоже.
 
