@@ -1,0 +1,47 @@
+{
+  "version": 0,
+  "items": [
+    {
+      "id": "bkmag", "type": "link", "tier": "feature", "flag": "", "hidden": false, "from": "", "until": "",
+      "badge": { "en": "In the news", "ru": "В прессе" },
+      "title": { "en": "Qaravan in Brooklyn Magazine", "ru": "QARAVAN в Brooklyn Magazine" },
+      "note": { "en": "", "ru": "" },
+      "url": "https://www.bkmag.com/2026/09/22/brooklyn-org-nonprofits-united-for-brownsville-qaravan-octavia-project/"
+    },
+    {
+      "id": "donate", "type": "link", "tier": "feature", "flag": "", "hidden": false, "from": "", "until": "",
+      "badge": { "en": "", "ru": "" },
+      "title": { "en": "Donate", "ru": "Поддержать QARAVAN" },
+      "note": { "en": "", "ru": "" },
+      "url": "https://givebutter.com/qaravan"
+    },
+    {
+      "id": "volunteer", "type": "link", "tier": "feature", "flag": "", "hidden": false, "from": "", "until": "",
+      "badge": { "en": "", "ru": "" },
+      "title": { "en": "Volunteer with us", "ru": "Стать волонтёром" },
+      "note": { "en": "", "ru": "" },
+      "url": "https://wkf.ms/43nMav1"
+    },
+    {
+      "id": "gofund", "type": "link", "tier": "standard", "flag": "", "hidden": false, "from": "", "until": "",
+      "badge": { "en": "", "ru": "" },
+      "title": { "en": "Help Evgeniia and Alena save family", "ru": "Помогите Евгении и Алёне сохранить семью" },
+      "note": { "en": "", "ru": "" },
+      "url": "https://gofund.me/a02d7f9d2"
+    },
+    {
+      "id": "events", "type": "link", "tier": "standard", "flag": "", "hidden": false, "from": "", "until": "",
+      "badge": { "en": "", "ru": "" },
+      "title": { "en": "Events", "ru": "События" },
+      "note": { "en": "Upcoming QARAVAN events in New York", "ru": "Ближайшие события QARAVAN в Нью-Йорке" },
+      "url": "https://events.qaravan.org"
+    },
+    {
+      "id": "bot", "type": "link", "tier": "standard", "flag": "", "hidden": false, "from": "", "until": "",
+      "badge": { "en": "", "ru": "" },
+      "title": { "en": "Bot Margosha on Telegram", "ru": "Бот Маргоша в Telegram" },
+      "note": { "en": "Reminders about events", "ru": "Напоминания о событиях" },
+      "url": "https://t.me/qaravan_door_bot"
+    }
+  ]
+}

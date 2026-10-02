@@ -1,0 +1,15 @@
+# Backend of events.qaravan.org/bio/ (see ../AGENTS.md, "Link in bio").
+# Deploy: cd bio-worker && npx wrangler kv namespace create BIO   (paste the id below)
+#         npx wrangler secret put EDIT_PASSWORD                    (the team password)
+#         npx wrangler deploy
+name = "qaravan-bio"
+main = "worker.mjs"
+compatibility_date = "2026-09-01"
+
+[[kv_namespaces]]
+binding = "BIO"
+id = "PASTE-THE-KV-NAMESPACE-ID-HERE"
+
+[vars]
+# Pages allowed to send the password and edits (anyone may read the public list)
+ALLOWED_ORIGINS = "https://events.qaravan.org"
