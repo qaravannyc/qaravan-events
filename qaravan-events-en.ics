@@ -486,6 +486,22 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
+UID:2026-10-19-1830-0ac2003787-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261019T183000
+DURATION:PT2H
+SUMMARY:Panel: Education in the US
+LOCATION:Venue to be announced
+DESCRIPTION:How to get a diploma recognized and pay for a degree: panelists
+  share their own stories and take your questions\n\nPlease register in adv
+ ance\, it helps us plan:\nhttps://partiful.com/e/M6iRSpq8Dp1c3ggJjaa1\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/M6iRSpq8Dp1c3ggJjaa1
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
 UID:2026-10-22-1930-896e5d22b1-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261022T193000
@@ -513,6 +529,22 @@ DESCRIPTION:A hike in costume to a 19th-century village in New Jersey\n\nPl
  DVBeAAA5ic7rs74\n\nAll our events:\nhttps://www.qaravan.org/events
 URL:https://partiful.com/e/TkZ4SDVBeAAA5ic7rs74
 CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-27-1430-bb22ea4740-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261027T143000
+DURATION:PT2H
+SUMMARY:U.S. Midterm Elections: why they matter and what you should know
+LOCATION:Congregation Beit Simchat Torah\, Chelsea
+DESCRIPTION:Ezra\, QARAVAN's executive director\, explains what the Novembe
+ r 3 elections decide\, from immigration policy to your city and state\n\nP
+ lease register in advance\, it helps us plan:\nhttps://partiful.com/e/lB0q
+ 66gPbK6UH8KvTQMb\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/lB0q66gPbK6UH8KvTQMb
+CATEGORIES:Education & culture
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT

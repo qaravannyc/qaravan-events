@@ -544,6 +544,25 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
+UID:2026-10-19-1830-0ac2003787-ru@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261019T183000
+DURATION:PT2H
+SUMMARY:Образование в США: как это работает
+LOCATION:Место уточняется
+DESCRIPTION:Как подтвердить диплом и найти ден
+ ьги на учёбу: выступающие делятся своим 
+ опытом и отвечают на вопросы\n\nПожалуйст
+ а\, зарегистрируйтесь заранее\, так нам п
+ роще всё подготовить:\nhttps://partiful.com/e/M6iRSpq8Dp
+ 1c3ggJjaa1\n\nВсе наши события:\nhttps://www.qaravan.org/eve
+ nts
+URL:https://partiful.com/e/M6iRSpq8Dp1c3ggJjaa1
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
 UID:2026-10-22-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261022T193000
@@ -577,6 +596,26 @@ DESCRIPTION:Идём в костюмах к деревне XIX века в
  бытия:\nhttps://www.qaravan.org/events
 URL:https://partiful.com/e/TkZ4SDVBeAAA5ic7rs74
 CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-10-27-1430-bb22ea4740-ru@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261027T143000
+DURATION:PT2H
+SUMMARY:Промежуточные выборы в США: что нужн
+ о знать
+LOCATION:Congregation Beit Simchat Torah\, Челси
+DESCRIPTION:Эзра\, исполнительный директор QARAVA
+ N\, рассказывает\, что решат выборы 3 ноябр
+ я: от иммиграционной политики до решений
+  города и штата\n\nПожалуйста\, зарегистри
+ руйтесь заранее\, так нам проще всё подго
+ товить:\nhttps://partiful.com/e/lB0q66gPbK6UH8KvTQMb\n\nВсе на
+ ши события:\nhttps://www.qaravan.org/events
+URL:https://partiful.com/e/lB0q66gPbK6UH8KvTQMb
+CATEGORIES:Education & culture
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
