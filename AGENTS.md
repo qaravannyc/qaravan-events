@@ -23,6 +23,7 @@ reminders in the community chat and the private-message reminders. A push here
 is live in about a minute; nobody reviews what the bot then sends.
 
 - Current item shape: `{ dates, time, type, en: { title, about, place }, ru: { title, about, place }, link }`, optional `end`. The bot also still reads the older shape (`title`, a Russian line in `ru`, `meta` with time and place).
+- `ARCHIVE` items may have no `link` and no `time`: the history before July 2023 (2011 onward, written from the monday board and the Facebook export on 2026-10-02) mostly has no Partiful page, so those cards show no button. `EVENTS` items always need a `link` (`checkEvent` in `robot/archive-past.mjs`).
 - The list starts with the exact text `const EVENTS = [` and ends at the first line that begins with `];`. No line inside it may begin with `];`. `EVENTS` stays above `ARCHIVE`, inline in `index.html` at `/`.
 - Inside the list only literals: objects, arrays, quoted strings, numbers, `true`, `false`, `null`, comments, trailing commas. No variables, function calls, `+`, template strings, or line breaks inside a string: the bot's parser rejects them.
 - Every date is `"YYYY-MM-DD"`. One bad date makes the bot reject the whole list. `time` is `"HH:MM"`, 24-hour, New York time.
@@ -115,7 +116,7 @@ The page follows the QARAVAN design system (the org's default Design System arti
 
 ### Calendar feeds
 
-`qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the nightly robot rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours). The feeds start at `FROM = "2026-08-01"` in the script: the history before it (imported from Partiful into `ARCHIVE`) stays on the page but out of subscribers' calendars.
+`qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the nightly robot rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours). The feeds start at `FROM = "2026-08-01"` in the script: the history before it (`ARCHIVE` from 2011: Partiful imports from July 2023, earlier years from the board and the Facebook export) stays on the page but out of subscribers' calendars.
 
 ### Counting subscribers and clicks
 

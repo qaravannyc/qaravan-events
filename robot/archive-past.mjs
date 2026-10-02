@@ -55,7 +55,10 @@ function checkEvent(e, where) {
     for (const k of LANG_KEYS) if (typeof e[lang][k] !== "string" || !e[lang][k].trim()) problems.push(`пустое ${lang}.${k}`);
     if (typeof e[lang].about === "string" && [...e[lang].about].length > ABOUT_MAX) problems.push(`${lang}.about длиннее ${ABOUT_MAX} знаков (${[...e[lang].about].length})`);
   }
-  if (typeof e.link !== "string" || !e.link.trim()) problems.push("пустая ссылка link");
+  // У будущих событий ссылка обязательна. В ARCHIVE у старой истории (до июля 2023,
+  // перенесённой с доски monday) ссылки может не быть: карточка тогда без кнопки.
+  const needLink = where === "EVENTS" || e.link != null;
+  if (needLink && (typeof e.link !== "string" || !e.link.trim())) problems.push("пустая ссылка link");
   if (problems.length) throw new Error(`${where}: у события «${name(e)}» ${problems.join("; ")}`);
   return checkDates(e, where);
 }
