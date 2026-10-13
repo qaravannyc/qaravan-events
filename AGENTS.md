@@ -46,6 +46,7 @@ exactly what the bot will lose.
 - Support-group `link`s point to `https://feedback.qaravan.org/support/<name>`, served by qaravan-forms (`gina` and `simon` exist). Don't link a new name there before the form exists.
 - The page links the bot as `https://t.me/qaravan_door_bot`; a plain `/start` opens the reminder settings.
 - `https://events.qaravan.org/bio/`: the link in the Instagram bio of @qaravan_org. Keep the path. (There is no qaravan.org/insta or other short address for it.)
+- `/newsletter/oct13/`: the English version of the 2026-10-13 newsletter, a standalone page outside the events page's layout. The Russian email links to `qaravan.org/newsletter/oct13`, which lives on Wix and reaches this page only through a Wix redirect (or the email links here directly). Keep the path and the file unchanged.
 
 ## What this repository depends on
 
