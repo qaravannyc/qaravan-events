@@ -47,6 +47,7 @@ exactly what the bot will lose.
 - The page links the bot as `https://t.me/qaravan_door_bot`; a plain `/start` opens the reminder settings.
 - `https://events.qaravan.org/bio/`: the link in the Instagram bio of @qaravan_org. Keep the path. (There is no qaravan.org/insta or other short address for it.)
 - `/newsletter/oct13/`: the English version of the 2026-10-13 newsletter, a standalone page outside the events page's layout. The Russian email links to `qaravan.org/newsletter/oct13`, which lives on Wix and reaches this page only through a Wix redirect (or the email links here directly). Keep the path and the file unchanged.
+- `/oct19/`: the guide «Учёба в США для просителей убежища» (PDF, first version of 2026-10-19), shared around the 2026-10-19 education panel. `/oct19/` redirects to `/oct19/ucheba-v-ssha.pdf`. Keep both paths; a new version replaces the PDF under the same name.
 
 ## What this repository depends on
 
