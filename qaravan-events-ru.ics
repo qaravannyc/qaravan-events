@@ -643,7 +643,7 @@ UID:2026-11-05-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261105T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -729,7 +729,7 @@ UID:2026-11-11-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261111T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -744,21 +744,24 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-14-1100-457957d3cc-ru@events.qaravan.org
+UID:2026-11-14-1100-48722398f6-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261114T110000
 DURATION:PT2H
-SUMMARY:Группа равной поддержки с Саймоном
+SUMMARY:Сопровождение: практическая помощь
 LOCATION:Онлайн
-DESCRIPTION:Онлайн-группа равной поддержки: чт
- обы присоединиться\, заполните короткую 
- анкету\, а ссылка на встречу придёт после
-  регистрации.\n\nЧтобы присоединиться\, за
- полните короткую анкету:\nhttps://feedback.qaravan.or
- g/support/simon\n\nВсе наши события:\nhttps://www.qaravan.or
- g/events
+DESCRIPTION:Онлайн-встречи\, на которых помога
+ ем с практическими делами: анкетами\, зап
+ исями\, пособиями\, жильём и работой\, и по
+ дсказываем\, куда обратиться дальше. Что
+ бы присоединиться\, заполните короткую а
+ нкету: ссылку на встречу пришлём после р
+ егистрации.\n\nПожалуйста\, зарегистрируй
+ тесь заранее\, так нам проще всё подготов
+ ить:\nhttps://feedback.qaravan.org/support/simon\n\nВсе наши с
+ обытия:\nhttps://www.qaravan.org/events
 URL:https://feedback.qaravan.org/support/simon
-CATEGORIES:Support groups
+CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
@@ -767,7 +770,7 @@ UID:2026-11-19-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261119T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -848,7 +851,7 @@ UID:2026-11-25-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261125T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -867,7 +870,7 @@ UID:2026-12-03-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261203T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -886,7 +889,7 @@ UID:2026-12-09-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261209T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -905,7 +908,7 @@ UID:2026-12-17-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261217T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
@@ -924,7 +927,7 @@ UID:2026-12-23-1930-896e5d22b1-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261223T193000
 DURATION:PT2H
-SUMMARY:Группа поддержки с Джиной
+SUMMARY:Группа поддержки
 LOCATION:Онлайн
 DESCRIPTION:Онлайн-группа поддержки раз в неде
  лю в 19:30. Чтобы присоединиться\, заполнит
