@@ -12,7 +12,6 @@
 <link rel="preload" href="assets/fonts/FiraSansCondensed-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FiraSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/FiraSansCondensed-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/partiful-logo.png" as="image">
 <link rel="preload" href="assets/margosha.svg" as="image">
 <link rel="preload" href="assets/telegram-logo.svg" as="image">
 <style>
@@ -206,12 +205,11 @@
   .strip-foot.one-row .pager > *{flex:1 1 auto; min-height:60px; padding-inline:12px}
   .strip-foot .follow.is-cal, .strip-foot.one-row .pager + .follow.is-cal{grid-column:1 / -1}
 
-  /* Кнопки «Подпишитесь на нас в Partiful» и «Получайте напоминания в Telegram»: одна форма,
-     одна высота, квадратная плашка слева. Partiful — основная тёмная кнопка: знак «плюс»
-     дизайн-системы, «Follow us on» и белый логотип Partiful. Telegram —
-     белая с графитовой рамкой: слева Маргоша, справа официальный логотип Telegram
-     без изменений и отдельно от Маргоши. */
-  .follow{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
+  /* Кнопки «Получайте напоминания в Telegram» и «Подписаться на календарь»: одна форма, одна высота,
+     квадратная плашка слева. Telegram — белая с графитовой рамкой: слева Маргоша, справа официальный
+     логотип Telegram без изменений и отдельно от Маргоши. Кнопки Partiful больше нет (владелец,
+     2026-11-02: запись на события только на qaravan.org). */
+  .follow{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; width:max-content; max-width:100%}
   .intro .follow{width:100%; column-gap:24px}
   html.embed .cta-sub{display:none}
   @media (max-width:759px){ .follow{grid-template-columns:1fr; width:100%} }
@@ -249,8 +247,6 @@
   @media (max-width:479px){ .cal-options > *{flex:1 1 100%} .cal-copy{flex-wrap:wrap} .cal-copy-btn{flex:1 1 100%} .cal-lang{width:100%} }
   .cta{display:flex; align-items:center; gap:12px; min-height:60px; padding:8px 16px 8px 8px; border:2px solid var(--q-ink);
     text-decoration:none; cursor:pointer}
-  .cta-partiful{background:var(--q-ink); color:var(--q-white)}
-  .cta-partiful:hover{box-shadow:inset 0 0 0 999px rgba(0,0,0,.14)}
   .cta-telegram{background:var(--q-white); color:var(--q-ink)}
   .cta-telegram:hover{background:var(--q-line)}
   .cta:active{transform:translateY(1px)}
@@ -260,11 +256,6 @@
   .cta-text{display:flex; flex-direction:column; min-width:0}
   .cta-label{font:600 17px/1.15 var(--font-head); letter-spacing:.01em}
   .cta-sub{margin-top:2px; font:400 15px/1.25 var(--font-brand)}
-  .cta-partiful .cta-sub{color:rgba(255,255,255,.82)}
-  /* «Follow us on» + логотип Partiful (белый, файл с сайта Partiful без изменений, только уменьшен):
-     низ слова partiful стоит на одной линии с текстом */
-  .cta-pf-label{display:flex; flex-wrap:wrap; align-items:center; gap:2px 7px}
-  .cta-pf{display:block; flex:none; width:auto; height:24px; position:relative; top:1px}
   .cta-telegram .cta-sub{color:var(--q-muted)}
   .cta-go{flex:none; margin-left:auto; padding-left:4px; display:flex}
   .cta-go svg{width:14px; height:14px}
@@ -12089,7 +12080,7 @@ const T = {
     allEvents: "Все события", more: n => `Ещё ${T.ru.count(n)}`, back: "Назад",
     showing: (a, b, n) => a === b ? `Событие ${a} из ${n}` : `События ${a}–${b} из ${n}`,
     upcomingTab: "Ближайшие", pastTab: "Прошедшие", viewLabel: "События",
-    followGroup: "Следите за нашими событиями", followOn: "Подпишитесь на нас в", followSub: "Узнавайте о новых событиях первыми",
+    followGroup: "Следите за нашими событиями",
     tgLabel: "Получайте напоминания в Telegram", tgSub: "Присылает наш бот Маргоша", newTab: "(откроется в новой вкладке)",
     calLabel: "Подпишитесь на наш календарь", calSub: "Календарь Qaravan Events, который пополняется с каждым новым событием", calLangLabel: "Язык календаря", calLead: "Подпишитесь в:",
     calGoogle: "Google Календаре", calApple: "«Календаре» на iPhone, iPad или Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Ссылка на календарь",
@@ -12118,7 +12109,7 @@ const T = {
     allEvents: "All events", more: n => `${n} more ${n === 1 ? "event" : "events"}`, back: "Back",
     showing: (a, b, n) => a === b ? `Event ${a} of ${n}` : `Events ${a}–${b} of ${n}`,
     upcomingTab: "Upcoming", pastTab: "Past", viewLabel: "Events",
-    followGroup: "Keep up with our events", followOn: "Follow us on", followSub: "Be the first to know about new events",
+    followGroup: "Keep up with our events",
     tgLabel: "Get reminders on Telegram", tgSub: "Sent by Margosha, our bot", newTab: "(opens in a new tab)",
     calLabel: "Subscribe to our calendar", calSub: "Qaravan Events calendar that updates as events are added", calLangLabel: "Calendar language", calLead: "Subscribe in:",
     calGoogle: "Google Calendar", calApple: "Calendar on iPhone, iPad or Mac", calOutlook: "Microsoft Outlook", calUrlLabel: "Calendar link",
@@ -12226,12 +12217,11 @@ const PAST = perDate(ARCHIVE.flatMap(m => m.events)).sort((a, b) => byDate(b, a)
 // Остальные события листаются прямо здесь: «Ещё N событий» и «Назад», без новых вкладок.
 // Все карточки одного размера, описание видно целиком (до 280 знаков), ничего не обрезается.
 const stripCols = () => innerWidth >= 1200 ? 4 : innerWidth >= 760 ? 3 : innerWidth >= 480 ? 2 : 1;
-const PARTIFUL = "https://partiful.com/u/kNieh2yCJV6BRLw4dLVx";
 const TELEGRAM_BOT = "https://t.me/qaravan_door_bot";
 const FEED = l => `https://events.qaravan.org/qaravan-events-${l}.ics`;
 const cal = { open: false, lang: null };
 
-// Счётчик GoatCounter: сколько раз выбирают способ подписаться на календарь, Partiful и
+// Счётчик GoatCounter: сколько раз выбирают способ подписаться на календарь и
 // Telegram, сколько это разных людей, и просмотры страницы и обеих вставок. Без cookie и без
 // личных данных; не считаем при «Do Not Track» / Global Privacy Control и вне events.qaravan.org.
 // «…-unique-people» уходит один раз с устройства: браузер только помнит, что уже посчитан.
@@ -12244,8 +12234,6 @@ const COUNT_TITLES = {
   "calendar-google": "Calendar: Google Calendar", "calendar-apple": "Calendar: Apple Calendar",
   "calendar-outlook": "Calendar: Outlook", "calendar-copy": "Calendar: copied the link",
   "calendar-unique-people": "Calendar: different people who chose a way to subscribe (once per device)",
-  "partiful-follow": "Partiful: Follow us on Partiful",
-  "partiful-unique-people": "Partiful: different people who clicked Follow (once per device)",
   "telegram-reminders": "Telegram: Get reminders on Telegram",
   "telegram-unique-people": "Telegram: different people who clicked Get reminders (once per device)",
 };
@@ -12303,11 +12291,6 @@ function followHTML() {
   if (cal.open) return calPanelHTML();
   const t = T[lang], ext = EMBED ? ` target="_blank" rel="noopener"` : "", nt = EMBED ? `<span class="qv-sr"> ${t.newTab}</span>` : "";
   return `<div class="follow" role="group" aria-label="${t.followGroup}">
-      <a class="cta cta-partiful" href="${PARTIFUL}"${ext} data-count="partiful-follow" data-once="partiful">
-        <span class="cta-mark" aria-hidden="true">${PLUS}</span>
-        <span class="cta-text"><span class="cta-label cta-pf-label">${t.followOn} <img class="cta-pf" src="assets/partiful-logo.png" width="88" height="24" alt="Partiful"></span><span class="cta-sub">${t.followSub}</span></span>
-        <span class="cta-go" aria-hidden="true">${ARROW}</span>${nt}
-      </a>
       <a class="cta cta-telegram" href="${TELEGRAM_BOT}"${ext} data-count="telegram-reminders" data-once="telegram">
         <img class="cta-avatar" src="assets/margosha.svg" width="40" height="40" alt="">
         <span class="cta-text"><span class="cta-label">${t.tgLabel}</span><span class="cta-sub">${t.tgSub}</span></span>
