@@ -564,4 +564,255 @@ CATEGORIES:Support groups
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-05-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261105T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-06-0900-55df61a84a-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261106T090000
+DURATION:PT2H
+SUMMARY:Help Desk and Volunteer Orientation\, November 6
+LOCATION:Manhattan's West Side\, address after sign-up
+DESCRIPTION:On Friday\, November 6\, QARAVAN volunteers help with calls\, f
+ orms\, documents and translations. New volunteers get an orientation and c
+ an ask the team anything.\n\nPlease register in advance\, it helps us plan
+ :\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-06-help-
+ desk/\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-06-help-
+ desk/
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-07-1100-1aad8cb774-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261107T110000
+DURATION:PT2H
+SUMMARY:Girls' Gathering with Alyona
+LOCATION:A cafe in Chelsea or Hell's Kitchen\, to be confirmed
+DESCRIPTION:A girls' gathering with Alyona at a cafe on Manhattan's West Si
+ de: getting to know each other over coffee and talking about what matters.
+ \n\nPlease register in advance\, it helps us plan:\nhttps://qaravan-site.j
+ olly-bar-b5ed.workers.dev/events/2026-11-07-girls-gathering/\n\nAll our ev
+ ents:\nhttps://www.qaravan.org/events
+URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-07-girls
+ -gathering/
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-09-1600-bfc9ed8caf-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261109T160000
+DURATION:PT2H
+SUMMARY:Help Desk and Volunteer Orientation\, November 9
+LOCATION:Manhattan's West Side\, address after sign-up
+DESCRIPTION:On Monday\, November 9\, QARAVAN volunteers help with calls\, f
+ orms\, documents and translations. New volunteers get an orientation and c
+ an ask the team anything.\n\nPlease register in advance\, it helps us plan
+ :\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-09-help-
+ desk/\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-09-help-
+ desk/
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-11-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261111T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-14-1100-457957d3cc-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261114T110000
+DURATION:PT2H
+SUMMARY:Support Group with Simon
+LOCATION:Online
+DESCRIPTION:An online peer support group. To join\, fill out the short form
+ \; the meeting link comes after you register.\n\nTo join\, fill in the sho
+ rt form:\nhttps://feedback.qaravan.org/support/simon\n\nAll our events:\nh
+ ttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/simon
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-19-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261119T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-22-1800-cf6e9d01fe-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261122T180000
+DURATION:PT2H
+SUMMARY:Qaravan Movie Club
+LOCATION:Williamsburg\, Brooklyn\, address after sign-up
+DESCRIPTION:The movie club watches a film together and talks about it after
+ ward.\n\nPlease register in advance\, it helps us plan:\nhttps://qaravan-s
+ ite.jolly-bar-b5ed.workers.dev/events/2026-11-22-movie-club/\n\nAll our ev
+ ents:\nhttps://www.qaravan.org/events
+URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-22-movie
+ -club/
+CATEGORIES:Education & culture
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-23-allday-d133e5be01-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;VALUE=DATE:20261123
+DURATION:P1D
+SUMMARY:Qaravan Friendsgiving
+LOCATION:To be confirmed
+DESCRIPTION:A shared dinner for anyone who wants to celebrate Thanksgiving 
+ among friends. Time and place to be confirmed.\n\nPlease register in advan
+ ce\, it helps us plan:\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/ev
+ ents/2026-11-23-friendsgiving/\n\nAll our events:\nhttps://www.qaravan.org
+ /events
+URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-frien
+ dsgiving/
+CATEGORIES:Community
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-23-1400-b5cfb6cef6-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261123T140000
+DURATION:PT2H
+SUMMARY:Help Desk and Volunteer Orientation\, November 23
+LOCATION:Manhattan's West Side\, address after sign-up
+DESCRIPTION:On Monday\, November 23\, QARAVAN volunteers help with calls\, 
+ forms\, documents and translations. New volunteers get an orientation and 
+ can ask the team anything.\n\nPlease register in advance\, it helps us pla
+ n:\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-help
+ -desk/\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-help-
+ desk/
+CATEGORIES:Resource navigation
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-25-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261125T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-03-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261203T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-09-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261209T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-17-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261217T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-23-1930-896e5d22b1-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261223T193000
+DURATION:PT2H
+SUMMARY:Support Group with Gina
+LOCATION:Online
+DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill 
+ out the short form\; the meeting link comes after you register.\n\nTo join
+ \, fill in the short form:\nhttps://feedback.qaravan.org/support/gina\n\nA
+ ll our events:\nhttps://www.qaravan.org/events
+URL:https://feedback.qaravan.org/support/gina
+CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
 END:VCALENDAR
