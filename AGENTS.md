@@ -54,7 +54,7 @@ exactly what the bot will lose.
 ## What this repository depends on
 
 - Content: the monday.com board "QARAVAN's Event Calendar" (id 4774572020) is where event details come from (Category to `type`, "Name (Russian)" to `ru.title`, "Short description" to `about`). No code here reads monday.
-- qaravan-forms for the `/support/<name>` intake pages; Partiful for event links.
+- qaravan-forms for the `/support/<name>` intake pages; qaravan.org event pages for event links (Partiful before 2026-11).
 - Cloudflare Worker `qaravan-bio` at https://qaravan-bio.jolly-bar-b5ed.workers.dev (QARAVAN's Cloudflare account, the same one as the Telegram bot; KV namespace `qaravan-bio-links`, binding `BIO`) stores the `/bio/` link list and the team password. Its code is `bio-worker/worker.mjs` here, but it is deployed by the `bio worker` workflow in events-robot (`bio/deploy.mjs`, with that repo's `CLOUDFLARE_API_TOKEN`), which takes the file from this repo's `main`. After changing `bio-worker/worker.mjs`, push here, then run that workflow (it also runs on changes to its own files there).
 - No secrets in this repository. Both workflows use only `GITHUB_TOKEN`. The bio password is kept only as a salted hash in the Worker's KV: never write the password into a file, a commit, a page, a log or a workflow input.
 
@@ -108,7 +108,8 @@ The page is bilingual with a RU / EN switch: every event carries a complete Engl
 - `en.title`: the English event name from Partiful, without emoji. `ru.title`: the board's "Name (Russian)", tidied in QARAVAN's voice.
 - `about`: the event's short description in each language, up to 280 characters; every card shows it in full (the robot rejects longer ones). Use the user's text when they give one; otherwise condense the board's "Short description". The Russian in QARAVAN's voice (the qaravan-voice skill), the English written as natural English, not word for word. Don't repeat the title.
 - `place`: `Venue, Neighborhood` (`Kvartira Books, Crown Heights` / `Kvartira Books, Краун-Хайтс`). Trips: `Meeting point: Grand Central` / `Сбор: Grand Central`. Private address: the neighborhood only.
-- `link`: the Partiful link (support groups link to their intake form).
+- `link`: the event's page on qaravan.org, where people sign up (owner, 2026-11-02: all events on the site only; until the
+  cutover the host is https://qaravan-site.jolly-bar-b5ed.workers.dev/events/<id>/). Support groups link to their intake form.
 - Never edit `ARCHIVE` by hand.
 - Source of event details: the monday.com board "QARAVAN's Event Calendar" (id 4774572020), month groups like "October 2026". If the user's details conflict with the board or Partiful, go with the user and point out the conflict.
 
