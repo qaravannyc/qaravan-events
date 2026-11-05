@@ -658,7 +658,7 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-06-0900-55df61a84a-ru@events.qaravan.org
+UID:2026-11-06-0900-e0be00f700-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261106T090000
 DURATION:PT2H
@@ -671,17 +671,16 @@ DESCRIPTION:В пятницу\, 6 ноября\, волонтёры QARAVAN
  нтами и переводами. Новых волонтёров зна
  комим с работой и отвечаем на их вопросы.
  \n\nПожалуйста\, зарегистрируйтесь заране
- е\, так нам проще всё подготовить:\nhttps://qara
- van-site.jolly-bar-b5ed.workers.dev/events/2026-11-06-help-desk/\n\nВсе
-  наши события:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-06-help-
- desk/
+ е\, так нам проще всё подготовить:\nhttps://www.
+ qaravan.org/events/2026-11-06-help-desk/\n\nВсе наши события
+ :\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-06-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-07-1100-1aad8cb774-ru@events.qaravan.org
+UID:2026-11-07-1100-57894523df-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261107T110000
 DURATION:PT2H
@@ -692,17 +691,15 @@ DESCRIPTION:Девичник с Алёной в кафе на западе
  Манхэттена: знакомимся за кофе и разгова
  риваем о важном.\n\nПожалуйста\, зарегистр
  ируйтесь заранее\, так нам проще всё подг
- отовить:\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/20
- 26-11-07-girls-gathering/\n\nВсе наши события:\nhttps://www.
- qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-07-girls
- -gathering/
+ отовить:\nhttps://www.qaravan.org/events/2026-11-07-girls-gathering
+ /\n\nВсе наши события:\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-07-girls-gathering/
 CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-09-1600-bfc9ed8caf-ru@events.qaravan.org
+UID:2026-11-09-1600-6d6719d84d-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261109T160000
 DURATION:PT2H
@@ -716,10 +713,9 @@ DESCRIPTION:В понедельник\, 9 ноября\, волонтёры
  в знакомим с работой и отвечаем на их воп
  росы.\n\nПожалуйста\, зарегистрируйтесь з
  аранее\, так нам проще всё подготовить:\nht
- tps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-09-help-desk/
- \n\nВсе наши события:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-09-help-
- desk/
+ tps://www.qaravan.org/events/2026-11-09-help-desk/\n\nВсе наши со
+ бытия:\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-09-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
@@ -785,7 +781,7 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-22-1800-cf6e9d01fe-ru@events.qaravan.org
+UID:2026-11-22-1800-2a6ffffd40-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261122T180000
 DURATION:PT2H
@@ -794,17 +790,15 @@ LOCATION:Williamsburg\, Brooklyn\, адрес после записи
 DESCRIPTION:Смотрим фильм\, а потом вместе его 
  обсуждаем.\n\nПожалуйста\, зарегистрируйт
  есь заранее\, так нам проще всё подготови
- ть:\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-22-m
- ovie-club/\n\nВсе наши события:\nhttps://www.qaravan.org/eve
- nts
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-22-movie
- -club/
+ ть:\nhttps://www.qaravan.org/events/2026-11-22-movie-club/\n\nВсе н
+ аши события:\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-22-movie-club/
 CATEGORIES:Education & culture
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-23-allday-d133e5be01-ru@events.qaravan.org
+UID:2026-11-23-allday-21b5dda135-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;VALUE=DATE:20261123
 DURATION:P1D
@@ -814,17 +808,16 @@ DESCRIPTION:Общий ужин для тех\, кто хочет встр
  етить День благодарения в кругу друзей. 
  Время и место уточняются.\n\nПожалуйста\, 
  зарегистрируйтесь заранее\, так нам прощ
- е всё подготовить:\nhttps://qaravan-site.jolly-bar-b5ed.wor
- kers.dev/events/2026-11-23-friendsgiving/\n\nВсе наши событи
- я:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-frien
- dsgiving/
+ е всё подготовить:\nhttps://www.qaravan.org/events/2026-11-
+ 23-friendsgiving/\n\nВсе наши события:\nhttps://www.qaravan.
+ org/events
+URL:https://www.qaravan.org/events/2026-11-23-friendsgiving/
 CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-23-1400-b5cfb6cef6-ru@events.qaravan.org
+UID:2026-11-23-1400-790152a75e-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261123T140000
 DURATION:PT2H
@@ -838,10 +831,9 @@ DESCRIPTION:В понедельник\, 23 ноября\, волонтёр
  ов знакомим с работой и отвечаем на их во
  просы.\n\nПожалуйста\, зарегистрируйтесь 
  заранее\, так нам проще всё подготовить:\n
- https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-help-des
- k/\n\nВсе наши события:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-help-
- desk/
+ https://www.qaravan.org/events/2026-11-23-help-desk/\n\nВсе наши с
+ обытия:\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-23-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT

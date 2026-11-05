@@ -581,7 +581,7 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-06-0900-55df61a84a-en@events.qaravan.org
+UID:2026-11-06-0900-e0be00f700-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261106T090000
 DURATION:PT2H
@@ -590,16 +590,15 @@ LOCATION:Manhattan's West Side\, address after sign-up
 DESCRIPTION:On Friday\, November 6\, QARAVAN volunteers help with calls\, f
  orms\, documents and translations. New volunteers get an orientation and c
  an ask the team anything.\n\nPlease register in advance\, it helps us plan
- :\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-06-help-
- desk/\n\nAll our events:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-06-help-
- desk/
+ :\nhttps://www.qaravan.org/events/2026-11-06-help-desk/\n\nAll our events:
+ \nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-06-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-07-1100-1aad8cb774-en@events.qaravan.org
+UID:2026-11-07-1100-57894523df-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261107T110000
 DURATION:PT2H
@@ -607,17 +606,16 @@ SUMMARY:Girls' Gathering with Alyona
 LOCATION:A cafe in Chelsea or Hell's Kitchen\, to be confirmed
 DESCRIPTION:A girls' gathering with Alyona at a cafe on Manhattan's West Si
  de: getting to know each other over coffee and talking about what matters.
- \n\nPlease register in advance\, it helps us plan:\nhttps://qaravan-site.j
- olly-bar-b5ed.workers.dev/events/2026-11-07-girls-gathering/\n\nAll our ev
- ents:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-07-girls
- -gathering/
+ \n\nPlease register in advance\, it helps us plan:\nhttps://www.qaravan.or
+ g/events/2026-11-07-girls-gathering/\n\nAll our events:\nhttps://www.qarav
+ an.org/events
+URL:https://www.qaravan.org/events/2026-11-07-girls-gathering/
 CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-09-1600-bfc9ed8caf-en@events.qaravan.org
+UID:2026-11-09-1600-6d6719d84d-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261109T160000
 DURATION:PT2H
@@ -626,10 +624,9 @@ LOCATION:Manhattan's West Side\, address after sign-up
 DESCRIPTION:On Monday\, November 9\, QARAVAN volunteers help with calls\, f
  orms\, documents and translations. New volunteers get an orientation and c
  an ask the team anything.\n\nPlease register in advance\, it helps us plan
- :\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-09-help-
- desk/\n\nAll our events:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-09-help-
- desk/
+ :\nhttps://www.qaravan.org/events/2026-11-09-help-desk/\n\nAll our events:
+ \nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-09-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
@@ -684,24 +681,23 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-22-1800-cf6e9d01fe-en@events.qaravan.org
+UID:2026-11-22-1800-2a6ffffd40-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261122T180000
 DURATION:PT2H
 SUMMARY:Qaravan Movie Club
 LOCATION:Williamsburg\, Brooklyn\, address after sign-up
 DESCRIPTION:The movie club watches a film together and talks about it after
- ward.\n\nPlease register in advance\, it helps us plan:\nhttps://qaravan-s
- ite.jolly-bar-b5ed.workers.dev/events/2026-11-22-movie-club/\n\nAll our ev
- ents:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-22-movie
- -club/
+ ward.\n\nPlease register in advance\, it helps us plan:\nhttps://www.qarav
+ an.org/events/2026-11-22-movie-club/\n\nAll our events:\nhttps://www.qarav
+ an.org/events
+URL:https://www.qaravan.org/events/2026-11-22-movie-club/
 CATEGORIES:Education & culture
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-23-allday-d133e5be01-en@events.qaravan.org
+UID:2026-11-23-allday-21b5dda135-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;VALUE=DATE:20261123
 DURATION:P1D
@@ -709,17 +705,15 @@ SUMMARY:Qaravan Friendsgiving
 LOCATION:To be confirmed
 DESCRIPTION:A shared dinner for anyone who wants to celebrate Thanksgiving 
  among friends. Time and place to be confirmed.\n\nPlease register in advan
- ce\, it helps us plan:\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/ev
- ents/2026-11-23-friendsgiving/\n\nAll our events:\nhttps://www.qaravan.org
- /events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-frien
- dsgiving/
+ ce\, it helps us plan:\nhttps://www.qaravan.org/events/2026-11-23-friendsg
+ iving/\n\nAll our events:\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-23-friendsgiving/
 CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-23-1400-b5cfb6cef6-en@events.qaravan.org
+UID:2026-11-23-1400-790152a75e-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261123T140000
 DURATION:PT2H
@@ -728,10 +722,9 @@ LOCATION:Manhattan's West Side\, address after sign-up
 DESCRIPTION:On Monday\, November 23\, QARAVAN volunteers help with calls\, 
  forms\, documents and translations. New volunteers get an orientation and 
  can ask the team anything.\n\nPlease register in advance\, it helps us pla
- n:\nhttps://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-help
- -desk/\n\nAll our events:\nhttps://www.qaravan.org/events
-URL:https://qaravan-site.jolly-bar-b5ed.workers.dev/events/2026-11-23-help-
- desk/
+ n:\nhttps://www.qaravan.org/events/2026-11-23-help-desk/\n\nAll our events
+ :\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-23-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
