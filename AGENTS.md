@@ -73,6 +73,7 @@ exactly what the bot will lose.
 
 ## Incidents and the rule each one taught
 
+- 2026-11-05: after qaravan.org moved to the new site, `EVENTS` links still pointed to the old `qaravan-site.jolly-bar-b5ed.workers.dev` host, and the Telegram bot posted them. Rule: event links use https://www.qaravan.org only.
 - 2026-09-30, commit e7b50c2: `EVENTS` items moved to the bilingual shape. The robots and docs here were updated, the Telegram bot was not. It showed events without names, and its 6 PM run sent subscribers a private reminder about two October 3 events with no titles or times. Rule: the item shape is a contract with events-robot (see above).
 
 ## Keeping this file live
@@ -108,8 +109,8 @@ The page is bilingual with a RU / EN switch: every event carries a complete Engl
 - `en.title`: the English event name from Partiful, without emoji. `ru.title`: the board's "Name (Russian)", tidied in QARAVAN's voice.
 - `about`: the event's short description in each language, up to 280 characters; every card shows it in full (the robot rejects longer ones). Use the user's text when they give one; otherwise condense the board's "Short description". The Russian in QARAVAN's voice (the qaravan-voice skill), the English written as natural English, not word for word. Don't repeat the title.
 - `place`: `Venue, Neighborhood` (`Kvartira Books, Crown Heights` / `Kvartira Books, Краун-Хайтс`). Trips: `Meeting point: Grand Central` / `Сбор: Grand Central`. Private address: the neighborhood only.
-- `link`: the event's page on qaravan.org, where people sign up (owner, 2026-11-02: all events on the site only; until the
-  cutover the host is https://qaravan-site.jolly-bar-b5ed.workers.dev/events/<id>/). Support groups link to their intake form.
+- `link`: the event's page on qaravan.org, where people sign up (owner, 2026-11-02: all events on the site only):
+  https://www.qaravan.org/events/<id>/. Never the old workers.dev host (the bot posts these links). Support groups link to their intake form.
 - Never edit `ARCHIVE` by hand.
 - Source of event details: the monday.com board "QARAVAN's Event Calendar" (id 4774572020), month groups like "October 2026". If the user's details conflict with the board or Partiful, go with the user and point out the conflict.
 
