@@ -22,8 +22,19 @@ HTML. From it the bot builds the monthly and weekly overviews, the day-before
 reminders in the community chat and the private-message reminders. A push here
 is live in about a minute; nobody reviews what the bot then sends.
 
+**`EVENTS` is generated from qaravan.org (owner, 2026-11-07: one source of
+truth for both sites).** `robot/from-site.mjs` rewrites it every 15 minutes from
+https://www.qaravan.org/data/site-events.json (the events the team keeps in
+qaravan.org's Site management, content/events in qaravan-site, live saves
+included). Never edit `EVENTS` by hand: the next run puts it back. Links: the
+event's qaravan.org page; forms `gina` and `simon` keep their
+feedback.qaravan.org/support/<form> links; external sign-up keeps its URL. An
+event whose date isn't chosen (`dateTbd`) stays out until it has one (the page
+and the bot have no "date to be confirmed"). If the site doesn't answer, nothing
+changes; a list that fails `checkEvent` turns the run red and changes nothing.
+
 - Current item shape: `{ dates, time, type, en: { title, about, place }, ru: { title, about, place }, link }`, optional `end`. The bot also still reads the older shape (`title`, a Russian line in `ru`, `meta` with time and place).
-- `ARCHIVE` items may have no `link` and no `time`: the history before July 2023 (2011 onward, written from the monday board and the Facebook export on 2026-10-02) mostly has no Partiful page, so those cards show no button. `EVENTS` items always need a `link` (`checkEvent` in `robot/archive-past.mjs`).
+- `ARCHIVE` items may have no `link` and no `time`: the history before July 2023 (2011 onward, written from the monday board and the Facebook export on 2026-10-02) mostly has no Partiful page, so those cards show no button. `EVENTS` items always need a `link` (`checkEvent` in `robot/events-list.mjs`).
 - The list starts with the exact text `const EVENTS = [` and ends at the first line that begins with `];`. No line inside it may begin with `];`. `EVENTS` stays above `ARCHIVE`, inline in `index.html` at `/`.
 - Inside the list only literals: objects, arrays, quoted strings, numbers, `true`, `false`, `null`, comments, trailing commas. No variables, function calls, `+`, template strings, or line breaks inside a string: the bot's parser rejects them.
 - Every date is `"YYYY-MM-DD"`. One bad date makes the bot reject the whole list. `time` is `"HH:MM"`, 24-hour, New York time.
@@ -32,11 +43,12 @@ is live in about a minute; nobody reviews what the bot then sends.
 **Changing the shape of an item** (a field renamed, moved, added as required,
 or its format changed) needs, in the same piece of work: `normalizeEvent` and
 `telegram/worker.test.mjs` in events-robot, merged and deployed before this
-page changes; here `robot/archive-past.mjs` (`TYPES`, `LANG_KEYS`, `KEYS`,
-`checkEvent`, the serializers), `robot/build-calendar.mjs`, the page code
+page changes; here `robot/events-list.mjs` (`TYPES`, `LANG_KEYS`, `KEYS`,
+`checkEvent`, the serializers), `robot/from-site.mjs` (`itemOf`),
+`robot/build-calendar.mjs`, qaravan-site's event files if the source changes, the page code
 (`text()`, `typeOf()`, `TYPES`, `card()`, `render()`), every `ARCHIVE` item,
 `README.md`, the instructions inside `index.html`, and this file. The list of
-types lives in three places: `index.html`, `archive-past.mjs`,
+types lives in three places: `index.html`, `events-list.mjs`,
 `build-calendar.mjs`. If you can't change events-robot, stop and tell the user
 exactly what the bot will lose.
 
@@ -53,19 +65,20 @@ exactly what the bot will lose.
 
 ## What this repository depends on
 
-- Content: the monday.com board "QARAVAN's Event Calendar" (id 4774572020) is where event details come from (Category to `type`, "Name (Russian)" to `ru.title`, "Short description" to `about`). No code here reads monday.
+- Content: qaravan.org's events, read from https://www.qaravan.org/data/site-events.json by `robot/from-site.mjs` (see above). The team creates and edits events there; its rules (`scripts/events-rules.mjs` in qaravan-site) follow the ones here. No code here reads monday.
 - qaravan-forms for the `/support/<name>` intake pages; qaravan.org event pages for event links (Partiful before 2026-11).
 - Cloudflare Worker `qaravan-bio` at https://qaravan-bio.jolly-bar-b5ed.workers.dev (QARAVAN's Cloudflare account, the same one as the Telegram bot; KV namespace `qaravan-bio-links`, binding `BIO`) stores the `/bio/` link list and the team password. Its code is `bio-worker/worker.mjs` here, but it is deployed by the `bio worker` workflow in events-robot (`bio/deploy.mjs`, with that repo's `CLOUDFLARE_API_TOKEN`), which takes the file from this repo's `main`. After changing `bio-worker/worker.mjs`, push here, then run that workflow (it also runs on changes to its own files there).
 - No secrets in this repository. Both workflows use only `GITHUB_TOKEN`. The bio password is kept only as a salted hash in the Worker's KV: never write the password into a file, a commit, a page, a log or a workflow input.
 
 ## Robots and schedules
 
-- `.github/workflows/archive-past.yml`: cron `30 8 * * *` (UTC), but GitHub starts it late, in practice between about 8:30 AM and 1 PM New York. It runs `robot/archive-past.mjs` (moves past dates from `EVENTS` into `ARCHIVE`, rewrites both lists in a fixed format and drops comments inside them), then `robot/build-calendar.mjs`, and commits `index.html` and both feeds to `main`. Past events stay on the page until it runs.
+- `.github/workflows/archive-past.yml`: cron `*/15 * * * *` (UTC; GitHub often starts it late). It runs `robot/archive-past.mjs` (moves past dates from `EVENTS` into `ARCHIVE`, rewrites both lists in a fixed format and drops comments inside them), then `robot/from-site.mjs` (rewrites `EVENTS` from qaravan.org; it refuses while `EVENTS` holds a past date, so archive-past always runs first), then `robot/build-calendar.mjs`, and commits `index.html` and both feeds to `main` when something changed.
 - `.github/workflows/calendar.yml`: on a push to `main` touching `index.html` or `robot/build-calendar.mjs`, rebuilds the feeds and commits them if they changed.
 
 ## Checks before every push
 
 - `DRY_RUN=1 node robot/archive-past.mjs` (validates `EVENTS`; `ARCHIVE` items only on days something moves) and `TODAY=2099-01-01 DRY_RUN=1 node robot/archive-past.mjs` (validates every item).
+- `DRY_RUN=1 node robot/from-site.mjs`: what the next run would change from qaravan.org.
 - `CHECK=1 node robot/build-calendar.mjs` exits 1 when the feeds are stale; `node robot/build-calendar.mjs` rebuilds them.
 - `node --test bio-worker/worker.test.mjs` when `bio-worker/` or `bio/` changed (the worker's password, versions and validation rules).
 - When `EVENTS` changed and events-robot is checked out next to this repo, the bot must still read every event:
@@ -91,28 +104,18 @@ The repo owner has given standing, explicit permission to push directly to `main
 
 Nothing reviews the change after you, so before pushing:
 
-1. `git fetch origin main` and rebase onto it — the archive robot commits to `main` every night.
+1. `git fetch origin main` and rebase onto it — the events robot commits to `main` as often as every 15 minutes.
 2. `DRY_RUN=1 node robot/archive-past.mjs` must run without an error (it proves `EVENTS` and `ARCHIVE` still parse and every event has both its `en` and `ru` halves). Then `node robot/build-calendar.mjs` to rebuild the calendar feeds in the same commit (the calendar Action would otherwise commit them right after your push).
 3. Never force-push `main`. If the push is rejected, fetch, rebase and push again.
 4. After 1–2 minutes, check the live page: `curl -s https://events.qaravan.org/ | grep "<new event title>"`.
 
 Changes beyond the events list (the robot, workflows, page layout) also go to `main` without a PR, but describe them to the user and get a go-ahead in chat first.
 
-### Adding an event
+### Adding or changing an event
 
-The page is bilingual with a RU / EN switch: every event carries a complete English half and a complete Russian half. Neither language is a translation afterthought.
+Events are added, edited, moved and canceled on qaravan.org (Site management, Events, or the event page's own tools), never here: `robot/from-site.mjs` copies them into `EVENTS` within 15 minutes. If the user asks to add or change an event in this repository, do it on qaravan.org (qaravan-site's `content/events/<id>.json`, its AGENTS.md) and say so. The rules an event must meet (both languages complete, `about` up to 280 characters, links on https://www.qaravan.org, no emoji, no middle dot, no RUSA) are checked there and again here by `checkEvent`.
 
-- One block in `EVENTS`, in date order: `{ dates, time, type, en: { title, about, place }, ru: { title, about, place }, link }`. Same date: earlier `time` first.
-- `dates`: `["2026-10-10"]`; a recurring group keeps all its dates in one block, and every calendar (page and embeds) shows each date as its own card.
-- `time`: start time, 24-hour, `"17:00"` (trips: the meeting time). The page renders `17:00` in Russian and `5:00 PM` in English.
-- `type`: the board's Category column: `support` (Support & wellbeing), `community`, `resources` (Resource navigation), `culture` (Education & culture), `action` (Action & pride). It sets the card's colour flag, per the design system.
-- `en.title`: the English event name from Partiful, without emoji. `ru.title`: the board's "Name (Russian)", tidied in QARAVAN's voice.
-- `about`: the event's short description in each language, up to 280 characters; every card shows it in full (the robot rejects longer ones). Use the user's text when they give one; otherwise condense the board's "Short description". The Russian in QARAVAN's voice (the qaravan-voice skill), the English written as natural English, not word for word. Don't repeat the title.
-- `place`: `Venue, Neighborhood` (`Kvartira Books, Crown Heights` / `Kvartira Books, Краун-Хайтс`). Trips: `Meeting point: Grand Central` / `Сбор: Grand Central`. Private address: the neighborhood only.
-- `link`: the event's page on qaravan.org, where people sign up (owner, 2026-11-02: all events on the site only):
-  https://www.qaravan.org/events/<id>/. Never the old workers.dev host (the bot posts these links). Support groups link to their intake form.
 - Never edit `ARCHIVE` by hand.
-- Source of event details: the monday.com board "QARAVAN's Event Calendar" (id 4774572020), month groups like "October 2026". If the user's details conflict with the board or Partiful, go with the user and point out the conflict.
 
 ### Design
 
@@ -122,7 +125,7 @@ The page follows the QARAVAN design system (the org's default Design System arti
 
 ### Calendar feeds
 
-`qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the nightly robot rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours). The feeds start at `FROM = "2026-08-01"` in the script: the history before it (`ARCHIVE` from 2011: Partiful imports from July 2023, earlier years from the board and the Facebook export) stays on the page but out of subscribers' calendars.
+`qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the events robot (every 15 minutes) rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours). The feeds start at `FROM = "2026-08-01"` in the script: the history before it (`ARCHIVE` from 2011: Partiful imports from July 2023, earlier years from the board and the Facebook export) stays on the page but out of subscribers' calendars.
 
 ### Counting subscribers and clicks
 

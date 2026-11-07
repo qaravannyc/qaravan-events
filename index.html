@@ -328,36 +328,23 @@
 
 <script>
 // ══════════════════════════════════════════════════════════════
-//  КАК ОБНОВИТЬ ЭТУ СТРАНИЦУ (инструкция для команды QARAVAN)
+//  ОТКУДА БЕРУТСЯ СОБЫТИЯ
 //
-//  1. Откройте файл index.html в репозитории на GitHub
-//     и нажмите карандаш («Edit this file») справа сверху.
-//  2. Меняйте ТОЛЬКО текст в кавычках в списке EVENTS ниже.
-//     Одно событие = один блок в фигурных скобках { ... }.
-//     - Добавить — скопируйте любой блок и поправьте текст.
-//     - Отменили — сотрите его блок целиком (вместе с запятой).
-//     - dates — дата события в виде "ГГГГ-ММ-ДД". Если событие повторяется
-//       (как группа поддержки) — все даты через запятую в одном блоке:
-//       dates: ["2026-10-01", "2026-10-08", "2026-10-15"].
-//       На сайте каждая дата показывается отдельной карточкой.
-//     - time — время начала по 24 часа: "19:30". У поездок — время сбора.
-//       Страница сама пишет «19:30» по-русски и «7:30 PM» по-английски.
-//     - type — тип события, как в колонке Category на доске monday:
-//       "support" — группы поддержки, "community" — хайки, пикники, встречи,
-//       "resources" — помощь с документами и Q&A, "culture" — кино, книги,
-//       мастер-классы, музеи, "action" — прайды и волонтёрство.
-//     - en и ru — одно и то же событие на двух языках, каждое полностью:
-//       title — название, about — описание события (до 280 знаков, показывается целиком),
-//       place — где («Сбор: Grand Central» / «Meeting point: Grand Central»).
-//     Число, день недели, месяц и порядок карточек страница считает сама.
-//  3. Прошедшие события переносить никуда не нужно: каждую ночь робот
-//     (Actions → «archive past events», файл robot/archive-past.mjs)
-//     сам убирает их из EVENTS в ARCHIVE — свёрнутый список прошлых
-//     месяцев под текущим. ARCHIVE руками не трогайте. У старых событий
-//     в архиве (до июля 2023, из истории на доске) link может не быть:
-//     их карточки показываются без кнопки.
-//  4. Нажмите зелёную кнопку «Commit changes» (дважды).
-//     Сайт events.qaravan.org обновится сам через 1–2 минуты.
+//  Список EVENTS ниже руками не правят. События ведут на qaravan.org
+//  (Site management → Events), а робот (Actions → «archive past events»,
+//  robot/from-site.mjs) каждые 15 минут переписывает EVENTS по ним:
+//  один источник для qaravan.org и events.qaravan.org. Правка здесь
+//  пропадёт при следующем прогоне.
+//
+//  Прошедшие даты тот же робот (robot/archive-past.mjs) переносит
+//  из EVENTS в ARCHIVE — свёрнутый список прошлых месяцев под текущим.
+//  ARCHIVE руками не трогайте. У старых событий в архиве (до июля 2023,
+//  из истории на доске) link может не быть: их карточки без кнопки.
+//
+//  Формат EVENTS (его читает Telegram-бот в events-robot): dates — даты
+//  "ГГГГ-ММ-ДД", time — начало "19:30", type — support, community,
+//  resources, culture или action, en и ru — title, about (до 280 знаков)
+//  и place, link — ссылка, по желанию end — конец "21:00".
 // ══════════════════════════════════════════════════════════════
 
 const EVENTS = [
@@ -366,14 +353,14 @@ const EVENTS = [
     time: "09:00",
     type: "resources",
     en: {
-      title: "Help Desk and Volunteer Orientation, November 6",
-      about: "On Friday, November 6, QARAVAN volunteers help with calls, forms, documents and translations. New volunteers get an orientation and can ask the team anything.",
-      place: "Manhattan's West Side, address after sign-up"
+      title: "Help Desk and Volunteer Orientation",
+      about: "On Friday, November 6, QARAVAN volunteers meet one-on-one with anyone who needs help or information, or just wants to talk through a question. New volunteers get an orientation and can ask the team anything.",
+      place: "Pier 57, Chelsea"
     },
     ru: {
-      title: "Час вопросов и знакомство для волонтёров 6 ноября",
-      about: "В пятницу, 6 ноября, волонтёры QARAVAN помогают со звонками, анкетами, документами и переводами. Новых волонтёров знакомим с работой и отвечаем на их вопросы.",
-      place: "Запад Манхэттена, адрес после записи"
+      title: "Час помощи и знакомство для новых волонтёров",
+      about: "В пятницу, 6 ноября, волонтёры QARAVAN встречаются один на один с каждым, кому нужна помощь или информация. Можно прийти и просто обсудить свой вопрос. Новых волонтёров знакомим с работой и отвечаем на их вопросы.",
+      place: "Pier 57, Chelsea"
     },
     link: "https://www.qaravan.org/events/2026-11-06-help-desk/"
   },
@@ -382,14 +369,14 @@ const EVENTS = [
     time: "16:00",
     type: "resources",
     en: {
-      title: "Help Desk and Volunteer Orientation, November 9",
-      about: "On Monday, November 9, QARAVAN volunteers help with calls, forms, documents and translations. New volunteers get an orientation and can ask the team anything.",
-      place: "Manhattan's West Side, address after sign-up"
+      title: "Help Desk and Volunteer Orientation",
+      about: "On Monday, November 9, QARAVAN volunteers meet one-on-one with anyone who needs help or information, or just wants to talk through a question. New volunteers get an orientation and can ask the team anything.",
+      place: "Pier 57, Chelsea"
     },
     ru: {
-      title: "Час вопросов и знакомство для волонтёров 9 ноября",
-      about: "В понедельник, 9 ноября, волонтёры QARAVAN помогают со звонками, анкетами, документами и переводами. Новых волонтёров знакомим с работой и отвечаем на их вопросы.",
-      place: "Запад Манхэттена, адрес после записи"
+      title: "Час помощи и знакомство для новых волонтёров",
+      about: "В понедельник, 9 ноября, волонтёры QARAVAN встречаются один на один с каждым, кому нужна помощь или информация. Можно прийти и просто обсудить свой вопрос. Новых волонтёров знакомим с работой и отвечаем на их вопросы.",
+      place: "Pier 57, Chelsea"
     },
     link: "https://www.qaravan.org/events/2026-11-09-help-desk/"
   },
@@ -446,47 +433,48 @@ const EVENTS = [
     time: "18:00",
     type: "culture",
     en: {
-      title: "Qaravan Movie Club",
-      about: "The movie club watches a film together and talks about it afterward.",
-      place: "Williamsburg, Brooklyn, address after sign-up"
+      title: "QARAVAN Movie Club",
+      about: "The movie club watches a film together and talks about it afterward. Club members choose the film by vote.",
+      place: "Williamsburg, Brooklyn"
     },
     ru: {
       title: "Киноклуб QARAVAN",
-      about: "Смотрим фильм, а потом вместе его обсуждаем.",
-      place: "Williamsburg, Brooklyn, адрес после записи"
+      about: "Смотрим фильм, а потом вместе его обсуждаем. Фильм выбирают участники клуба голосованием.",
+      place: "Williamsburg, Brooklyn"
     },
     link: "https://www.qaravan.org/events/2026-11-22-movie-club/"
-  },
-  {
-    dates: ["2026-11-23"],
-    type: "community",
-    en: {
-      title: "Qaravan Friendsgiving",
-      about: "A shared dinner for anyone who wants to celebrate Thanksgiving among friends. Time and place to be confirmed.",
-      place: "To be confirmed"
-    },
-    ru: {
-      title: "Friendsgiving с QARAVAN",
-      about: "Общий ужин для тех, кто хочет встретить День благодарения в кругу друзей. Время и место уточняются.",
-      place: "Место уточняется"
-    },
-    link: "https://www.qaravan.org/events/2026-11-23-friendsgiving/"
   },
   {
     dates: ["2026-11-23"],
     time: "14:00",
     type: "resources",
     en: {
-      title: "Help Desk and Volunteer Orientation, November 23",
-      about: "On Monday, November 23, QARAVAN volunteers help with calls, forms, documents and translations. New volunteers get an orientation and can ask the team anything.",
-      place: "Manhattan's West Side, address after sign-up"
+      title: "Help Desk and Volunteer Orientation",
+      about: "On Monday, November 23, QARAVAN volunteers meet one-on-one with anyone who needs help or information, or just wants to talk through a question. New volunteers get an orientation and can ask the team anything.",
+      place: "Pier 57, Chelsea"
     },
     ru: {
-      title: "Час вопросов и знакомство для волонтёров 23 ноября",
-      about: "В понедельник, 23 ноября, волонтёры QARAVAN помогают со звонками, анкетами, документами и переводами. Новых волонтёров знакомим с работой и отвечаем на их вопросы.",
-      place: "Запад Манхэттена, адрес после записи"
+      title: "Час помощи и знакомство для новых волонтёров",
+      about: "В понедельник, 23 ноября, волонтёры QARAVAN встречаются один на один с каждым, кому нужна помощь или информация. Можно прийти и просто обсудить свой вопрос. Новых волонтёров знакомим с работой и отвечаем на их вопросы.",
+      place: "Pier 57, Chelsea"
     },
     link: "https://www.qaravan.org/events/2026-11-23-help-desk/"
+  },
+  {
+    dates: ["2026-12-19"],
+    time: "19:00",
+    type: "community",
+    en: {
+      title: "QARAVAN New Year's Party",
+      about: "QARAVAN's New Year's party at the Stonewall Inn, with a performance by Svetlana Stoli. More details soon: for now, save the date.",
+      place: "Stonewall Inn, West Village"
+    },
+    ru: {
+      title: "Новогодняя вечеринка QARAVAN",
+      about: "Встречаем Новый год вместе в Stonewall Inn. Выступает Svetlana Stoli. Подробности скоро, а пока сохраните дату.",
+      place: "Stonewall Inn, West Village"
+    },
+    link: "https://www.qaravan.org/events/2026-12-19-new-year-party/"
   }
 ];
 

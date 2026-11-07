@@ -662,18 +662,18 @@ UID:2026-11-06-0900-e0be00f700-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261106T090000
 DURATION:PT2H
-SUMMARY:Час вопросов и знакомство для волонт
- ёров 6 ноября
-LOCATION:Запад Манхэттена\, адрес после запис
- и
+SUMMARY:Час помощи и знакомство для новых во
+ лонтёров
+LOCATION:Pier 57\, Chelsea
 DESCRIPTION:В пятницу\, 6 ноября\, волонтёры QARAVAN
-  помогают со звонками\, анкетами\, докуме
- нтами и переводами. Новых волонтёров зна
- комим с работой и отвечаем на их вопросы.
- \n\nПожалуйста\, зарегистрируйтесь заране
- е\, так нам проще всё подготовить:\nhttps://www.
- qaravan.org/events/2026-11-06-help-desk/\n\nВсе наши события
- :\nhttps://www.qaravan.org/events
+  встречаются один на один с каждым\, кому 
+ нужна помощь или информация. Можно прийт
+ и и просто обсудить свой вопрос. Новых во
+ лонтёров знакомим с работой и отвечаем н
+ а их вопросы.\n\nПожалуйста\, зарегистриру
+ йтесь заранее\, так нам проще всё подгото
+ вить:\nhttps://www.qaravan.org/events/2026-11-06-help-desk/\n\nВсе 
+ наши события:\nhttps://www.qaravan.org/events
 URL:https://www.qaravan.org/events/2026-11-06-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
@@ -684,18 +684,18 @@ UID:2026-11-09-1600-6d6719d84d-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261109T160000
 DURATION:PT2H
-SUMMARY:Час вопросов и знакомство для волонт
- ёров 9 ноября
-LOCATION:Запад Манхэттена\, адрес после запис
- и
+SUMMARY:Час помощи и знакомство для новых во
+ лонтёров
+LOCATION:Pier 57\, Chelsea
 DESCRIPTION:В понедельник\, 9 ноября\, волонтёры
-  QARAVAN помогают со звонками\, анкетами\, до
- кументами и переводами. Новых волонтёро
- в знакомим с работой и отвечаем на их воп
- росы.\n\nПожалуйста\, зарегистрируйтесь з
- аранее\, так нам проще всё подготовить:\nht
- tps://www.qaravan.org/events/2026-11-09-help-desk/\n\nВсе наши со
- бытия:\nhttps://www.qaravan.org/events
+  QARAVAN встречаются один на один с каждым\, 
+ кому нужна помощь или информация. Можно 
+ прийти и просто обсудить свой вопрос. Но
+ вых волонтёров знакомим с работой и отве
+ чаем на их вопросы.\n\nПожалуйста\, зареги
+ стрируйтесь заранее\, так нам проще всё п
+ одготовить:\nhttps://www.qaravan.org/events/2026-11-09-help-desk
+ /\n\nВсе наши события:\nhttps://www.qaravan.org/events
 URL:https://www.qaravan.org/events/2026-11-09-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
@@ -786,33 +786,15 @@ DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261122T180000
 DURATION:PT2H
 SUMMARY:Киноклуб QARAVAN
-LOCATION:Williamsburg\, Brooklyn\, адрес после записи
+LOCATION:Williamsburg\, Brooklyn
 DESCRIPTION:Смотрим фильм\, а потом вместе его 
- обсуждаем.\n\nПожалуйста\, зарегистрируйт
- есь заранее\, так нам проще всё подготови
- ть:\nhttps://www.qaravan.org/events/2026-11-22-movie-club/\n\nВсе н
- аши события:\nhttps://www.qaravan.org/events
+ обсуждаем. Фильм выбирают участники клу
+ ба голосованием.\n\nПожалуйста\, зарегист
+ рируйтесь заранее\, так нам проще всё под
+ готовить:\nhttps://www.qaravan.org/events/2026-11-22-movie-club/\n
+ \nВсе наши события:\nhttps://www.qaravan.org/events
 URL:https://www.qaravan.org/events/2026-11-22-movie-club/
 CATEGORIES:Education & culture
-STATUS:CONFIRMED
-TRANSP:TRANSPARENT
-END:VEVENT
-BEGIN:VEVENT
-UID:2026-11-23-allday-21b5dda135-ru@events.qaravan.org
-DTSTAMP:20260930T000000Z
-DTSTART;VALUE=DATE:20261123
-DURATION:P1D
-SUMMARY:Friendsgiving с QARAVAN
-LOCATION:Место уточняется
-DESCRIPTION:Общий ужин для тех\, кто хочет встр
- етить День благодарения в кругу друзей. 
- Время и место уточняются.\n\nПожалуйста\, 
- зарегистрируйтесь заранее\, так нам прощ
- е всё подготовить:\nhttps://www.qaravan.org/events/2026-11-
- 23-friendsgiving/\n\nВсе наши события:\nhttps://www.qaravan.
- org/events
-URL:https://www.qaravan.org/events/2026-11-23-friendsgiving/
-CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
@@ -821,18 +803,18 @@ UID:2026-11-23-1400-790152a75e-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261123T140000
 DURATION:PT2H
-SUMMARY:Час вопросов и знакомство для волонт
- ёров 23 ноября
-LOCATION:Запад Манхэттена\, адрес после запис
- и
+SUMMARY:Час помощи и знакомство для новых во
+ лонтёров
+LOCATION:Pier 57\, Chelsea
 DESCRIPTION:В понедельник\, 23 ноября\, волонтёр
- ы QARAVAN помогают со звонками\, анкетами\, д
- окументами и переводами. Новых волонтёр
- ов знакомим с работой и отвечаем на их во
- просы.\n\nПожалуйста\, зарегистрируйтесь 
- заранее\, так нам проще всё подготовить:\n
- https://www.qaravan.org/events/2026-11-23-help-desk/\n\nВсе наши с
- обытия:\nhttps://www.qaravan.org/events
+ ы QARAVAN встречаются один на один с каждым\,
+  кому нужна помощь или информация. Можно 
+ прийти и просто обсудить свой вопрос. Но
+ вых волонтёров знакомим с работой и отве
+ чаем на их вопросы.\n\nПожалуйста\, зареги
+ стрируйтесь заранее\, так нам проще всё п
+ одготовить:\nhttps://www.qaravan.org/events/2026-11-23-help-desk
+ /\n\nВсе наши события:\nhttps://www.qaravan.org/events
 URL:https://www.qaravan.org/events/2026-11-23-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
@@ -911,6 +893,25 @@ DESCRIPTION:Онлайн-группа поддержки раз в неде
  s://www.qaravan.org/events
 URL:https://feedback.qaravan.org/support/gina
 CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-19-1900-b2363ad0bc-ru@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261219T190000
+DURATION:PT2H
+SUMMARY:Новогодняя вечеринка QARAVAN
+LOCATION:Stonewall Inn\, West Village
+DESCRIPTION:Встречаем Новый год вместе в Stonewall 
+ Inn. Выступает Svetlana Stoli. Подробности скоро\
+ , а пока сохраните дату.\n\nПожалуйста\, за
+ регистрируйтесь заранее\, так нам проще 
+ всё подготовить:\nhttps://www.qaravan.org/events/2026-12-19-
+ new-year-party/\n\nВсе наши события:\nhttps://www.qaravan.or
+ g/events
+URL:https://www.qaravan.org/events/2026-12-19-new-year-party/
+CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT

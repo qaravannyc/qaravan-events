@@ -585,13 +585,14 @@ UID:2026-11-06-0900-e0be00f700-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261106T090000
 DURATION:PT2H
-SUMMARY:Help Desk and Volunteer Orientation\, November 6
-LOCATION:Manhattan's West Side\, address after sign-up
-DESCRIPTION:On Friday\, November 6\, QARAVAN volunteers help with calls\, f
- orms\, documents and translations. New volunteers get an orientation and c
- an ask the team anything.\n\nPlease register in advance\, it helps us plan
- :\nhttps://www.qaravan.org/events/2026-11-06-help-desk/\n\nAll our events:
- \nhttps://www.qaravan.org/events
+SUMMARY:Help Desk and Volunteer Orientation
+LOCATION:Pier 57\, Chelsea
+DESCRIPTION:On Friday\, November 6\, QARAVAN volunteers meet one-on-one wit
+ h anyone who needs help or information\, or just wants to talk through a q
+ uestion. New volunteers get an orientation and can ask the team anything.\
+ n\nPlease register in advance\, it helps us plan:\nhttps://www.qaravan.org
+ /events/2026-11-06-help-desk/\n\nAll our events:\nhttps://www.qaravan.org/
+ events
 URL:https://www.qaravan.org/events/2026-11-06-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
@@ -602,13 +603,14 @@ UID:2026-11-09-1600-6d6719d84d-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261109T160000
 DURATION:PT2H
-SUMMARY:Help Desk and Volunteer Orientation\, November 9
-LOCATION:Manhattan's West Side\, address after sign-up
-DESCRIPTION:On Monday\, November 9\, QARAVAN volunteers help with calls\, f
- orms\, documents and translations. New volunteers get an orientation and c
- an ask the team anything.\n\nPlease register in advance\, it helps us plan
- :\nhttps://www.qaravan.org/events/2026-11-09-help-desk/\n\nAll our events:
- \nhttps://www.qaravan.org/events
+SUMMARY:Help Desk and Volunteer Orientation
+LOCATION:Pier 57\, Chelsea
+DESCRIPTION:On Monday\, November 9\, QARAVAN volunteers meet one-on-one wit
+ h anyone who needs help or information\, or just wants to talk through a q
+ uestion. New volunteers get an orientation and can ask the team anything.\
+ n\nPlease register in advance\, it helps us plan:\nhttps://www.qaravan.org
+ /events/2026-11-09-help-desk/\n\nAll our events:\nhttps://www.qaravan.org/
+ events
 URL:https://www.qaravan.org/events/2026-11-09-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
@@ -685,30 +687,14 @@ UID:2026-11-22-1800-2a6ffffd40-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261122T180000
 DURATION:PT2H
-SUMMARY:Qaravan Movie Club
-LOCATION:Williamsburg\, Brooklyn\, address after sign-up
+SUMMARY:QARAVAN Movie Club
+LOCATION:Williamsburg\, Brooklyn
 DESCRIPTION:The movie club watches a film together and talks about it after
- ward.\n\nPlease register in advance\, it helps us plan:\nhttps://www.qarav
- an.org/events/2026-11-22-movie-club/\n\nAll our events:\nhttps://www.qarav
- an.org/events
+ ward. Club members choose the film by vote.\n\nPlease register in advance\
+ , it helps us plan:\nhttps://www.qaravan.org/events/2026-11-22-movie-club/
+ \n\nAll our events:\nhttps://www.qaravan.org/events
 URL:https://www.qaravan.org/events/2026-11-22-movie-club/
 CATEGORIES:Education & culture
-STATUS:CONFIRMED
-TRANSP:TRANSPARENT
-END:VEVENT
-BEGIN:VEVENT
-UID:2026-11-23-allday-21b5dda135-en@events.qaravan.org
-DTSTAMP:20260930T000000Z
-DTSTART;VALUE=DATE:20261123
-DURATION:P1D
-SUMMARY:Qaravan Friendsgiving
-LOCATION:To be confirmed
-DESCRIPTION:A shared dinner for anyone who wants to celebrate Thanksgiving 
- among friends. Time and place to be confirmed.\n\nPlease register in advan
- ce\, it helps us plan:\nhttps://www.qaravan.org/events/2026-11-23-friendsg
- iving/\n\nAll our events:\nhttps://www.qaravan.org/events
-URL:https://www.qaravan.org/events/2026-11-23-friendsgiving/
-CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
@@ -717,13 +703,14 @@ UID:2026-11-23-1400-790152a75e-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261123T140000
 DURATION:PT2H
-SUMMARY:Help Desk and Volunteer Orientation\, November 23
-LOCATION:Manhattan's West Side\, address after sign-up
-DESCRIPTION:On Monday\, November 23\, QARAVAN volunteers help with calls\, 
- forms\, documents and translations. New volunteers get an orientation and 
- can ask the team anything.\n\nPlease register in advance\, it helps us pla
- n:\nhttps://www.qaravan.org/events/2026-11-23-help-desk/\n\nAll our events
- :\nhttps://www.qaravan.org/events
+SUMMARY:Help Desk and Volunteer Orientation
+LOCATION:Pier 57\, Chelsea
+DESCRIPTION:On Monday\, November 23\, QARAVAN volunteers meet one-on-one wi
+ th anyone who needs help or information\, or just wants to talk through a 
+ question. New volunteers get an orientation and can ask the team anything.
+ \n\nPlease register in advance\, it helps us plan:\nhttps://www.qaravan.or
+ g/events/2026-11-23-help-desk/\n\nAll our events:\nhttps://www.qaravan.org
+ /events
 URL:https://www.qaravan.org/events/2026-11-23-help-desk/
 CATEGORIES:Resource navigation
 STATUS:CONFIRMED
@@ -790,6 +777,23 @@ DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill
  ll our events:\nhttps://www.qaravan.org/events
 URL:https://feedback.qaravan.org/support/gina
 CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-12-19-1900-b2363ad0bc-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261219T190000
+DURATION:PT2H
+SUMMARY:QARAVAN New Year's Party
+LOCATION:Stonewall Inn\, West Village
+DESCRIPTION:QARAVAN's New Year's party at the Stonewall Inn\, with a perfor
+ mance by Svetlana Stoli. More details soon: for now\, save the date.\n\nPl
+ ease register in advance\, it helps us plan:\nhttps://www.qaravan.org/even
+ ts/2026-12-19-new-year-party/\n\nAll our events:\nhttps://www.qaravan.org/
+ events
+URL:https://www.qaravan.org/events/2026-12-19-new-year-party/
+CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
