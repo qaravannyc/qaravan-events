@@ -1,93 +1,35 @@
-# AGENTS.md: qaravan-events (events.qaravan.org)
+# AGENTS.md: qaravan-events (the retired events.qaravan.org)
 
 Read this whole file before you change anything here. Claude Code reads it
 through `CLAUDE.md`; Codex, Cursor, Copilot, Gemini and other agents read it
 directly. It holds the owner's rules for this repository and the contracts
 other QARAVAN systems rely on. Keep it true: see "Keeping this file live".
 
-## QARAVAN's three repositories
+## QARAVAN's repositories
 
 | Repository | What it is | Runs on |
 | - | - | - |
-| `qaravannyc/qaravan-events` (this one) | events.qaravan.org: `/` sends visitors to https://www.qaravan.org/events/ (owner, 2026-11-07); `index.html` keeps the `EVENTS` and `ARCHIVE` lists as data, the `.ics` calendar feeds, the link-in-bio page `/bio/` and the standalone pages below | GitHub Pages from `main`; the bio page's backend (`bio-worker/`) on a Cloudflare Worker deployed from events-robot |
-| `qaravannyc/events-robot` | Robots between Partiful, monday.com, Gmail, Google Photos and Slack; the Telegram bot @qaravan_door_bot, which reads this page every hour | GitHub Actions, Cloudflare Workers |
+| `qaravannyc/qaravan-events` (this one) | Retired (owner, 2026-11-07: "kill events.qaravan.org"). Holds the code of the bio page's server (`bio-worker/`) and the old events page's files as a record; nothing here is served | the bio server on a Cloudflare Worker deployed from events-robot; GitHub Pages no longer has a custom domain |
+| `qaravannyc/qaravan-site` | www.qaravan.org, and since 2026-11-07 events.qaravan.org too (a custom domain of its Worker) | Cloudflare Worker `qaravan-site` |
+| `qaravannyc/events-robot` | Robots between Partiful, monday.com, Gmail, Google Photos and Slack; the Telegram bot @qaravan_door_bot | GitHub Actions, Cloudflare Workers |
 | `qaravannyc/qaravan-forms` | feedback.qaravan.org: feedback and survey forms, photo upload, support-group intake forms, monday webhooks | Vercel |
 
-## What other systems depend on here
+## Where everything went (2026-11-07)
 
-**`EVENTS` is an API, not only page content.** The Telegram bot in
-`events-robot` (`telegram/worker.mjs`: `extractEvents`, `normalizeEvent`)
-downloads https://events.qaravan.org/ every hour and parses `EVENTS` out of the
-HTML. From it the bot builds the monthly and weekly overviews, the day-before
-reminders in the community chat and the private-message reminders. A push here
-is live in about a minute; nobody reviews what the bot then sends.
+- **events.qaravan.org** is a custom domain of qaravan-site's Worker (`routes` in its wrangler.jsonc, `EVENTS_HOST` in its worker/index.mjs). It answers `/qaravan-events-en.ics` and `/qaravan-events-ru.ics` itself and sends every other address by 301 to its page on www.qaravan.org: `/` to /events/ (or /ru/events/), `/bio/`, `/newsletter/oct13/`, `/oct27/`, `/quiz/`, `/oct19/` to /files/ucheba-v-ssha.pdf, anything else to /events/.
+- **The calendar feeds** are made by qaravan-site (`worker/calendar-feed.mjs`, a port of `robot/build-calendar.mjs` here) from qaravan.org's events and the history in its `worker/calendar-archive.json` (copied from `ARCHIVE` here). Every event keeps the UID this repo gave it, so subscribers see no duplicates.
+- **The Telegram bot** reads https://www.qaravan.org/data/site-events.json (events-robot `eventsFromSite`), not this repo.
+- **The pages** `/bio/`, `/newsletter/oct13/`, `/oct27/` and `/quiz/` and the PDF guide live in qaravan-site (`site/bio/`, `site/newsletter/oct13/`, `site/oct27/`, `site/quiz/`, `site/files/ucheba-v-ssha.pdf`). The copies here are the old ones, served nowhere: a change to them never reaches anyone. Change the qaravan-site files instead.
+- **Events** are made and edited on qaravan.org only (Site management, Events). `EVENTS` and `ARCHIVE` in `index.html` stopped on 2026-11-07 and nothing reads them. The robots that kept them (`archive-past.yml`, `calendar.yml`) are gone; their scripts stay in `robot/` as a record.
 
-**`EVENTS` is generated from qaravan.org (owner, 2026-11-07: one source of
-truth for both sites).** `robot/from-site.mjs` rewrites it every 15 minutes from
-https://www.qaravan.org/data/site-events.json (the events the team keeps in
-qaravan.org's Site management, content/events in qaravan-site, live saves
-included). Never edit `EVENTS` by hand: the next run puts it back. Links: the
-event's qaravan.org page; forms `gina` and `simon` keep their
-feedback.qaravan.org/support/<form> links; external sign-up keeps its URL. An
-event whose date isn't chosen (`dateTbd`) stays out until it has one (the page
-and the bot have no "date to be confirmed"). If the site doesn't answer, nothing
-changes; a list that fails `checkEvent` turns the run red and changes nothing.
+## What still depends on this repository
 
-- Current item shape: `{ dates, time, type, en: { title, about, place }, ru: { title, about, place }, link }`, optional `end`. The bot also still reads the older shape (`title`, a Russian line in `ru`, `meta` with time and place).
-- `ARCHIVE` items may have no `link` and no `time`: the history before July 2023 (2011 onward, written from the monday board and the Facebook export on 2026-10-02) mostly has no Partiful page, so those cards show no button. `EVENTS` items always need a `link` (`checkEvent` in `robot/events-list.mjs`).
-- The list starts with the exact text `const EVENTS = [` and ends at the first line that begins with `];`. No line inside it may begin with `];`. `EVENTS` stays above `ARCHIVE`, inline in `index.html` at `/`.
-- Inside the list only literals: objects, arrays, quoted strings, numbers, `true`, `false`, `null`, comments, trailing commas. No variables, function calls, `+`, template strings, or line breaks inside a string: the bot's parser rejects them.
-- Every date is `"YYYY-MM-DD"`. One bad date makes the bot reject the whole list. `time` is `"HH:MM"`, 24-hour, New York time.
-- Identity: the bot finds an event's monday row by `link` or by `en.title` (the board item's name) and remembers sent reminders by date plus `link`. Changing the link or English title of an event that already got reminders can make the bot remind again. The `.ics` UID depends on date, time, link and type.
-
-**The events page is closed (owner, 2026-11-07: "kill events.qaravan.org, make it
-redirect to https://www.qaravan.org/events/").** `index.html` is a redirect: a
-script sends `/` (with any `?lang=` or `?embed=`) to /ru/events/ for Russian (the
-`?lang=` in the link, else the language the old page remembered in localStorage
-`qaravan-events-lang`, else the browser's) and /events/ otherwise; without
-JavaScript a meta refresh goes to /events/. Under it the two lists stay, inline,
-in their format, because the bot and the feeds read them. Never put page code back.
-
-**Changing the shape of an item** (a field renamed, moved, added as required,
-or its format changed) needs, in the same piece of work: `normalizeEvent` and
-`telegram/worker.test.mjs` in events-robot, merged and deployed before this
-file changes; here `robot/events-list.mjs` (`TYPES`, `LANG_KEYS`, `KEYS`,
-`checkEvent`, the serializers), `robot/from-site.mjs` (`itemOf`),
-`robot/build-calendar.mjs`, qaravan-site's event files if the source changes, every `ARCHIVE` item,
-`README.md`, the comment above the lists in `index.html`, and this file. The list of
-types lives in two places: `events-list.mjs` and `build-calendar.mjs`. If you can't change events-robot, stop and tell the user
-exactly what the bot will lose.
-
-**URLs other people and systems hold:**
-- `/qaravan-events-en.ics` and `/qaravan-events-ru.ics`: every calendar subscription is tied to them. Never rename.
-- `/`, `?embed=1`, `?embed=page`, `?lang=`: all go to https://www.qaravan.org/events/ (or /ru/events/), see above.
-- Support-group `link`s point to `https://feedback.qaravan.org/support/<name>`, served by qaravan-forms (`gina` and `simon` exist). Don't link a new name there before the form exists.
-- `https://events.qaravan.org/bio/`: the link in the Instagram bio of @qaravan_org. Keep the path. (There is no qaravan.org/insta or other short address for it.)
-- `/newsletter/oct13/`: the English version of the 2026-10-13 newsletter, a standalone page outside the events page's layout. The Russian email links to `qaravan.org/newsletter/oct13`, which lives on Wix and reaches this page only through a Wix redirect (or the email links here directly). Keep the path and the file unchanged.
-- `/oct19/`: the guide «Учёба в США для просителей убежища» (PDF, first version of 2026-10-19), shared around the 2026-10-19 education panel. `/oct19/` redirects to `/oct19/ucheba-v-ssha.pdf`. Keep both paths; a new version replaces the PDF under the same name.
-- `/oct27/`: the phone game «Нарисуйте округа» (gerrymandering on a 5×5 grid, two tasks, Russian only) for the 2026-10-27 midterm elections talk. One self-contained `oct27/index.html`, no network calls besides the site's own fonts. Keep the path.
-- `/quiz/`: the quiz «Какие стипендии и программы вам подходят», built on that guide. It runs entirely in the browser: answers (they include immigration status) are never sent, stored or counted, so add no analytics, storage or network calls with answers. `quiz/programs.js` holds one object per program from the guide, one per line (requirement keys in `r` are read by `match()` in `quiz/app.js`); the steps and facts are in `buildSteps()` / `buildFacts()`. The PDF plan is made in the browser with pdfmake 0.2.20 (`quiz/vendor/`) and Fira Sans subsets (`quiz/fonts/`). When the guide changes, update `programs.js` and the dated figures in `app.js` together. Keep the path.
-
-## What this repository depends on
-
-- Content: qaravan.org's events, read from https://www.qaravan.org/data/site-events.json by `robot/from-site.mjs` (see above). The team creates and edits events there; its rules (`scripts/events-rules.mjs` in qaravan-site) follow the ones here. No code here reads monday.
-- qaravan-forms for the `/support/<name>` intake pages; qaravan.org event pages for event links (Partiful before 2026-11).
-- Cloudflare Worker `qaravan-bio` at https://qaravan-bio.jolly-bar-b5ed.workers.dev (QARAVAN's Cloudflare account, the same one as the Telegram bot; KV namespace `qaravan-bio-links`, binding `BIO`) stores the `/bio/` link list and the team password. Its code is `bio-worker/worker.mjs` here, but it is deployed by the `bio worker` workflow in events-robot (`bio/deploy.mjs`, with that repo's `CLOUDFLARE_API_TOKEN`), which takes the file from this repo's `main`. After changing `bio-worker/worker.mjs`, push here, then run that workflow (it also runs on changes to its own files there).
-- No secrets in this repository. Both workflows use only `GITHUB_TOKEN`. The bio password is kept only as a salted hash in the Worker's KV: never write the password into a file, a commit, a page, a log or a workflow input.
-
-## Robots and schedules
-
-- `.github/workflows/archive-past.yml`: cron `*/15 * * * *` (UTC; GitHub often starts it late). It runs `robot/archive-past.mjs` (moves past dates from `EVENTS` into `ARCHIVE`, rewrites both lists in a fixed format and drops comments inside them), then `robot/from-site.mjs` (rewrites `EVENTS` from qaravan.org; it refuses while `EVENTS` holds a past date, so archive-past always runs first), then `robot/build-calendar.mjs`, and commits `index.html` and both feeds to `main` when something changed.
-- `.github/workflows/calendar.yml`: on a push to `main` touching `index.html` or `robot/build-calendar.mjs`, rebuilds the feeds and commits them if they changed.
+- **The bio page's server.** Cloudflare Worker `qaravan-bio` at https://qaravan-bio.jolly-bar-b5ed.workers.dev (QARAVAN's Cloudflare account, the same one as the Telegram bot; KV namespace `qaravan-bio-links`, binding `BIO`) stores the `/bio/` link list and the team password. Its code is `bio-worker/worker.mjs` here; the `bio worker` workflow in events-robot (`bio/deploy.mjs`, with that repo's `CLOUDFLARE_API_TOKEN`) deploys the file from this repo's `main`. After changing `bio-worker/worker.mjs`, push here, then run that workflow. The page that uses it is qaravan-site's `site/bio/`; the origins the server accepts are `ORIGINS` in events-robot `bio/deploy.mjs` (www.qaravan.org, qaravan.org, events.qaravan.org).
+- No secrets in this repository. The bio password is kept only as a salted hash in the Worker's KV: never write the password into a file, a commit, a page, a log or a workflow input.
 
 ## Checks before every push
 
-- `DRY_RUN=1 node robot/archive-past.mjs` (validates `EVENTS`; `ARCHIVE` items only on days something moves) and `TODAY=2099-01-01 DRY_RUN=1 node robot/archive-past.mjs` (validates every item).
-- `DRY_RUN=1 node robot/from-site.mjs`: what the next run would change from qaravan.org.
-- `CHECK=1 node robot/build-calendar.mjs` exits 1 when the feeds are stale; `node robot/build-calendar.mjs` rebuilds them.
-- `node --test bio-worker/worker.test.mjs` when `bio-worker/` or `bio/` changed (the worker's password, versions and validation rules).
-- When `EVENTS` changed and events-robot is checked out next to this repo, the bot must still read every event:
-  `node --input-type=module -e "import { extractEvents } from '../events-robot/telegram/worker.mjs'; import fs from 'node:fs'; const e = extractEvents(fs.readFileSync('index.html', 'utf8')); const bad = e.filter((x) => !x.title || !x.meta); console.log(e.length, 'events,', bad.length, 'unreadable'); if (bad.length) process.exit(1);"`
+- `node --test bio-worker/worker.test.mjs` when `bio-worker/` changed (the worker's password, versions and validation rules).
 
 ## Incidents and the rule each one taught
 
@@ -96,7 +38,7 @@ exactly what the bot will lose.
 
 ## Keeping this file live
 
-- Change this file in the same commit as anything it describes: an `EVENTS` field or format, a URL others hold, a workflow or schedule, an owner's rule.
+- Change this file in the same commit as anything it describes: the bio server's contract, a URL others hold, an owner's rule.
 - When the change affects another repository listed above, change that repository too, or tell the user exactly what will break there. Update that repository's `AGENTS.md` section about this one.
 - After something breaks, add one line under Incidents: the date, what broke, the rule it taught.
 - Write only what an agent can't learn quickly from the code: contracts, who reads what, IDs, schedules, rules and their reasons. No changelog, no tutorials. Delete lines that stop being true. Keep the file under about 200 lines.
@@ -105,46 +47,23 @@ exactly what the bot will lose.
 
 ### Publishing: straight to `main`, no pull requests
 
-The repo owner has given standing, explicit permission to push directly to `main` — the branch the site is published from. This holds even when your session was assigned a `claude/...` branch: commit there if you like, then push the same commit with `git push origin HEAD:main`. Don't open a pull request and don't leave the change waiting on a branch: nobody wants to merge anything by hand.
-
-Nothing reviews the change after you, so before pushing:
-
-1. `git fetch origin main` and rebase onto it — the events robot commits to `main` as often as every 15 minutes.
-2. `DRY_RUN=1 node robot/archive-past.mjs` must run without an error (it proves `EVENTS` and `ARCHIVE` still parse and every event has both its `en` and `ru` halves). Then `node robot/build-calendar.mjs` to rebuild the calendar feeds in the same commit (the calendar Action would otherwise commit them right after your push).
-3. Never force-push `main`. If the push is rejected, fetch, rebase and push again.
-4. After 1–2 minutes, check the live page: `curl -s https://events.qaravan.org/ | grep "<new event title>"`.
-
-Changes beyond the events list (the robot, workflows, page layout) also go to `main` without a PR, but describe them to the user and get a go-ahead in chat first.
+The repo owner has given standing, explicit permission to push directly to `main`. This holds even when your session was assigned a `claude/...` branch: commit there if you like, then push the same commit with `git push origin HEAD:main`. Don't open a pull request. Never force-push `main`. A change beyond the bio server's code needs the user's go-ahead in chat first.
 
 ### Adding or changing an event
 
-Events are added, edited, moved and canceled on qaravan.org (Site management, Events, or the event page's own tools), never here: `robot/from-site.mjs` copies them into `EVENTS` within 15 minutes. If the user asks to add or change an event in this repository, do it on qaravan.org (qaravan-site's `content/events/<id>.json`, its AGENTS.md) and say so. The rules an event must meet (both languages complete, `about` up to 280 characters, links on https://www.qaravan.org, no emoji, no middle dot, no RUSA) are checked there and again here by `checkEvent`.
-
-- Never edit `ARCHIVE` by hand.
-
-### Design
-
-Only `/bio/`, `/newsletter/oct13/`, `/oct27/` and `/quiz/` are pages now; they follow the QARAVAN design system (2026-09 revision): Fira Sans / Fira Sans Condensed from `assets/fonts/`, the official wordmark files in `assets/` (never redraw or retype the logo), white page, square hairline cards, brand colours only as flags, ink text, no emoji. `assets/` stays: those pages load it.
-
-### Calendar feeds
-
-`qaravan-events-en.ics` and `qaravan-events-ru.ics` (calendar name «Qaravan Events») are built by `robot/build-calendar.mjs` from `EVENTS` + `ARCHIVE`: one event per date, the `about` line, a request to register and the Partiful link on its own line. `.github/workflows/calendar.yml` rebuilds them on every push that changes `index.html`; the events robot (every 15 minutes) rebuilds them too. Keep the two URLs forever (every subscription is tied to them). Optional `end: "21:00"` on an event sets its end time in the feeds (default: 2 hours). The feeds start at `FROM = "2026-08-01"` in the script: the history before it (`ARCHIVE` from 2011: Partiful imports from July 2023, earlier years from the board and the Facebook export) stays on the page but out of subscribers' calendars.
-
-### Counting subscribers and clicks
-
-The events page and its counter are gone with it. `COUNTER` in `bio/index.html` is the GoatCounter site code for the bio page (empty: counting off). No cookies, no personal data, nothing under Do Not Track / Global Privacy Control or outside events.qaravan.org. Never add Google Analytics or anything that identifies a person: this community's privacy comes first.
+Never here. Events are added, edited, moved and canceled on qaravan.org (Site management, Events, or the event page's own tools): qaravan-site's `content/events/<id>.json` and its AGENTS.md.
 
 ### Link in bio (`/bio/`)
 
-`bio/index.html` is the Instagram bio page: wordmark, RU / EN switch, one narrow column of links, nothing else. The team edits it in the browser (footer button "Edit links" or `/bio/#edit`), not in git. The list lives in the Worker's KV (`bio-worker/worker.mjs`: `GET /links` and `GET /status` public, `POST /setup` once, `POST /login`, `POST /password`, `PUT /links`, `GET /history`); `bio/links.json` is only the first list and the fallback when the Worker is unreachable or empty (its Events link now points to https://www.qaravan.org/events/; the live list in KV is the team's to change).
+The Instagram bio page is https://www.qaravan.org/bio/ (qaravan-site `site/bio/index.html`; events.qaravan.org/bio/ redirects there): wordmark, RU / EN switch, one narrow column of links, nothing else. The team edits it in the browser (footer button "Edit links" or `/bio/#edit`), not in git. The list lives in the Worker's KV (`bio-worker/worker.mjs`: `GET /links` and `GET /status` public, `POST /setup` once, `POST /login`, `POST /password`, `PUT /links`, `GET /history`); the page's `links.json` (qaravan-site `site/bio/links.json`) is only the fallback when the Worker is unreachable or empty; the live list in KV is the team's to change.
 
-- Item: `{ id, type: "link" | "heading", title: {en, ru}, url, note: {en, ru}, badge: {en, ru}, tier: "feature" | "standard" | "quiet", flag, hidden, from, until }`. A missing language falls back to the other. `from` / `until` are inclusive New York dates; the Worker also drops hidden and out-of-schedule items from the public list. The shape is validated in `validateItems` (Worker) and `normalize` (page): change both together, and the tests.
-- Importance (`tier`) is the "highlight" control: featured is the ink button, standard the framed card, quiet a line of text. `flag` is one brand colour square, the only use of colour. Every card carries the same safety rules as the events page: no emoji, no middle dot, no RUSA.
+- Item: `{ id, type: "link" | "heading", title: {en, ru}, url, note: {en, ru}, badge: {en, ru}, tier: "feature" | "standard" | "quiet", flag, hidden, from, until }`. A missing language falls back to the other. `from` / `until` are inclusive New York dates; the Worker also drops hidden and out-of-schedule items from the public list. The shape is validated in `validateItems` (Worker, here) and `normalize` (the page, in qaravan-site): change both together, and the tests.
+- Importance (`tier`) is the "highlight" control: featured is the ink button, standard the framed card, quiet a line of text. `flag` is one brand colour square, the only use of colour. Every card carries the same safety rules as qaravan.org's events: no emoji, no middle dot, no RUSA.
 - Password: one shared team password, at least 8 characters. KV keeps `auth` = a random salt and an HMAC of the password, never the password. `POST /setup` set the first one (it refuses once a password exists); the team changes it in the editor ("Change password", `POST /password`, needs the current one). Lost password: delete the `auth` key in the KV namespace in the Cloudflare dashboard and call `/setup` again. The Worker issues a 12 hour token (HMAC keyed by the stored hash, so a new password signs everybody out), allows 8 wrong tries per 15 minutes per hashed IP, keeps the last 40 versions with who and when, and answers 409 when two people publish over each other.
 - No "Russian" anywhere on the bio page (the owner's rule, 2026-10-02): no tagline under the handle, and the editor labels the two languages RU / EN.
-- Page code renders every team-written string as text (`h()`), accepts only http(s) addresses, and sets no cookies. `API_URL` in `bio/index.html` is the Worker address (empty = the page is read-only and shows `links.json`). The page counts clicks through its own GoatCounter `COUNTER` (`bio-link-<title>`, `bio-unique-people`; off while editing).
-- Try it locally with no Cloudflare account: `EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs`, open http://localhost:8787/bio/.
-- If the page moves to another domain, add it to `ALLOWED_ORIGINS` in events-robot `bio/deploy.mjs` and run the `bio worker` workflow.
+- The page renders every team-written string as text (`h()`), accepts only http(s) addresses, and sets no cookies; `API_URL` in it is this Worker's address.
+- Try the Worker locally with no Cloudflare account: `EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs`, open http://localhost:8787/bio/ (it serves the old copy of the page in `bio/` here).
+- If the page moves to another domain, add it to `ORIGINS` in events-robot `bio/deploy.mjs` and run the `bio worker` workflow.
 
 Never use RUSA anywhere (links, text, handles): the organization is QARAVAN. Telegram: https://t.me/+KkHErPk38VA3Yzgy
 
