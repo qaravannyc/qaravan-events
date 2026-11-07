@@ -9,7 +9,7 @@ other QARAVAN systems rely on. Keep it true: see "Keeping this file live".
 
 | Repository | What it is | Runs on |
 | - | - | - |
-| `qaravannyc/qaravan-events` (this one) | events.qaravan.org: the events page, its `EVENTS` and `ARCHIVE` lists, the embeds on qaravan.org, the `.ics` calendar feeds, the link-in-bio page `/bio/` | GitHub Pages from `main`; the bio page's backend (`bio-worker/`) on a Cloudflare Worker deployed from events-robot |
+| `qaravannyc/qaravan-events` (this one) | events.qaravan.org: `/` sends visitors to https://www.qaravan.org/events/ (owner, 2026-11-07); `index.html` keeps the `EVENTS` and `ARCHIVE` lists as data, the `.ics` calendar feeds, the link-in-bio page `/bio/` and the standalone pages below | GitHub Pages from `main`; the bio page's backend (`bio-worker/`) on a Cloudflare Worker deployed from events-robot |
 | `qaravannyc/events-robot` | Robots between Partiful, monday.com, Gmail, Google Photos and Slack; the Telegram bot @qaravan_door_bot, which reads this page every hour | GitHub Actions, Cloudflare Workers |
 | `qaravannyc/qaravan-forms` | feedback.qaravan.org: feedback and survey forms, photo upload, support-group intake forms, monday webhooks | Vercel |
 
@@ -40,23 +40,28 @@ changes; a list that fails `checkEvent` turns the run red and changes nothing.
 - Every date is `"YYYY-MM-DD"`. One bad date makes the bot reject the whole list. `time` is `"HH:MM"`, 24-hour, New York time.
 - Identity: the bot finds an event's monday row by `link` or by `en.title` (the board item's name) and remembers sent reminders by date plus `link`. Changing the link or English title of an event that already got reminders can make the bot remind again. The `.ics` UID depends on date, time, link and type.
 
+**The events page is closed (owner, 2026-11-07: "kill events.qaravan.org, make it
+redirect to https://www.qaravan.org/events/").** `index.html` is a redirect: a
+script sends `/` (with any `?lang=` or `?embed=`) to /ru/events/ for Russian (the
+`?lang=` in the link, else the language the old page remembered in localStorage
+`qaravan-events-lang`, else the browser's) and /events/ otherwise; without
+JavaScript a meta refresh goes to /events/. Under it the two lists stay, inline,
+in their format, because the bot and the feeds read them. Never put page code back.
+
 **Changing the shape of an item** (a field renamed, moved, added as required,
 or its format changed) needs, in the same piece of work: `normalizeEvent` and
 `telegram/worker.test.mjs` in events-robot, merged and deployed before this
-page changes; here `robot/events-list.mjs` (`TYPES`, `LANG_KEYS`, `KEYS`,
+file changes; here `robot/events-list.mjs` (`TYPES`, `LANG_KEYS`, `KEYS`,
 `checkEvent`, the serializers), `robot/from-site.mjs` (`itemOf`),
-`robot/build-calendar.mjs`, qaravan-site's event files if the source changes, the page code
-(`text()`, `typeOf()`, `TYPES`, `card()`, `render()`), every `ARCHIVE` item,
-`README.md`, the instructions inside `index.html`, and this file. The list of
-types lives in three places: `index.html`, `events-list.mjs`,
-`build-calendar.mjs`. If you can't change events-robot, stop and tell the user
+`robot/build-calendar.mjs`, qaravan-site's event files if the source changes, every `ARCHIVE` item,
+`README.md`, the comment above the lists in `index.html`, and this file. The list of
+types lives in two places: `events-list.mjs` and `build-calendar.mjs`. If you can't change events-robot, stop and tell the user
 exactly what the bot will lose.
 
 **URLs other people and systems hold:**
 - `/qaravan-events-en.ics` and `/qaravan-events-ru.ics`: every calendar subscription is tied to them. Never rename.
-- `?embed=1&lang=en` (qaravan.org home) and `?embed=page` (qaravan.org/events): the embed code lives on Wix, not here. Keep both parameters and `lang` working.
+- `/`, `?embed=1`, `?embed=page`, `?lang=`: all go to https://www.qaravan.org/events/ (or /ru/events/), see above.
 - Support-group `link`s point to `https://feedback.qaravan.org/support/<name>`, served by qaravan-forms (`gina` and `simon` exist). Don't link a new name there before the form exists.
-- The page links the bot as `https://t.me/qaravan_door_bot`; a plain `/start` opens the reminder settings.
 - `https://events.qaravan.org/bio/`: the link in the Instagram bio of @qaravan_org. Keep the path. (There is no qaravan.org/insta or other short address for it.)
 - `/newsletter/oct13/`: the English version of the 2026-10-13 newsletter, a standalone page outside the events page's layout. The Russian email links to `qaravan.org/newsletter/oct13`, which lives on Wix and reaches this page only through a Wix redirect (or the email links here directly). Keep the path and the file unchanged.
 - `/oct19/`: the guide «Учёба в США для просителей убежища» (PDF, first version of 2026-10-19), shared around the 2026-10-19 education panel. `/oct19/` redirects to `/oct19/ucheba-v-ssha.pdf`. Keep both paths; a new version replaces the PDF under the same name.
@@ -119,9 +124,7 @@ Events are added, edited, moved and canceled on qaravan.org (Site management, Ev
 
 ### Design
 
-The page follows the QARAVAN design system (the org's default Design System artifact, 2026-09 revision): Fira Sans / Fira Sans Condensed from `assets/fonts/`, the official wordmark files in `assets/` (never redraw or retype the logo), white page, square hairline cards, brand colours only as category flags, ink text, no emoji. Check a layout change against the design system before proposing it.
-
-`?embed=1` (qaravan.org home) and `?embed=page` (qaravan.org/events) are one component: white cards straight on the Wix section (no background, no scrollbar), every card the same size (the tallest of all upcoming and past events at that width), descriptions in full. It shows as many whole rows as fit the Wix box and pages through the rest in place with «Ещё N событий» / «Назад» — no new tabs. Home adds a white-strip heading «Ближайшие события / Events calendar» with the count; the events page adds «Ближайшие / Прошедшие» tabs and the type filter (its heading is Wix's). RU / EN switch top right; `lang=en` in the Wix code is the default. First layout waits for the fonts (max 2.5 s), then the cards rise in (off with reduced motion). Under the cards, on the same grid as the cards (each button under a card column), sit «Получайте напоминания в Telegram» (Маргоша on the left, the official Telegram logo file unmodified on the right, never merged with the mascot; the bot's name is «Qaravan Bot Margosha (they/them)», keep copy gender-neutral) and «Подписаться на календарь». No Partiful button (owner, 2026-11-02: sign-up only on qaravan.org). Box heights at ~970px wide: home 740px = 6 cards, 1060px = 9, 1370px = all 11; events page 800 / 1110 / 1420px; mobile (~260px wide) home ≈1310px = 3 cards. After any change to cards or embeds, test both at 240–1280px wide and several heights, both languages, every page of the pager, nothing cut.
+Only `/bio/`, `/newsletter/oct13/`, `/oct27/` and `/quiz/` are pages now; they follow the QARAVAN design system (2026-09 revision): Fira Sans / Fira Sans Condensed from `assets/fonts/`, the official wordmark files in `assets/` (never redraw or retype the logo), white page, square hairline cards, brand colours only as flags, ink text, no emoji. `assets/` stays: those pages load it.
 
 ### Calendar feeds
 
@@ -129,17 +132,17 @@ The page follows the QARAVAN design system (the org's default Design System arti
 
 ### Counting subscribers and clicks
 
-`COUNTER` in `index.html` is the GoatCounter site code (`qaravan` means https://qaravan.goatcounter.com); empty switches counting off. It counts views of the page and both embeds (`/`, `/embed/home`, `/embed/events`), opening the calendar panel (`calendar-open`), each way to subscribe with the feed language (`calendar-google-en`, `calendar-apple-ru`, `calendar-outlook-…`, `calendar-copy-…`), Telegram (`telegram-reminders`) clicks, and `calendar-unique-people` / `telegram-unique-people`, sent once per device (a localStorage flag) to count different people. No cookies, no personal data, nothing under Do Not Track / Global Privacy Control or outside events.qaravan.org. Never add Google Analytics or anything that identifies a person: this community's privacy comes first. To count another button, give it `data-count="name"` (plus `data-once="name"` for a once-per-device count) and a title in `COUNT_TITLES`.
+The events page and its counter are gone with it. `COUNTER` in `bio/index.html` is the GoatCounter site code for the bio page (empty: counting off). No cookies, no personal data, nothing under Do Not Track / Global Privacy Control or outside events.qaravan.org. Never add Google Analytics or anything that identifies a person: this community's privacy comes first.
 
 ### Link in bio (`/bio/`)
 
-`bio/index.html` is the Instagram bio page: wordmark, RU / EN switch, one narrow column of links, nothing else. The team edits it in the browser (footer button "Edit links" or `/bio/#edit`), not in git. The list lives in the Worker's KV (`bio-worker/worker.mjs`: `GET /links` and `GET /status` public, `POST /setup` once, `POST /login`, `POST /password`, `PUT /links`, `GET /history`); `bio/links.json` is only the first list and the fallback when the Worker is unreachable or empty.
+`bio/index.html` is the Instagram bio page: wordmark, RU / EN switch, one narrow column of links, nothing else. The team edits it in the browser (footer button "Edit links" or `/bio/#edit`), not in git. The list lives in the Worker's KV (`bio-worker/worker.mjs`: `GET /links` and `GET /status` public, `POST /setup` once, `POST /login`, `POST /password`, `PUT /links`, `GET /history`); `bio/links.json` is only the first list and the fallback when the Worker is unreachable or empty (its Events link now points to https://www.qaravan.org/events/; the live list in KV is the team's to change).
 
 - Item: `{ id, type: "link" | "heading", title: {en, ru}, url, note: {en, ru}, badge: {en, ru}, tier: "feature" | "standard" | "quiet", flag, hidden, from, until }`. A missing language falls back to the other. `from` / `until` are inclusive New York dates; the Worker also drops hidden and out-of-schedule items from the public list. The shape is validated in `validateItems` (Worker) and `normalize` (page): change both together, and the tests.
 - Importance (`tier`) is the "highlight" control: featured is the ink button, standard the framed card, quiet a line of text. `flag` is one brand colour square, the only use of colour. Every card carries the same safety rules as the events page: no emoji, no middle dot, no RUSA.
 - Password: one shared team password, at least 8 characters. KV keeps `auth` = a random salt and an HMAC of the password, never the password. `POST /setup` set the first one (it refuses once a password exists); the team changes it in the editor ("Change password", `POST /password`, needs the current one). Lost password: delete the `auth` key in the KV namespace in the Cloudflare dashboard and call `/setup` again. The Worker issues a 12 hour token (HMAC keyed by the stored hash, so a new password signs everybody out), allows 8 wrong tries per 15 minutes per hashed IP, keeps the last 40 versions with who and when, and answers 409 when two people publish over each other.
 - No "Russian" anywhere on the bio page (the owner's rule, 2026-10-02): no tagline under the handle, and the editor labels the two languages RU / EN.
-- Page code renders every team-written string as text (`h()`), accepts only http(s) addresses, and sets no cookies. `API_URL` in `bio/index.html` is the Worker address (empty = the page is read-only and shows `links.json`). The page counts clicks through the same GoatCounter `COUNTER` rules as `index.html` (`bio-link-<title>`, `bio-unique-people`; off while editing).
+- Page code renders every team-written string as text (`h()`), accepts only http(s) addresses, and sets no cookies. `API_URL` in `bio/index.html` is the Worker address (empty = the page is read-only and shows `links.json`). The page counts clicks through its own GoatCounter `COUNTER` (`bio-link-<title>`, `bio-unique-people`; off while editing).
 - Try it locally with no Cloudflare account: `EDIT_PASSWORD=test-password node bio-worker/dev-server.mjs`, open http://localhost:8787/bio/.
 - If the page moves to another domain, add it to `ALLOWED_ORIGINS` in events-robot `bio/deploy.mjs` and run the `bio worker` workflow.
 

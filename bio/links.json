@@ -34,7 +34,7 @@
       "badge": { "en": "", "ru": "" },
       "title": { "en": "Events", "ru": "События" },
       "note": { "en": "Upcoming QARAVAN events in New York", "ru": "Ближайшие события QARAVAN в Нью-Йорке" },
-      "url": "https://events.qaravan.org"
+      "url": "https://www.qaravan.org/events/"
     },
     {
       "id": "bot", "type": "link", "tier": "standard", "flag": "", "hidden": false, "from": "", "until": "",
