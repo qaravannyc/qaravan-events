@@ -598,23 +598,6 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-07-1100-57894523df-en@events.qaravan.org
-DTSTAMP:20260930T000000Z
-DTSTART;TZID=America/New_York:20261107T110000
-DURATION:PT2H
-SUMMARY:Girls' Gathering with Alyona
-LOCATION:A cafe in Chelsea or Hell's Kitchen\, to be confirmed
-DESCRIPTION:A girls' gathering with Alyona at a cafe on Manhattan's West Si
- de: getting to know each other over coffee and talking about what matters.
- \n\nPlease register in advance\, it helps us plan:\nhttps://www.qaravan.or
- g/events/2026-11-07-girls-gathering/\n\nAll our events:\nhttps://www.qarav
- an.org/events
-URL:https://www.qaravan.org/events/2026-11-07-girls-gathering/
-CATEGORIES:Community
-STATUS:CONFIRMED
-TRANSP:TRANSPARENT
-END:VEVENT
-BEGIN:VEVENT
 UID:2026-11-09-1600-6d6719d84d-en@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261109T160000
@@ -677,6 +660,23 @@ DESCRIPTION:An online support group once a week at 7:30 pm. To join\, fill
  ll our events:\nhttps://www.qaravan.org/events
 URL:https://feedback.qaravan.org/support/gina
 CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-21-1100-57894523df-en@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261121T110000
+DURATION:PT2H
+SUMMARY:Girls' Gathering with Alyona
+LOCATION:Pier 57 entrance
+DESCRIPTION:A girls' gathering with Alyona at a cafe on Manhattan's West Si
+ de: getting to know each other over coffee and talking about what matters.
+ \n\nPlease register in advance\, it helps us plan:\nhttps://www.qaravan.or
+ g/events/2026-11-07-girls-gathering/\n\nAll our events:\nhttps://www.qarav
+ an.org/events
+URL:https://www.qaravan.org/events/2026-11-07-girls-gathering/
+CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT

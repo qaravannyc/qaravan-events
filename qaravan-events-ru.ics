@@ -680,25 +680,6 @@ STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
 BEGIN:VEVENT
-UID:2026-11-07-1100-57894523df-ru@events.qaravan.org
-DTSTAMP:20260930T000000Z
-DTSTART;TZID=America/New_York:20261107T110000
-DURATION:PT2H
-SUMMARY:Девичник с Алёной
-LOCATION:Кафе в Chelsea или Hell's Kitchen\, место уточн
- яется
-DESCRIPTION:Девичник с Алёной в кафе на западе 
- Манхэттена: знакомимся за кофе и разгова
- риваем о важном.\n\nПожалуйста\, зарегистр
- ируйтесь заранее\, так нам проще всё подг
- отовить:\nhttps://www.qaravan.org/events/2026-11-07-girls-gathering
- /\n\nВсе наши события:\nhttps://www.qaravan.org/events
-URL:https://www.qaravan.org/events/2026-11-07-girls-gathering/
-CATEGORIES:Community
-STATUS:CONFIRMED
-TRANSP:TRANSPARENT
-END:VEVENT
-BEGIN:VEVENT
 UID:2026-11-09-1600-6d6719d84d-ru@events.qaravan.org
 DTSTAMP:20260930T000000Z
 DTSTART;TZID=America/New_York:20261109T160000
@@ -777,6 +758,25 @@ DESCRIPTION:Онлайн-группа поддержки раз в неде
  s://www.qaravan.org/events
 URL:https://feedback.qaravan.org/support/gina
 CATEGORIES:Support groups
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+END:VEVENT
+BEGIN:VEVENT
+UID:2026-11-21-1100-57894523df-ru@events.qaravan.org
+DTSTAMP:20260930T000000Z
+DTSTART;TZID=America/New_York:20261121T110000
+DURATION:PT2H
+SUMMARY:Девичник с Алёной
+LOCATION:Кафе в Chelsea или Hell's Kitchen\, место уточн
+ яется
+DESCRIPTION:Девичник с Алёной в кафе на западе 
+ Манхэттена: знакомимся за кофе и разгова
+ риваем о важном.\n\nПожалуйста\, зарегистр
+ ируйтесь заранее\, так нам проще всё подг
+ отовить:\nhttps://www.qaravan.org/events/2026-11-07-girls-gathering
+ /\n\nВсе наши события:\nhttps://www.qaravan.org/events
+URL:https://www.qaravan.org/events/2026-11-07-girls-gathering/
+CATEGORIES:Community
 STATUS:CONFIRMED
 TRANSP:TRANSPARENT
 END:VEVENT
