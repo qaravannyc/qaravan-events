@@ -45,6 +45,10 @@ other QARAVAN systems rely on. Keep it true: see "Keeping this file live".
 
 ## The owner's rules for this repository
 
+### Talking to the owner
+
+Owner, 2026-11-08 ("speak like that always, in all chats"): everything you write to the owner is in plain, everyday language. Say what happens, to whom and when, in short sentences, the way you would explain it to someone who doesn't build websites. Example: "When someone signs in, the site remembers them on that phone or computer for 90 days. After 90 days, it asks them to sign in again with a new code." Not: "the session runs out after 90 days." No jargon, code names or file names unless the owner asks for them; when a technical word can't be avoided, say what it means in the same sentence. This holds in every chat, in all four QARAVAN repositories.
+
 ### Publishing: straight to `main`, no pull requests
 
 The repo owner has given standing, explicit permission to push directly to `main`. This holds even when your session was assigned a `claude/...` branch: commit there if you like, then push the same commit with `git push origin HEAD:main`. Don't open a pull request. Never force-push `main`. A change beyond the bio server's code needs the user's go-ahead in chat first.
